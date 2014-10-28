@@ -1,0 +1,627 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         28/Oct/2014  13:15:41
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  D:\uah\cpe323\lab8\4618\lab8_4618.c
+#    Command line  =  
+#        D:\uah\cpe323\lab8\4618\lab8_4618.c -lCN
+#        D:\uah\cpe323\lab8\4618\Debug\List\ -o
+#        D:\uah\cpe323\lab8\4618\Debug\Obj\ --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --debug -D__MSP430FG4618__ -e --double=32
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.0\430\lib\dlib\dl430xlsfn.h" --core=430X --data_model=small -On
+#        --multiplier=16 --segment __data16=DATA16 --segment __data20=DATA20
+#        --code_model=large
+#    List file     =  D:\uah\cpe323\lab8\4618\Debug\List\lab8_4618.lst
+#    Object file   =  D:\uah\cpe323\lab8\4618\Debug\Obj\lab8_4618.r43
+#
+###############################################################################
+
+D:\uah\cpe323\lab8\4618\lab8_4618.c
+      1          /***********************************************************************
+      2           * Title: Lab 8 - 4618 part
+      3           * Date Due: Oct sometime
+      4           * 
+      5           * Description: Ripped from demo code, because fuck the amount of time
+      6           * we have to actually learn something that's otherwise interesting.
+      7           * I'm sorry, that was passive aggressive wasn't it.
+      8           * 
+      9           * 19200 - 8N1
+     10           *
+     11           * By: Christopher 'ctag' Bero <csb0019@uah.edu>
+     12           * Project: https://github.com/ctag/uah
+     13           *
+     14           * This software is licensed under the GPLv3,
+     15           * consult the LICENSE file for more information.
+     16           **********************************************************************/
+     17          
+     18          #include <msp430.h> // The *correct* include statement
+
+   \                                 In  segment DATA16_AN, at 0x3
+   \   unsigned char volatile IFG2
+   \                     IFG2:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x52
+   \   unsigned char volatile SCFQCTL
+   \                     SCFQCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x20
+   \   unsigned char const volatile P1IN
+   \                     P1IN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x23
+   \   unsigned char volatile P1IFG
+   \                     P1IFG:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x24
+   \   unsigned char volatile P1IES
+   \                     P1IES:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x25
+   \   unsigned char volatile P1IE
+   \                     P1IE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x29
+   \   unsigned char volatile P2OUT
+   \                     P2OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2a
+   \   unsigned char volatile P2DIR
+   \                     P2DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2e
+   \   unsigned char volatile P2SEL
+   \                     P2SEL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x19
+   \   unsigned char volatile P3OUT
+   \                     P3OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x1a
+   \   unsigned char volatile P3DIR
+   \                     P3DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x160
+   \   unsigned short volatile TACTL
+   \                     TACTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x162
+   \   unsigned short volatile TACCTL0
+   \                     TACCTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x172
+   \   unsigned short volatile TACCR0
+   \                     TACCR0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x60
+   \   unsigned char volatile UCA0CTL0
+   \                     UCA0CTL0:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x61
+   \   unsigned char volatile UCA0CTL1
+   \                     UCA0CTL1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x62
+   \   unsigned char volatile UCA0BR0
+   \                     UCA0BR0:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x63
+   \   unsigned char volatile UCA0BR1
+   \                     UCA0BR1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x64
+   \   unsigned char volatile UCA0MCTL
+   \                     UCA0MCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x67
+   \   unsigned char volatile UCA0TXBUF
+   \                     UCA0TXBUF:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     19          #include <stdio.h> // Gross, horribly implemented in msp C
+     20          
+     21          #define SW1 0x01&P1IN	// B1 - P1.0 switch SW1 
+     22          #define SW2 0x02&P1IN	// B2 - P1.1 switch SW2
+     23          
+     24          // Use instead of int flags
+     25          typedef enum {
+     26          	false = 0,
+     27          	true = 1
+     28          } bool;
+     29          
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     30          bool send_time_flag = false;
+   \                     send_time_flag:
+   \   000000                DS8 1
+     31          
+     32          // Current time variables
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     33          unsigned int min=0; // minutes
+   \                     min:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     34          unsigned int sec=0; // seconds
+   \                     sec:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     35          unsigned char tsec=0; // 1/10 second
+   \                     tsec:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     36          char Time[8]; // string to keep current time 
+   \                     Time:
+   \   000000                DS8 8
+     37          
+     38          //Function Declarations 
+     39          void SetTime(void); 
+     40          void SendTime(void); 
+     41          
+     42          
+     43          //UART0 Initialization 						  
+
+   \                                 In  segment CODE, align 2
+     44          void UART_Initialize(void) // USART in UART Mode 
+   \                     UART_Initialize:
+     45          {   
+     46          	P2SEL |= BIT4+BIT5; // Set UC0TXD and UC0RXD to transmit and receive data   
+   \   000000   F2D030002E00 BIS.B   #0x30, &0x2e
+     47          	UCA0CTL1 |= BIT0; // Software reset   
+   \   000006   D2D36100     BIS.B   #0x1, &0x61
+     48          	UCA0CTL0 = 0; // USCI_A0 control register   
+   \   00000A   C2436000     MOV.B   #0x0, &0x60
+     49          	UCA0CTL1 |= UCSSEL_2; // Clock source SMCLK   
+   \   00000E   F2D080006100 BIS.B   #0x80, &0x61
+     50          	UCA0BR0=54; // 1048576 Hz / 19200   
+   \   000014   F24036006200 MOV.B   #0x36, &0x62
+     51          	UCA0BR1=0; //   
+   \   00001A   C2436300     MOV.B   #0x0, &0x63
+     52          	UCA0MCTL=0x0A; // Modulation   
+   \   00001E   F2400A006400 MOV.B   #0xa, &0x64
+     53          	UCA0CTL1 &= ~BIT0; // Undo software reset 
+   \   000024   D2C36100     BIC.B   #0x1, &0x61
+     54          }  
+   \   000028   1001         RETA
+   \   00002A                REQUIRE P2SEL
+   \   00002A                REQUIRE UCA0CTL1
+   \   00002A                REQUIRE UCA0CTL0
+   \   00002A                REQUIRE UCA0BR0
+   \   00002A                REQUIRE UCA0BR1
+   \   00002A                REQUIRE UCA0MCTL
+     55          
+     56          // Sets the real-time clock variables 
+
+   \                                 In  segment CODE, align 2
+     57          void SetTime(void) {   
+   \                     SetTime:
+     58          	tsec++;   
+   \   000000   D253....     ADD.B   #0x1, &tsec
+     59          	if(tsec == 10)   
+   \   000004   F2900A00.... CMP.B   #0xa, &tsec
+   \   00000A   0420         JNE     ??SetTime_0
+     60          	{     
+     61          		tsec = 0;     
+   \   00000C   C243....     MOV.B   #0x0, &tsec
+     62          		sec++; 
+   \   000010   9253....     ADD.W   #0x1, &sec
+     63          	}
+     64          	if (sec == 60)
+   \                     ??SetTime_0:
+   \   000014   B2903C00.... CMP.W   #0x3c, &sec
+   \   00001A   0420         JNE     ??SetTime_1
+     65          	{
+     66          		sec = 0;
+   \   00001C   8243....     MOV.W   #0x0, &sec
+     67          		min++;
+   \   000020   9253....     ADD.W   #0x1, &min
+     68          	}
+     69          } 
+   \                     ??SetTime_1:
+   \   000024   1001         RETA
+     70          
+     71          // Sends the time to the HyperTerminal 
+
+   \                                 In  segment CODE, align 2
+     72          void SendTime(void) {   
+   \                     SendTime:
+     73          	sprintf(Time, "%02d:%02d:%02d has elapsed since SW1 was pressed.", min, sec, (tsec*10)); // prints time to a string   
+   \   000000   5F42....     MOV.B   &tsec, R15
+   \   000004   4F4F         MOV.B   R15, R15
+   \   000006   0F5F         RLA.W   R15
+   \   000008   0E4F         MOV.W   R15, R14
+   \   00000A   5F06         RLAM.W  #0x2, R15
+   \   00000C   0F5E         ADD.W   R14, R15
+   \   00000E   0F12         PUSH.W  R15
+   \   000010   1212....     PUSH.W  &sec
+   \   000014   1212....     PUSH.W  &min
+   \   000018   3D40....     MOV.W   #`?<Constant "%02d:%02d:%02d has el...">`, R13
+   \   00001C   3C40....     MOV.W   #Time, R12
+   \   000020   ........     CALLA   #sprintf
+     74          	for(int i=0;i<43;i++) // Send character by character   
+   \   000024   0F43         MOV.W   #0x0, R15
+   \   000026   31500600     ADD.W   #0x6, SP
+   \                     ??SendTime_1:
+   \   00002A   3F902B00     CMP.W   #0x2b, R15
+   \   00002E   0834         JGE     ??SendTime_2
+     75          	{     
+     76          		while (!(IFG2 & UCA0TXIFG));
+   \                     ??SendTime_0:
+   \   000030   E2B30300     BIT.B   #0x2, &0x3
+   \   000034   FD2B         JNC     ??SendTime_0
+     77          		UCA0TXBUF = Time[i];   
+   \   000036   D24F....6700 MOV.B   Time(R15), &0x67
+     78          	}   
+   \   00003C   1F53         ADD.W   #0x1, R15
+   \   00003E   F53F         JMP     ??SendTime_1
+     79          	while (!(IFG2 & UCA0TXIFG));   
+   \                     ??SendTime_2:
+   \   000040   E2B30300     BIT.B   #0x2, &0x3
+   \   000044   FD2B         JNC     ??SendTime_2
+     80          	UCA0TXBUF = 0x0D; // Carriage Return 
+   \   000046   F2400D006700 MOV.B   #0xd, &0x67
+     81          } 
+   \   00004C   1001         RETA
+   \   00004E                REQUIRE IFG2
+   \   00004E                REQUIRE UCA0TXBUF
+     82          
+
+   \                                 In  segment CODE, align 2
+     83          void main(void)
+   \                     main:
+     84          {
+     85          	//WDTCTL = WDT_ADLY_250;
+     86          	WDTCTL = (WDTPW|WDTHOLD);
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+     87          	
+     88          	P2DIR |= 0x06;		// Set P2.1 and P2.2 to output direction (0000_0110) 
+   \   000006   F2D006002A00 BIS.B   #0x6, &0x2a
+     89          	P2OUT = 0x02; 		// Set P2OUT to 0000_0010b (LED2 is ON, LED1 is OFF)
+   \   00000C   E2432900     MOV.B   #0x2, &0x29
+     90          	
+     91          	P1IE |= 0x0003;		// P1.0 interrupt enabled
+   \   000010   F2D003002500 BIS.B   #0x3, &0x25
+     92          	P1IES |= 0x0003;	// P1.0 hi -> low edge
+   \   000016   F2D003002400 BIS.B   #0x3, &0x24
+     93          	P1IFG &= ~0x0003;	// Clear P1.0 IFG
+   \   00001C   F2F0FC002300 AND.B   #0xfc, &0x23
+     94          	
+     95          	P3DIR |= BIT1; // Set P3.1 output
+   \   000022   E2D31A00     BIS.B   #0x2, &0x1a
+     96          	//P3OUT &= ~BIT1; // Set low
+     97          	P3OUT |= BIT1; // Set high
+   \   000026   E2D31900     BIS.B   #0x2, &0x19
+     98                  
+     99          	UART_Initialize(); //Initialize UART   /* Initialize Timer A to measure 1/10 sec */   
+   \   00002A   ........     CALLA   #UART_Initialize
+    100          	TACTL = TASSEL_2 + MC_1+ ID_3; // Select smclk/8 and up mode   
+   \   00002E   B240D0026001 MOV.W   #0x2d0, &0x160
+    101          	TACCR0 = 13107; // 100ms interval   
+   \   000034   B24033337201 MOV.W   #0x3333, &0x172
+    102          	TACCTL0 = CCIE; // Capture/compare interrupt enable 
+   \   00003A   B24010006201 MOV.W   #0x10, &0x162
+    103          	
+    104          	//_EINT();			// Enable interrupts
+    105          	__enable_interrupt(); // Same as _EINT()?
+   \   000040   32D2         EINT
+   \   000042   0343         NOP
+    106          	
+    107          	//IE1 |= WDTIE;                     // Enable WDT interrupt
+    108          	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
+    109          
+    110          	while (1)
+    111          	{
+    112          		asm("NOP");
+   \                     ??main_1:
+   \   000044   0343         NOP
+    113          		while ((SW1) == 0)
+   \                     ??main_0:
+   \   000046   D2B32000     BIT.B   #0x1, &0x20
+   \   00004A   052C         JC      ??main_2
+    114                          {
+    115                            P3OUT |= BIT1; // set high
+   \   00004C   E2D31900     BIS.B   #0x2, &0x19
+    116          		P2OUT = BIT2;
+   \   000050   E2422900     MOV.B   #0x4, &0x29
+   \   000054   F83F         JMP     ??main_0
+    117                          }
+    118                          if ((SW1) != 0)
+   \                     ??main_2:
+   \   000056   D2B32000     BIT.B   #0x1, &0x20
+   \   00005A   F42B         JNC     ??main_1
+    119          		{
+    120          			P3OUT &= ~BIT1;
+   \   00005C   E2C31900     BIC.B   #0x2, &0x19
+    121          			P2OUT = BIT1;
+   \   000060   E2432900     MOV.B   #0x2, &0x29
+   \   000064   EF3F         JMP     ??main_1
+   \   000066                REQUIRE WDTCTL
+   \   000066                REQUIRE P2DIR
+   \   000066                REQUIRE P2OUT
+   \   000066                REQUIRE P1IE
+   \   000066                REQUIRE P1IES
+   \   000066                REQUIRE P1IFG
+   \   000066                REQUIRE P3DIR
+   \   000066                REQUIRE P3OUT
+   \   000066                REQUIRE TACTL
+   \   000066                REQUIRE TACCR0
+   \   000066                REQUIRE TACCTL0
+   \   000066                REQUIRE P1IN
+    122          		}
+    123          	}
+    124          }
+    125          
+    126          /*
+    127           * Watchdog Timer interrupt service routine
+    128           */
+    129          #pragma vector = WDT_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+    130          __interrupt void watchdog_timer(void)
+   \                     watchdog_timer:
+    131          {
+    132          
+    133          }
+   \   000000   0013         RETI
+    134          
+    135          /*
+    136           * Port 1 interrupt service routine
+    137           */
+    138          #pragma vector = PORT1_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+    139          __interrupt void Port1_ISR (void)
+   \                     Port1_ISR:
+    140          {
+   \   000000   3F15         PUSHM.W #0x4, R15
+    141          	// Constant delay debounce
+    142          	int factor = (SCFQCTL / 30);
+   \   000002   5C425200     MOV.B   &0x52, R12
+   \   000006   7E401E00     MOV.B   #0x1e, R14
+   \   00000A   ........     CALLA   #?DivMod8u
+   \   00000E   4C4C         MOV.B   R12, R12
+    143          	int looper = (30 * factor);
+   \   000010   0F4C         MOV.W   R12, R15
+   \   000012   0F5F         RLA.W   R15
+   \   000014   0E4F         MOV.W   R15, R14
+   \   000016   0F5F         RLA.W   R15
+   \   000018   0E5F         ADD.W   R15, R14
+   \   00001A   0F5F         RLA.W   R15
+   \   00001C   0E5F         ADD.W   R15, R14
+   \   00001E   0F5F         RLA.W   R15
+   \   000020   0F5E         ADD.W   R14, R15
+    144          	for (int c = 0; c < looper; c++)
+   \   000022   0E43         MOV.W   #0x0, R14
+   \                     ??Port1_ISR_0:
+   \   000024   0E9F         CMP.W   R15, R14
+   \   000026   0334         JGE     ??Port1_ISR_1
+    145          	{ asm("NOP"); }
+   \   000028   0343         NOP
+   \   00002A   1E53         ADD.W   #0x1, R14
+   \   00002C   FB3F         JMP     ??Port1_ISR_0
+    146          
+    147          	if (((SW1) == 0) && ((SW2) != 0)) // SW1 is pressed
+   \                     ??Port1_ISR_1:
+   \   00002E   D2B32000     BIT.B   #0x1, &0x20
+   \   000032   0E2C         JC      ??Port1_ISR_2
+   \   000034   E2B32000     BIT.B   #0x2, &0x20
+   \   000038   0B28         JNC     ??Port1_ISR_2
+    148          	{
+    149          		// Light up LED3
+    150          		// Use P3.1 high
+    151          		P3OUT |= BIT1; // set high
+   \   00003A   E2D31900     BIS.B   #0x2, &0x19
+    152          		P2OUT = BIT2;
+   \   00003E   E2422900     MOV.B   #0x4, &0x29
+    153          		
+    154          		min = 0;
+   \   000042   8243....     MOV.W   #0x0, &min
+    155          		sec = 0;
+   \   000046   8243....     MOV.W   #0x0, &sec
+    156          		tsec = 0;
+   \   00004A   C243....     MOV.B   #0x0, &tsec
+   \   00004E   053C         JMP     ??Port1_ISR_3
+    157          	} else if (((SW2) == 0) && ((SW1) != 0)) // SW2 is pressed
+   \                     ??Port1_ISR_2:
+   \   000050   E2B32000     BIT.B   #0x2, &0x20
+   \   000054   022C         JC      ??Port1_ISR_3
+   \   000056   5E422000     MOV.B   &0x20, R14
+    158          	{
+    159          		// Do nothing.
+    160          	}
+    161          
+    162          	P1IFG &= ~BIT1;		// Clear P1.1 IFG
+   \                     ??Port1_ISR_3:
+   \   00005A   E2C32300     BIC.B   #0x2, &0x23
+    163          	P1IFG &= ~BIT0;		// Clear P1.0 IFG
+   \   00005E   D2C32300     BIC.B   #0x1, &0x23
+    164          }
+   \   000062   3C17         POPM.W  #0x4, R15
+   \   000064   0013         RETI
+   \   000066                REQUIRE SCFQCTL
+   \   000066                REQUIRE P1IN
+   \   000066                REQUIRE P3OUT
+   \   000066                REQUIRE P2OUT
+   \   000066                REQUIRE P1IFG
+    165          
+    166          // Interrupt for the timer 
+    167          #pragma vector=TIMERA0_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+    168          __interrupt void TIMERA_ISA(void) 
+   \                     TIMERA_ISA:
+    169          {   
+   \   000000   3F15         PUSHM.W #0x4, R15
+    170          	SetTime(); // Set Clock   
+   \   000002   ........     CALLA   #SetTime
+    171          	SendTime();
+   \   000006   ........     CALLA   #SendTime
+    172          }
+   \   00000A   3C17         POPM.W  #0x4, R15
+   \   00000C   0013         RETI
+
+   \                                 In  segment INTVEC, offset 0x28, root
+   \                     `??Port1_ISR??INTVEC 40`:
+   \   000028   ....         DC16    Port1_ISR
+
+   \                                 In  segment INTVEC, offset 0x2c, root
+   \                     `??TIMERA_ISA??INTVEC 44`:
+   \   00002C   ....         DC16    TIMERA_ISA
+
+   \                                 In  segment INTVEC, offset 0x34, root
+   \                     `??watchdog_timer??INTVEC 52`:
+   \   000034   ....         DC16    watchdog_timer
+
+   \                                 In  segment DATA16_C, align 1, align-sorted
+   \                     `?<Constant "%02d:%02d:%02d has el...">`:
+   \   000000   253032643A25 DC8 "%02d:%02d:%02d has elapsed since SW1 was pressed."
+   \            3032643A2530
+   \            326420686173
+   \            20656C617073
+   \            65642073696E
+   \            636520535731
+   \            207761732070
+   \            726573736564
+   \            2E00        
+    173          
+    174          
+    175          
+    176          
+    177          
+    178          
+    179          
+    180          
+    181          
+    182          
+    183          
+    184          
+    185          
+    186          
+    187          
+    188          
+    189          
+    190          
+    191          
+    192          
+    193          
+    194          
+    195          
+    196          
+    197          
+    198          
+    199          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+     12   Port1_ISR
+     10   SendTime
+       10   -> sprintf
+      4   SetTime
+     12   TIMERA_ISA
+       12   -> SendTime
+       12   -> SetTime
+      4   UART_Initialize
+      4   main
+        4   -> UART_Initialize
+      4   watchdog_timer
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      50  ?<Constant "%02d:%02d:%02d has el...">
+       2  ??Port1_ISR??INTVEC 40
+       2  ??TIMERA_ISA??INTVEC 44
+       2  ??watchdog_timer??INTVEC 52
+       1  IFG2
+       1  P1IE
+       1  P1IES
+       1  P1IFG
+       1  P1IN
+       1  P2DIR
+       1  P2OUT
+       1  P2SEL
+       1  P3DIR
+       1  P3OUT
+     102  Port1_ISR
+       1  SCFQCTL
+      78  SendTime
+      38  SetTime
+       2  TACCR0
+       2  TACCTL0
+       2  TACTL
+      14  TIMERA_ISA
+       8  Time
+      42  UART_Initialize
+       1  UCA0BR0
+       1  UCA0BR1
+       1  UCA0CTL0
+       1  UCA0CTL1
+       1  UCA0MCTL
+       1  UCA0TXBUF
+       2  WDTCTL
+     102  main
+       2  min
+       2  sec
+       1  send_time_flag
+       1  tsec
+       2  watchdog_timer
+
+ 
+ 260 bytes in segment CODE
+  25 bytes in segment DATA16_AN
+  50 bytes in segment DATA16_C
+  14 bytes in segment DATA16_Z
+   6 bytes in segment INTVEC
+ 118 bytes in segment ISR_CODE
+ 
+ 378 bytes of CODE  memory
+  50 bytes of CONST memory (+  6 bytes shared)
+  14 bytes of DATA  memory (+ 25 bytes shared)
+
+Errors: none
+Warnings: none
