@@ -1,0 +1,19 @@
+-- Tags table for sqlite3
+
+CREATE TABLE tags
+(
+	tag varchar,
+	state varchar,
+	vin varchar
+);
+
+INSERT INTO tags VALUES ('2FAST', 'CA', '00001111');
+INSERT INTO tags VALUES ('BLUSCREEN', 'WA', '11110000');
+INSERT INTO tags VALUES ('WOZ', 'CA', '987XYZ');
+INSERT INTO tags VALUES ('WOZ', 'FL', '1359');
+INSERT INTO tags VALUES ('BUSTED', 'GA', '60231023');
+INSERT INTO tags VALUES ('!SPEEDING', 'AL', '789RST');
+INSERT INTO tags VALUES ('RUBICKS^3', 'AL', '314159');
+INSERT INTO tags VALUES ('SEMI-COLON', 'AL', '123ABC');
+INSERT INTO tags VALUES ('!EQUAL', 'GA', '456DEF');
+

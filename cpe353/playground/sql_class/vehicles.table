@@ -1,0 +1,21 @@
+-- Tags table for sqlite3
+
+CREATE TABLE vehicles
+(
+	vin varchar,
+	make varchar,
+	model varchar,
+	color varchar,
+	year int
+);
+
+INSERT INTO vehicles VALUES ('00001111', 'Apple', 'IIC', 'white', 1980);
+INSERT INTO vehicles VALUES ('11110000', 'Microsoft', 'Windows', 'blue', 1990);
+INSERT INTO vehicles VALUES ('987XYZ', 'Apple', 'IIC', 'white', 1981);
+INSERT INTO vehicles VALUES ('1359', 'Ford', 'Mustang', 'white', 2011);
+INSERT INTO vehicles VALUES ('60231023', 'Chevy', 'Volt', 'yellow', 2014);
+INSERT INTO vehicles VALUES ('789RST', 'Dodge', 'Charger', 'red', 2013);
+INSERT INTO vehicles VALUES ('314159', 'Toyota', 'Prius', 'blue', 2008);
+INSERT INTO vehicles VALUES ('123ABC', 'Ford', 'Mustang', 'black', 1992);
+INSERT INTO vehicles VALUES ('456DEF', 'Ford', 'Mustang', 'red', 2014);
+

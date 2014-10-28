@@ -1,0 +1,19 @@
+-- Tags table for sqlite3
+
+CREATE TABLE owners
+(
+	vin varchar,
+	lname varchar,
+	fname varchar
+);
+
+INSERT INTO owners VALUES ('00001111', 'Jobs', 'Steve');
+INSERT INTO owners VALUES ('11110000', 'Gates', 'Bill');
+INSERT INTO owners VALUES ('987XYZ', 'Wozniak', 'Steve');
+INSERT INTO owners VALUES ('1359', 'Wozniak', 'Steve');
+INSERT INTO owners VALUES ('60231023', 'Jobs', 'Steve');
+INSERT INTO owners VALUES ('789RST', 'Gates', 'Bill');
+INSERT INTO owners VALUES ('314159', 'Taft', 'Howard');
+INSERT INTO owners VALUES ('123ABC', 'Franklin', 'Ben');
+INSERT INTO owners VALUES ('456DEF', 'Washington', 'George');
+
