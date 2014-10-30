@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1000751505
+Checksum=-1511254527
 [CallStackLog]
 Enabled=0
 [CallStack]
@@ -63,18 +63,18 @@ State Storage=0
 Number=4
 [EEM Sequencer]
 Buffer=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Breakpoints]
 Count=0
 [FET]
-Clock mode=46
-Extended Clock mode=24791
+Clock mode=39
+Extended Clock mode=1
 Secure Password=
 Extended Clock Control Enable=1
 Advanced Extended Clock Control=0

@@ -1,0 +1,392 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         30/Oct/2014  14:04:30
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430
+#    Source file   =  D:\uah\cpe323\lab9\2013\lab9_2013.c
+#    Command line  =  
+#        D:\uah\cpe323\lab9\2013\lab9_2013.c -lCN
+#        D:\uah\cpe323\lab9\2013\Debug\List\ -o
+#        D:\uah\cpe323\lab9\2013\Debug\Obj\ --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --debug -D__MSP430F2013__ -e --double=32
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.0\430\lib\dlib\dl430fn.h" -On --segment __data16=DATA16 --segment
+#        __data20=DATA20
+#    List file     =  D:\uah\cpe323\lab9\2013\Debug\List\lab9_2013.lst
+#    Object file   =  D:\uah\cpe323\lab9\2013\Debug\Obj\lab9_2013.r43
+#
+###############################################################################
+
+D:\uah\cpe323\lab9\2013\lab9_2013.c
+      1          /***********************************************************************
+      2           * Title: LAB 9 - MSP~2013
+      3           * Date Due: 30-10-14
+      4           * 
+      5           * Description:
+      6           * Listens on SPI and adjusts the rate of a blinking LED.
+      7           *
+      8           * By: Christopher 'ctag' Bero <csb0019@uah.edu>
+      9           * Project: https://github.com/ctag/uah
+     10           *
+     11           * This software is licensed under the GPLv3,
+     12           * consult the LICENSE file for more information.
+     13           **********************************************************************/
+     14          
+     15          #include <msp430.h> // The *correct* include statement
+
+   \                                 In  segment DATA16_AN, at 0x21
+   \   unsigned char volatile P1OUT
+   \                     P1OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x22
+   \   unsigned char volatile P1DIR
+   \                     P1DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x78
+   \   union <unnamed> _A_USICTL0
+   \                     _A_USICTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x7a
+   \   union <unnamed> _A_USICKCTL
+   \                     _A_USICKCTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x7c
+   \   union <unnamed> _A_USISRL
+   \                     _A_USISRL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     16          
+     17          // Usage: WDTCTL = WDT_CONFIG;
+     18          #define WDT_CONFIG_250 (WDTPW|WDTCNTCL|WDTSSEL|WDTIS0)		// Set bits to give us 0.250s watchdog
+     19          #define WDT_CONFIG_1000 (WDTPW|WDTCNTCL|WDTSSEL)			// Set bits to give us 1s watchdog
+     20          #define WDT_INTERVAL_250 (WDTPW|WDTCNTCL|WDTTMSEL|WDTSSEL|WDTIS0) // Set bits to have 0.250s timer
+     21          #define WDT_INTERVAL_1000 (WDTPW|WDTCNTCL|WDTTMSEL|WDTSSEL) // Set bits to have 1s timer
+     22          #define WDT_HALT (WDTPW|WDTHOLD) // Set bits to halt the timer
+     23          
+     24          #define LED_4X_STATE    0x34	// character '4' - 4X=4.0Hz
+     25          #define LED_3X_STATE    0x33	// character '3' - 3X=2.0Hz
+     26          #define LED_2X_STATE    0x32	// character '2' - 2X=1.0Hz
+     27          #define LED_1X_STATE    0x31	// character '1' - 1X=0.5Hz
+     28          #define LED_OFF_STATE   0x30    // character '0'
+     29          #define LED_NUL_STATE   0x00    // character NULL - dummy write
+     30          
+     31          #define SET_LED()       P1OUT |= 0x01;
+     32          #define RESET_LED()     P1OUT &= ~0x01;
+     33          
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     34          int LED_delays = 8;
+   \                     LED_delays:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for LED_delays>`
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     35          int LED_counter = 0;
+   \                     LED_counter:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     36          int LED_on = 0;
+   \                     LED_on:
+   \   000000                DS8 2
+     37          
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     38          unsigned char LEDState;
+   \                     LEDState:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     39          unsigned char NextState;
+   \                     NextState:
+   \   000000                DS8 1
+     40          
+
+   \                                 In  segment CODE, align 2
+     41          void SPISetup(void)
+   \                     SPISetup:
+     42          {
+     43            
+     44            USICTL0 |= USISWRST;      //Set UCSWRST -- needed for re-configuration process
+   \   000000   D2D37800     BIS.B   #0x1, &0x78
+     45            USICTL0 |= USIPE5 + USIPE6 + USIPE7 + USIOE; // SCLK-SDO-SDI port enable,MSB first   
+   \   000004   F2D0E2007800 BIS.B   #0xe2, &0x78
+     46            USICTL1 = USIIE;          // USI  Counter Interrupt enable                              
+   \   00000A   F24010007900 MOV.B   #0x10, &0x79
+     47            USICTL0 &= ~USISWRST;     // **Initialize USCI state machine**
+   \   000010   D2C37800     BIC.B   #0x1, &0x78
+     48          }
+   \   000014   3041         RET
+   \   000016                REQUIRE _A_USICTL0
+     49          
+
+   \                                 In  segment CODE, align 2
+     50          void InitComm(void)
+   \                     InitComm:
+     51          { 
+     52           USICNT = 8;                 // Load bit counter, clears IFG
+   \   000000   F2427B00     MOV.B   #0x8, &0x7b
+     53          }
+   \   000004   3041         RET
+   \   000006                REQUIRE _A_USICKCTL
+     54          
+
+   \                                 In  segment CODE, align 2
+     55          void main(void)
+   \                     main:
+     56          {
+     57          	//WDTCTL = WDT_ADLY_250;	// 1 s interval timer
+     58          	WDTCTL = (WDTPW|WDTHOLD);
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+     59          	
+     60          	SPISetup();                       //USi module in SPI mode initialization
+   \   000006   B012....     CALL    #SPISetup
+     61          	InitComm();                       //Communication initialization 
+   \   00000A   B012....     CALL    #InitComm
+     62          	
+     63          	P1DIR |= BIT0; // LED3 as output
+   \   00000E   D2D32200     BIS.B   #0x1, &0x22
+     64          	P1OUT &= ~BIT0; // LED off
+   \   000012   D2C32100     BIC.B   #0x1, &0x21
+     65          	
+     66          	_EINT();			// Enable interrupts
+   \   000016   32D2         EINT
+     67          	// __enable_interrupt(); // Same as _EINT()?
+     68          	
+     69          	//IE1 |= WDTIE;                     // Enable WDT interrupt
+     70          	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
+     71          	
+     72          	WDTCTL = WDT_INTERVAL_250;
+   \   000018   B2401D5A2001 MOV.W   #0x5a1d, &0x120
+     73          	
+     74          	while (1)
+     75          	{
+     76          		_BIS_SR(LPM0_bits + GIE);           // Enter LPM0 w/ interrupt
+   \                     ??main_0:
+   \   00001E   32D01800     BIS.W   #0x18, SR
+     77          	  
+     78          		switch (NextState)
+   \   000022   C293....     CMP.B   #0x0, &NextState
+   \   000026   0324         JEQ     ??main_2
+     79          		{
+     80          		  case 0x00 :
+     81          			break;
+     82          		  default :
+     83          			LEDState = NextState;          // new state
+   \   000028   D242........ MOV.B   &NextState, &LEDState
+     84          			break;
+     85          		}
+     86          		 
+     87          		if (LEDState == LED_1X_STATE)
+   \                     ??main_2:
+   \   00002E   F2903100.... CMP.B   #0x31, &LEDState
+   \   000034   0320         JNE     ??main_3
+     88          		{
+     89          		  LED_delays = 8;
+   \   000036   B242....     MOV.W   #0x8, &LED_delays
+   \   00003A   F13F         JMP     ??main_0
+     90          		}
+     91          		else if (LEDState == LED_2X_STATE)
+   \                     ??main_3:
+   \   00003C   F2903200.... CMP.B   #0x32, &LEDState
+   \   000042   0320         JNE     ??main_4
+     92          		{
+     93          		  LED_delays = 4;
+   \   000044   A242....     MOV.W   #0x4, &LED_delays
+   \   000048   EA3F         JMP     ??main_0
+     94          		} else if (LEDState == LED_3X_STATE)
+   \                     ??main_4:
+   \   00004A   F2903300.... CMP.B   #0x33, &LEDState
+   \   000050   0320         JNE     ??main_5
+     95          		{
+     96          		  LED_delays = 2;
+   \   000052   A243....     MOV.W   #0x2, &LED_delays
+   \   000056   E33F         JMP     ??main_0
+     97          		} else if (LEDState == LED_4X_STATE)
+   \                     ??main_5:
+   \   000058   F2903400.... CMP.B   #0x34, &LEDState
+   \   00005E   DF23         JNE     ??main_0
+     98          		{
+     99          		  LED_delays = 1;
+   \   000060   9243....     MOV.W   #0x1, &LED_delays
+   \   000064   DC3F         JMP     ??main_0
+   \   000066                REQUIRE WDTCTL
+   \   000066                REQUIRE P1DIR
+   \   000066                REQUIRE P1OUT
+    100          		} else
+    101          		{
+    102          		}
+    103          	}
+    104          }
+    105          
+    106          /*
+    107           * USI ISR
+    108           */
+    109          #pragma vector = USI_VECTOR
+
+   \                                 In  segment CODE, align 2
+    110          __interrupt void USI_ISR(void)
+   \                     USI_ISR:
+    111          {
+    112            NextState = USISRL;         // read new command
+   \   000000   D2427C00.... MOV.B   &0x7c, &NextState
+    113            USICNT = 8;                 // Load bit counter for next TX
+   \   000006   F2427B00     MOV.B   #0x8, &0x7b
+    114            _BIC_SR_IRQ(LPM4_bits);     // Exit from LPM4 on RETI
+   \   00000A   B1C0F0000000 BIC.W   #0xf0, 0(SP)
+    115          }
+   \   000010   0013         RETI
+   \   000012                REQUIRE _A_USISRL
+   \   000012                REQUIRE _A_USICKCTL
+    116          
+    117          /*
+    118           * Watchdog Timer interrupt service routine
+    119           */
+    120          #pragma vector = WDT_VECTOR
+
+   \                                 In  segment CODE, align 2
+    121          __interrupt void watchdog_timer(void)
+   \                     watchdog_timer:
+    122          {
+    123          	if (LED_on == 0)
+   \   000000   8293....     CMP.W   #0x0, &LED_on
+   \   000004   0E20         JNE     ??watchdog_timer_0
+    124          	{
+    125          		if (LED_counter >= LED_delays)
+   \   000006   9292........ CMP.W   &LED_delays, &LED_counter
+   \   00000C   0738         JL      ??watchdog_timer_1
+    126          		{
+    127          			LED_counter = 0;
+   \   00000E   8243....     MOV.W   #0x0, &LED_counter
+    128          			P1OUT |= BIT0;
+   \   000012   D2D32100     BIS.B   #0x1, &0x21
+    129          			LED_on = 1;
+   \   000016   9243....     MOV.W   #0x1, &LED_on
+   \   00001A   0013         RETI
+    130          		} else {
+    131          			LED_counter++;
+   \                     ??watchdog_timer_1:
+   \   00001C   9253....     ADD.W   #0x1, &LED_counter
+   \   000020   0013         RETI
+    132          		}
+    133          	} else {
+    134          		P1OUT &= ~BIT0;
+   \                     ??watchdog_timer_0:
+   \   000022   D2C32100     BIC.B   #0x1, &0x21
+    135          		LED_on = 0;
+   \   000026   8243....     MOV.W   #0x0, &LED_on
+    136          	}
+    137          }
+   \   00002A   0013         RETI
+   \   00002C                REQUIRE P1OUT
+
+   \                                 In  segment INTVEC, offset 0x8, root
+   \                     `??USI_ISR??INTVEC 8`:
+   \   000008   ....         DC16    USI_ISR
+
+   \                                 In  segment INTVEC, offset 0x14, root
+   \                     `??watchdog_timer??INTVEC 20`:
+   \   000014   ....         DC16    watchdog_timer
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for LED_delays>`:
+   \   000000   0800         DC16 8
+    138          
+    139          
+    140          
+    141          
+    142          
+    143          
+    144          
+    145          
+    146          
+    147          
+    148          
+    149          
+    150          
+    151          
+    152          
+    153          
+    154          
+    155          
+    156          
+    157          
+    158          
+    159          
+    160          
+    161          
+    162          
+    163          
+    164          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      2   InitComm
+      2   SPISetup
+      4   USI_ISR
+      2   main
+        2   -> InitComm
+        2   -> SPISetup
+      4   watchdog_timer
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ?<Initializer for LED_delays>
+       2  ??USI_ISR??INTVEC 8
+       2  ??watchdog_timer??INTVEC 20
+       6  InitComm
+       1  LEDState
+       2  LED_counter
+       2  LED_delays
+       2  LED_on
+       1  NextState
+       1  P1DIR
+       1  P1OUT
+      22  SPISetup
+      18  USI_ISR
+       2  WDTCTL
+       2  _A_USICKCTL
+       2  _A_USICTL0
+       2  _A_USISRL
+     102  main
+      44  watchdog_timer
+
+ 
+ 192 bytes in segment CODE
+  10 bytes in segment DATA16_AN
+   2 bytes in segment DATA16_I
+   2 bytes in segment DATA16_ID
+   6 bytes in segment DATA16_Z
+   4 bytes in segment INTVEC
+ 
+ 192 bytes of CODE  memory
+   2 bytes of CONST memory (+  4 bytes shared)
+   8 bytes of DATA  memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none

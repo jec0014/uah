@@ -20,7 +20,7 @@
  **********************************************************************/
 
 #include <msp430.h> // The *correct* include statement
-#include <stdio.h> // .EWW (see what I did there?)
+#include <stdio.h> // '(dot) EWW' (see what I did there?)
 
 #define SW1 0x01&P1IN	// B1 - P1.0 switch SW1
 #define SW2 0x02&P1IN	// B2 - P1.1 switch SW2
@@ -48,6 +48,7 @@ void SPISetup(void)
   UCB0CTL1 &= ~UCSWRST; 		// **Initialize USCI state machine**
 }
 
+/*
 unsigned char SPIGetState(void)
 {
     while((P3IN & 0x01));             // Verifies busy flag
@@ -56,6 +57,7 @@ unsigned char SPIGetState(void)
     while (!(IFG2 & UCB0RXIFG));      // USCI_B0 TX buffer ready?
     return UCB0RXBUF;                  
 }
+*/
 
 void SPISetState(unsigned char State)
 {
@@ -118,46 +120,64 @@ void main(void)
 		UART0_putchar('\r');    // carriage return
 		switch (ch)
 		{
-		case 'y' :
-			SPISetState(LED_OFF_STATE);
-			for(int i = 1000; i > 0;i--); //delay
-			UART0_putchar(SPIGetState());  // prints the current state of LED 
-			// '1' - ON ; '0' - OFF
-		break;
-		
-		case 'n' :
-			SPISetState(LED_OFF_STATE);
-			for(int i = 1000; i > 0;i--); //delay
-			UART0_putchar(SPIGetState()); // prints the current state of LED
-			// '1' - ON ; '0' - OFF
-		break;
-		
-		default:
-			for(int i = 0; i < 35; i++) {
-				ch = serialChastise[i];
-				UART0_putchar(ch); // print the greeting message on hyperterminal
-			}
-			UART0_putchar('\n');    // newline
-			UART0_putchar('\r');    // carriage return
-			UART0_putchar('\n');    // newline
-			UART0_putchar('\r');    // carriage return
-		break;
+			case '1' :
+				SPISetState(LED_1X_STATE);
+			break;
+			
+			case '2' :
+				SPISetState(LED_2X_STATE);
+			break;
+			
+			case '3' :
+				SPISetState(LED_3X_STATE);
+			break;
+			
+			case '4' :
+				SPISetState(LED_4X_STATE);
+			break;
+			
+			default:
+				for(int i = 0; i < 35; i++) {
+					ch = serialChastise[i];
+					UART0_putchar(ch); // print the greeting message on hyperterminal
+				}
+				UART0_putchar('\n');    // newline
+				UART0_putchar('\r');    // carriage return
+				UART0_putchar('\n');    // newline
+				UART0_putchar('\r');    // carriage return
+			break;
 		}
+		
+		for(int i = 1000; i > 0;i--); //delay
+		
 	}
+}
+
+/*
+ * Interrupt SR for USCI Rx 
+ */
+#pragma vector = USCIAB0RX_VECTOR
+__interrupt void USCIB0RX_ISR (void)
+{
+  ch = UCA0RXBUF;  // character received is moved to a variable
+  rx_flag = 1;          // signal main function receiving a char
 }
 
 /*
  * Watchdog Timer interrupt service routine
  */
+ /*
 #pragma vector = WDT_VECTOR
 __interrupt void watchdog_timer(void)
 {
 
 }
+*/
 
 /*
  * Port 1 interrupt service routine
  */
+/*
 #pragma vector = PORT1_VECTOR
 __interrupt void Port1_ISR (void)
 {
@@ -178,14 +198,8 @@ __interrupt void Port1_ISR (void)
 	P1IFG &= ~BIT1;		// Clear P1.1 IFG
 	P1IFG &= ~BIT0;		// Clear P1.0 IFG
 }
+*/
 
-// Interrupt for USCI Rx 
-#pragma vector = USCIAB0RX_VECTOR
-__interrupt void USCIB0RX_ISR (void)
-{
-  ch = UCA0RXBUF;  // character received is moved to a variable
-  rx_flag = 1;          // signal main function receiving a char
-}
 
 
 
