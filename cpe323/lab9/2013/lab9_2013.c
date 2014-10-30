@@ -62,7 +62,9 @@ void main(void)
 	
 	P1DIR |= BIT0; // LED3 as output
 	P1OUT &= ~BIT0; // LED off
-	
+	//P1OUT |= BIT0;
+    
+	IE1 |= BIT0; // BIT0 is WDTIE
 	_EINT();			// Enable interrupts
 	// __enable_interrupt(); // Same as _EINT()?
 	
@@ -70,11 +72,13 @@ void main(void)
 	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
 	
 	WDTCTL = WDT_INTERVAL_250;
-	
+	//WDTCTL = WDT_ADLY_250;
+        
 	while (1)
 	{
-		_BIS_SR(LPM0_bits + GIE);           // Enter LPM0 w/ interrupt
-	  
+		//_BIS_SR(LPM0_bits + GIE);           // Enter LPM0 w/ interrupt
+                
+          
 		switch (NextState)
 		{
 		  case 0x00 :
@@ -100,6 +104,9 @@ void main(void)
 		} else
 		{
 		}
+                
+                //P1OUT ^= BIT0;
+                
 	}
 }
 
@@ -120,6 +127,7 @@ __interrupt void USI_ISR(void)
 #pragma vector = WDT_VECTOR
 __interrupt void watchdog_timer(void)
 {
+  P1OUT ^= BIT0;
 	if (LED_on == 0)
 	{
 		if (LED_counter >= LED_delays)

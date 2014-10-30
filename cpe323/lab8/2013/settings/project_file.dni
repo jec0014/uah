@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1810044075
+Checksum=-547082477
 [CallStackLog]
 Enabled=0
 [CallStack]
@@ -69,6 +69,13 @@ Fmt1={W}0:PORT1_7	1	0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[SfrWindow]
+Show=1 1
+Sort=4 0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Breakpoints]
 Count=0
 [FET]
@@ -91,10 +98,6 @@ SP=0
 SR=0
 all registers=0
 File name=
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
 [Aliases]
 Count=0
 SuppressDialog=0
