@@ -1,0 +1,463 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         03/Oct/2014  13:39:45
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  D:\cpe323\lab7\lab7_demo_code\Lab7_D1.c
+#    Command line  =  
+#        D:\cpe323\lab7\lab7_demo_code\Lab7_D1.c -lCN
+#        D:\cpe323\lab7\lab7_demo_code\Debug\List\ -o
+#        D:\cpe323\lab7\lab7_demo_code\Debug\Obj\ --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --debug -D__MSP430FG4618__ -e
+#        --double=32 --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.0\430\lib\dlib\dl430xlsfn.h" --core=430X
+#        --data_model=small -On --multiplier=16 --segment __data16=DATA16
+#        --segment __data20=DATA20 --code_model=large
+#    List file     =  D:\cpe323\lab7\lab7_demo_code\Debug\List\Lab7_D1.lst
+#    Object file   =  D:\cpe323\lab7\lab7_demo_code\Debug\Obj\Lab7_D1.r43
+#
+###############################################################################
+
+D:\cpe323\lab7\lab7_demo_code\Lab7_D1.c
+      1          //**************************************************************************
+      2          //  Description: Toggle LED1 on P2.2 using software timed by the WDT ISR. 
+      3          //  In this example the WDT is configured in interval timer mode,
+      4          //  and it is clocked with fACLK, where fACLK = 32,768 Hz.
+      5          //  The WDT ISR toggles the LED.
+      6          //
+      7          //                 MSP430xG461x
+      8          //             -----------------
+      9          //        /|\ |              XIN|-
+     10          //         |  |                 | 32kHz
+     11          //         ---|RST          XOUT|-
+     12          //            |                 |
+     13          //            |                 |
+     14          //            |                 |
+     15          //            |             P2.2|--> LED1
+     16          //            |                 |
+     17          //            |                 |
+     18          //            |                 |
+     19          //
+     20          //  @A. Milenkovic, milenkovic@computer.org
+     21          //  Max Avual, ma0004@uah.edu
+     22          //**************************************************************************
+     23          #include <msp430xG46x.h>
+
+   \                                 In  segment DATA16_AN, at 0x0
+   \   unsigned char volatile IE1
+   \                     IE1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x52
+   \   unsigned char volatile SCFQCTL
+   \                     SCFQCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x20
+   \   unsigned char const volatile P1IN
+   \                     P1IN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x23
+   \   unsigned char volatile P1IFG
+   \                     P1IFG:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x24
+   \   unsigned char volatile P1IES
+   \                     P1IES:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x25
+   \   unsigned char volatile P1IE
+   \                     P1IE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x29
+   \   unsigned char volatile P2OUT
+   \                     P2OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2a
+   \   unsigned char volatile P2DIR
+   \                     P2DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2e
+   \   unsigned char volatile P2SEL
+   \                     P2SEL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x1a
+   \   unsigned char volatile P3DIR
+   \                     P3DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x1b
+   \   unsigned char volatile P3SEL
+   \                     P3SEL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x180
+   \   unsigned short volatile TBCTL
+   \                     TBCTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x182
+   \   unsigned short volatile TBCCTL0
+   \                     TBCCTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x18a
+   \   unsigned short volatile TBCCTL4
+   \                     TBCCTL4:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x192
+   \   unsigned short volatile TBCCR0
+   \                     TBCCR0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x19a
+   \   unsigned short volatile TBCCR4
+   \                     TBCCR4:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     24          
+     25          #define SW1 (0x01&P1IN)	// B1 - P1.0 switch SW1 
+     26          #define SW2 (0x02&P1IN)	// B2 - P1.1 switch SW2
+     27          
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+     28          const int rate = 32767;
+   \                     rate:
+   \   000000   FF7F         DC16 32767
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     29          volatile int clocker = 1000;
+   \                     clocker:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for clocker>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     30          volatile int factor = 1000;
+   \                     factor:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for factor>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     31          volatile int current = 33;
+   \                     current:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for current>`
+     32          
+
+   \                                 In  segment CODE, align 2
+     33          void main(void)
+   \                     main:
+     34          {
+     35            
+     36            WDTCTL = WDT_ADLY_250;           // 1 s interval timer
+   \   000000   B2401D5A2001 MOV.W   #0x5a1d, &0x120
+     37            P2DIR |= BIT2;                    // Set P2.2 to output direction
+   \   000006   E2D22A00     BIS.B   #0x4, &0x2a
+     38            P2DIR |= BIT1;
+   \   00000A   E2D32A00     BIS.B   #0x2, &0x2a
+     39            P3DIR |= BIT5;
+   \   00000E   F2D020001A00 BIS.B   #0x20, &0x1a
+     40            //P1DIR |= BIT1;
+     41            
+     42            P3SEL |= BIT5;
+   \   000014   F2D020001B00 BIS.B   #0x20, &0x1b
+     43            P2SEL |= BIT1;
+   \   00001A   E2D32E00     BIS.B   #0x2, &0x2e
+     44            
+     45            TB0CCTL4 = OUTMOD_4;
+   \   00001E   B24080008A01 MOV.W   #0x80, &0x18a
+     46            TB0CCTL0 = OUTMOD_4;
+   \   000024   B24080008201 MOV.W   #0x80, &0x182
+     47            TB0CTL = TBSSEL_1 + MC_1;
+   \   00002A   B24010018001 MOV.W   #0x110, &0x180
+     48            
+     49            current = (rate / clocker);
+   \   000030   1C42....     MOV.W   &rate, R12
+   \   000034   1E42....     MOV.W   &clocker, R14
+   \   000038   ........     CALLA   #?DivMod16s
+   \   00003C   824C....     MOV.W   R12, &current
+     50            
+     51            TB0CCR0 = current; // 32767
+   \   000040   9242....9201 MOV.W   &current, &0x192
+     52            //we want a 900Hz tone
+     53            // So, 1000Hz is a period of 1/1000.
+     54            // Which is 0.0001 seconds, which is 1 ms, which is 1000 us
+     55            
+     56            _EINT();			// Enable interrupts
+   \   000046   32D2         EINT
+     57          	P1IE |= 0x0003;		// P1.0 interrupt enabled
+   \   000048   F2D003002500 BIS.B   #0x3, &0x25
+     58          	P1IES |= 0x0003;	// P1.0 hi -> low edge
+   \   00004E   F2D003002400 BIS.B   #0x3, &0x24
+     59          	P1IFG &= ~0x0003;	// Clear P1.0 IFG
+   \   000054   F2F0FC002300 AND.B   #0xfc, &0x23
+     60            
+     61            
+     62            TB0CCR4 = TB0CCR0;
+   \   00005A   924292019A01 MOV.W   &0x192, &0x19a
+     63            
+     64            //P2OUT &= ~BIT1;
+     65            //P3OUT |= ~BIT5;
+     66            
+     67            IE1 |= WDTIE;                     // Enable WDT interrupt
+   \   000060   D2D30000     BIS.B   #0x1, &0x0
+     68            __enable_interrupt();
+   \   000064   32D2         EINT
+     69            
+     70            _BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
+   \   000066   32D01800     BIS.W   #0x18, SR
+   \   00006A   0343         NOP
+     71          
+     72            while (1)
+     73            {
+     74              asm("NOP");
+   \                     ??main_0:
+   \   00006C   0343         NOP
+   \   00006E   FE3F         JMP     ??main_0
+   \   000070                REQUIRE WDTCTL
+   \   000070                REQUIRE P2DIR
+   \   000070                REQUIRE P3DIR
+   \   000070                REQUIRE P3SEL
+   \   000070                REQUIRE P2SEL
+   \   000070                REQUIRE TBCCTL4
+   \   000070                REQUIRE TBCCTL0
+   \   000070                REQUIRE TBCTL
+   \   000070                REQUIRE TBCCR0
+   \   000070                REQUIRE P1IE
+   \   000070                REQUIRE P1IES
+   \   000070                REQUIRE P1IFG
+   \   000070                REQUIRE TBCCR4
+   \   000070                REQUIRE IE1
+     75            }
+     76          
+     77          }
+     78          
+     79          // Watchdog Timer interrupt service routine
+     80          #pragma vector=WDT_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+     81          __interrupt void watchdog_timer(void)
+   \                     watchdog_timer:
+     82          {
+     83              P2OUT ^= BIT2;			// Toggle P2.2 using exclusive-OR
+   \   000000   E2E22900     XOR.B   #0x4, &0x29
+     84              //P3OUT ^= BIT5;
+     85              //P1OUT ^= BIT1;
+     86          }
+   \   000004   0013         RETI
+   \   000006                REQUIRE P2OUT
+     87          
+     88          /*
+     89           * Port 1 interrupt service
+     90           */
+     91          #pragma vector = PORT1_VECTOR // The fuck does pragma mean? or vector for that matter.
+
+   \                                 In  segment ISR_CODE, align 2
+     92          __interrupt void Port1_ISR (void)
+   \                     Port1_ISR:
+     93          {
+   \   000000   5F15         PUSHM.W #0x6, R15
+     94          	// Constant delay debounce, arbitrary looper value
+     95            // At SCFQCTL=30, we delay 20 NOP instructions.
+     96            // At SCFQCTL=60, we delay 40 NOP instructions.
+     97            // At SCFQCTL=120, we delay 80 NOP instructions.
+     98            // A linear relationship between clock and delay :)
+     99          	int factor = (SCFQCTL / 30);
+   \   000002   5C425200     MOV.B   &0x52, R12
+   \   000006   7E401E00     MOV.B   #0x1e, R14
+   \   00000A   ........     CALLA   #?DivMod8u
+   \   00000E   4A4C         MOV.B   R12, R10
+    100          	int looper = (20 * factor);
+   \   000010   0B4A         MOV.W   R10, R11
+   \   000012   5B06         RLAM.W  #0x2, R11
+   \   000014   0F4B         MOV.W   R11, R15
+   \   000016   5B06         RLAM.W  #0x2, R11
+   \   000018   0B5F         ADD.W   R15, R11
+    101          	
+    102          	for (int c = 0; c < looper; c++)
+   \   00001A   0F43         MOV.W   #0x0, R15
+   \                     ??Port1_ISR_0:
+   \   00001C   0F9B         CMP.W   R11, R15
+   \   00001E   0334         JGE     ??Port1_ISR_1
+    103          	{
+    104          		asm("NOP");
+   \   000020   0343         NOP
+    105          	}
+   \   000022   1F53         ADD.W   #0x1, R15
+   \   000024   FB3F         JMP     ??Port1_ISR_0
+    106            
+    107          	if (((SW1) == 0) && ((SW2) != 0))
+   \                     ??Port1_ISR_1:
+   \   000026   D2B32000     BIT.B   #0x1, &0x20
+   \   00002A   062C         JC      ??Port1_ISR_2
+   \   00002C   E2B32000     BIT.B   #0x2, &0x20
+   \   000030   0328         JNC     ??Port1_ISR_2
+    108          	{
+    109          		clocker += factor;
+   \   000032   825A....     ADD.W   R10, &clocker
+   \   000036   083C         JMP     ??Port1_ISR_3
+    110          	}
+    111          	else if (((SW2) == 0) && ((SW1) != 0))
+   \                     ??Port1_ISR_2:
+   \   000038   E2B32000     BIT.B   #0x2, &0x20
+   \   00003C   052C         JC      ??Port1_ISR_3
+   \   00003E   D2B32000     BIT.B   #0x1, &0x20
+   \   000042   0228         JNC     ??Port1_ISR_3
+    112          	{
+    113          		clocker -= factor;
+   \   000044   828A....     SUB.W   R10, &clocker
+    114          	}
+    115          	
+    116                  current = (rate / clocker);
+   \                     ??Port1_ISR_3:
+   \   000048   1C42....     MOV.W   &rate, R12
+   \   00004C   1E42....     MOV.W   &clocker, R14
+   \   000050   ........     CALLA   #?DivMod16s
+   \   000054   824C....     MOV.W   R12, &current
+    117            
+    118            TB0CCR0 = current; // 32767
+   \   000058   9242....9201 MOV.W   &current, &0x192
+    119                  
+    120          	P1IFG &= ~BIT1;		// Clear P1.1 IFG
+   \   00005E   E2C32300     BIC.B   #0x2, &0x23
+    121          	P1IFG &= ~BIT0;		// Clear P1.0 IFG
+   \   000062   D2C32300     BIC.B   #0x1, &0x23
+    122          }
+   \   000066   5A17         POPM.W  #0x6, R15
+   \   000068   0013         RETI
+   \   00006A                REQUIRE SCFQCTL
+   \   00006A                REQUIRE P1IN
+   \   00006A                REQUIRE TBCCR0
+   \   00006A                REQUIRE P1IFG
+
+   \                                 In  segment INTVEC, offset 0x28, root
+   \                     `??Port1_ISR??INTVEC 40`:
+   \   000028   ....         DC16    Port1_ISR
+
+   \                                 In  segment INTVEC, offset 0x34, root
+   \                     `??watchdog_timer??INTVEC 52`:
+   \   000034   ....         DC16    watchdog_timer
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for clocker>`:
+   \   000000   E803         DC16 1000
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for factor>`:
+   \   000000   E803         DC16 1000
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for current>`:
+   \   000000   2100         DC16 33
+    123          
+    124          
+    125          
+    126          
+    127          
+    128          
+    129          
+    130          
+    131          
+    132          
+    133          
+    134          
+    135          
+    136          
+    137          
+    138          
+    139          
+    140          
+    141          
+    142          
+    143          
+    144          
+    145          
+    146          
+    147          
+    148          
+    149          
+    150          
+    151          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+     16   Port1_ISR
+      4   main
+      4   watchdog_timer
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ?<Initializer for clocker>
+       2  ?<Initializer for current>
+       2  ?<Initializer for factor>
+       2  ??Port1_ISR??INTVEC 40
+       2  ??watchdog_timer??INTVEC 52
+       1  IE1
+       1  P1IE
+       1  P1IES
+       1  P1IFG
+       1  P1IN
+       1  P2DIR
+       1  P2OUT
+       1  P2SEL
+       1  P3DIR
+       1  P3SEL
+     106  Port1_ISR
+       1  SCFQCTL
+       2  TBCCR0
+       2  TBCCR4
+       2  TBCCTL0
+       2  TBCCTL4
+       2  TBCTL
+       2  WDTCTL
+       2  clocker
+       2  current
+       2  factor
+     112  main
+       2  rate
+       6  watchdog_timer
+
+ 
+ 112 bytes in segment CODE
+  23 bytes in segment DATA16_AN
+   2 bytes in segment DATA16_C
+   6 bytes in segment DATA16_I
+   6 bytes in segment DATA16_ID
+   4 bytes in segment INTVEC
+ 112 bytes in segment ISR_CODE
+ 
+ 224 bytes of CODE  memory
+   8 bytes of CONST memory (+  4 bytes shared)
+   6 bytes of DATA  memory (+ 23 bytes shared)
+
+Errors: none
+Warnings: none

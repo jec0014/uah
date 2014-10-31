@@ -72,7 +72,7 @@
 #define SET_LED()       P1OUT |= 0x01;
 #define RESET_LED()     P1OUT &= ~0x01;
 
-unsigned char LEDState ;
+unsigned char LEDState;
 unsigned char NextState;
 
 void SPISetup(void)
