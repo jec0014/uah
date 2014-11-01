@@ -13,20 +13,57 @@
 
 #include <msp430.h> // The *correct* include statement
 
-#define SW1 0x01&P1IN	// B1 - P1.0 switch SW1 
-#define SW2 0x02&P1IN	// B2 - P1.1 switch SW2
+// Set MOSI definitions
+#define LED_ON_STATE    0x31	// character '1'
+#define LED_OFF_STATE   0x30    // character '0'
+#define LED_NUL_STATE   0x00    // character NULL - used for dummy write operation
+
+// Set MISO definitions
+#define LED_ON          0x01
+#define LED_OFF         0x00
+
+void SPISetup(void)
+{
+  UCB0CTL0 = UCMSB + UCMST + UCSYNC; 	// sync. mode, 3-pin SPI, Master mode, 8-bit data
+  UCB0CTL1 = UCSSEL_2 + UCSWRST;   	// SMCLK and Software reset                  
+  UCB0BR0 = 0x02; 			// Data rate = SMCLK/2 ~= 500kHz                          
+  UCB0BR1 = 0x00;
+  P3SEL |= BIT1 + BIT2 + BIT3;		// P3.1,P3.2,P3.3 option select               
+  UCB0CTL1 &= ~UCSWRST; 		// **Initialize USCI state machine**
+}
+
+unsigned char SPIGetState(void)
+{
+    while((P3IN & 0x01));             // Verifies busy flag
+    IFG2 &= ~UCB0RXIFG;    
+    UCB0TXBUF = LED_NUL_STATE;        // Dummy write to start SPI
+    while (!(IFG2 & UCB0RXIFG));      // USCI_B0 TX buffer ready?
+    return UCB0RXBUF;                  
+}
+
+void SPISetState(unsigned char State)
+{
+   while(P3IN & 0x01);                // Verifies busy flag
+   IFG2 &= ~UCB0RXIFG;  
+   UCB0TXBUF = State;                 //  write new state
+   while (!(IFG2 & UCB0RXIFG));       // USCI_B0 TX buffer ready?
+}
+
 
 void main(void)
 {
-	//WDTCTL = WDT_ADLY_250;	// 1 s interval timer
-	//WDTCTL = (WDTPW|WDTHOLD);
+	WDTCTL = (WDTPW|WDTHOLD);
 	
-	//_EINT();			// Enable interrupts
-	// __enable_interrupt(); // Same as _EINT()?
+	Serial_Initialize();
+	SPISetup();
 	
-	//IE1 |= WDTIE;                     // Enable WDT interrupt
+	_EINT();	// Enable interrupts
+	
+	IE1 |= WDTIE;                     // Enable WDT interrupt
 	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
-
+	
+	WDTCTL = WDT_ADLY_1000;
+	
 	while (1)
 	{
 		asm("NOP");
@@ -39,31 +76,13 @@ void main(void)
 #pragma vector = WDT_VECTOR
 __interrupt void watchdog_timer(void)
 {
-
-}
-
-/*
- * Port 1 interrupt service routine
- */
-#pragma vector = PORT1_VECTOR
-__interrupt void Port1_ISR (void)
-{
-	// Constant delay debounce
-	int factor = (SCFQCTL / 30);
-	int looper = (20 * factor);
-	for (int c = 0; c < looper; c++)
-	{ asm("NOP"); }
-
-	if (((SW1) == 0) && ((SW2) != 0)) // SW1 is pressed
+	char currentState = SPIGetState();
+	if (currentState == '0')
 	{
-	
-	} else if (((SW2) == 0) && ((SW1) != 0)) // SW2 is pressed
-	{
-	
+		SPISetState(LED_ON_STATE);
+	} else {
+		SPISetState(LED_OFF_STATE);
 	}
-
-	P1IFG &= ~BIT1;		// Clear P1.1 IFG
-	P1IFG &= ~BIT0;		// Clear P1.0 IFG
 }
 
 

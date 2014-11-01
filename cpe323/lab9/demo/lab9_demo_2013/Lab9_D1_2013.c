@@ -119,11 +119,11 @@ void SystemInit()
 
 void main(void)
 {
- 
   WDTCTL = WDTPW + WDTHOLD;          // Stop watchdog timer
   LEdInit(LED_OFF_STATE);           //LED state initialization
   SPISetup();                       //USi module in SPI mode initialization
   InitComm();                       //Communication initialization 
+  
   while(1)
   {
     _BIS_SR(LPM0_bits + GIE);           // Enter LPM0 w/ interrupt

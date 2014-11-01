@@ -121,7 +121,7 @@ void Serial_Initialize(void)
 void main(void)
 {
   
-  WDTCTL = WDTPW+WDTHOLD;               // Stop watchdog timer
+  WDTCTL = WDTPW+WDTHOLD;	// Stop watchdog timer
 
   Serial_Initialize();
   SPISetup();
