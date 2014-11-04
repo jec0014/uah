@@ -7,18 +7,18 @@
     <name>Debug</name>
     <outputs>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
+      <file>$PROJ_DIR$\lab9_4618.c</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
       <file>$PROJ_DIR$\Debug\Obj\lab9_4618.r43</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.h</file>
-      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
       <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
       <file>$TOOLKIT_DIR$\inc\msp430.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
+      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.h</file>
       <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
-      <file>$PROJ_DIR$\lab9_4618.c</file>
       <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
       <file>$PROJ_DIR$\Debug\Obj\lab9_4618.pbi</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
@@ -33,6 +33,19 @@
       <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
     </outputs>
     <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 18 8</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 12</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
       <name>$PROJ_DIR$\lab9_4618.c</name>
       <outputs>
         <tool>
@@ -41,17 +54,17 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 17 2</file>
+          <file> 17 3</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 10 24 8 13 7 0 1 16 3 23 5 15 19 22</file>
+          <file> 5 24 4 13 7 0 2 16 11 23 9 15 19 22</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 10 24 8 13 7 0 1 16 3 23 5 15 19 22</file>
+          <file> 5 24 4 13 7 0 2 16 11 23 9 15 19 22</file>
         </tool>
       </inputs>
     </file>
@@ -60,28 +73,15 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 6</file>
+          <file> 8</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 21 4 2 9</file>
+          <file> 21 10 3 6</file>
         </tool>
       </inputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 18 6</file>
-        </tool>
-        <tool>
-          <name>ULP430</name>
-          <file> 11</file>
-        </tool>
-      </outputs>
     </file>
   </configuration>
   <configuration>
