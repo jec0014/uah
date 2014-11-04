@@ -21,20 +21,17 @@
 #define LED_OFF_STATE   0x30    // character '0'
 #define LED_NUL_STATE   0x00    // character NULL - dummy write
 
-#define SET_LED()       P1OUT |= 0x01;
-#define RESET_LED()     P1OUT &= ~0x01;
-
 #define SET_BUSY_FLAG()   P1OUT |= 0x10;
 #define RESET_BUSY_FLAG() P1OUT &= ~0x10;
 
-unsigned char LEDState;
-unsigned char NextState;
+unsigned char LEDState = LED_1X_STATE;
+unsigned char NextState = LED_OFF_STATE;
 
 long unsigned int delay_1x = 90000;
 long unsigned int delay_2x = 45000;
 long unsigned int delay_3x = 30000;
 long unsigned int delay_4x = 22500;
-long unsigned int delay = 90000;
+long unsigned int delay = delay_1x;
 
 void SPISetup(void)
 {
@@ -48,40 +45,33 @@ void SPISetup(void)
 void InitComm(void)
 { 
  USICNT = 8;                 // Load bit counter, clears IFG
- USISRL = 0x00;          // set LED state
+ USISRL = LEDState;          // set LED state
  RESET_BUSY_FLAG();          // reset busy flag
 }
 
 void main(void)
 {
-	//WDTCTL = WDT_ADLY_250;	// 1 s interval timer
 	WDTCTL = (WDTPW|WDTHOLD);
 	
-	 BCSCTL1 = CALBC1_1MHZ;                // Set DCO
- DCOCTL = CALDCO_1MHZ;
+	BCSCTL1 = CALBC1_1MHZ;	// Set DCO... Not that we need to?
+	DCOCTL = CALDCO_1MHZ;
 	
-	SPISetup();                       //USi module in SPI mode initialization
-	InitComm();                       //Communication initialization 
+	SPISetup();		// USi module in SPI mode initialization
+	InitComm();		// Communication initialization 
 	
-	P1DIR |= BIT0; // LED3 as output
-	P1OUT &= ~BIT0; // LED off
-	//P1OUT |= BIT0;
+	P1DIR |= BIT0;	// LED3 as output
+	P1OUT &= ~BIT0;	// LED off
 	
-	_EINT();			// Enable interrupts
-	// __enable_interrupt(); // Same as _EINT()?
+	_EINT();	// Enable interrupts
 	
-        
 	while (1)
 	{
-		//_BIS_SR(LPM0_bits + GIE);           // Enter LPM0 w/ interrupt
-                
-          
 		switch (NextState)
 		{
 		  case 0x00 :
 			break;
 		  default :
-			LEDState = NextState;          // new state
+			LEDState = NextState;	// Load the new LED state
 			break;
 		}
 		 
@@ -105,12 +95,12 @@ void main(void)
 		for (long unsigned int c = 0; c < delay; c++)
 		{
 			asm("NOP");
-                        //P1OUT ^= BIT0;
+			//P1OUT ^= BIT0;
 		}
 		
 		P1OUT ^= BIT0;
 		
-		USISRL = 0x00;            // prepares new communication with new state
+		USISRL = LEDState;            // prepares new communication with new state
     RESET_BUSY_FLAG();          // clears busy flag - ready for new communication
 	}
 }

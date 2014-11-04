@@ -6,19 +6,19 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$TOOLKIT_DIR$\config\linker\lnk430f2013.xcl</file>
-      <file>$PROJ_DIR$\Debug\Obj\lab9_2013.pbi</file>
-      <file>$PROJ_DIR$\lab9_2013.c</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
-      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
-      <file>$PROJ_DIR$\Debug\List\lab9_2013.lst</file>
-      <file>$TOOLKIT_DIR$\inc\msp430f2013.h</file>
-      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
       <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\lab9_2013.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
       <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
+      <file>$TOOLKIT_DIR$\config\linker\lnk430f2013.xcl</file>
+      <file>$PROJ_DIR$\lab9_2013.c</file>
       <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
+      <file>$PROJ_DIR$\Debug\List\lab9_2013.lst</file>
       <file>$PROJ_DIR$\Debug\Obj\lab9_2013.r43</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$TOOLKIT_DIR$\inc\msp430f2013.h</file>
+      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\lab9_2013.c</name>
@@ -29,17 +29,17 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 5 12</file>
+          <file> 7 8</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 7 6 10 8</file>
+          <file> 2 11 6 0</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 7 6 10 8</file>
+          <file> 2 11 6 0</file>
         </tool>
       </inputs>
     </file>
@@ -48,13 +48,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 11</file>
+          <file> 12</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 0 12 3</file>
+          <file> 4 8 10</file>
         </tool>
       </inputs>
     </file>
@@ -63,7 +63,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 4 11</file>
+          <file> 9 12</file>
         </tool>
       </outputs>
     </file>

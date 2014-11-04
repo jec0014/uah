@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         30/Oct/2014  15:29:41
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         04/Nov/2014  13:31:40
 # Copyright 1996-2014 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
 #
@@ -301,146 +301,147 @@ D:\uah\cpe323\lab9\4618\lab9_4618.c
      93          	
      94          	Serial_Initialize();
    \   000008   ........     CALLA   #Serial_Initialize
-     95          	//SPISetup();
+     95          	SPISetup();
+   \   00000C   ........     CALLA   #SPISetup
      96          	
      97          	_EINT();			// Enable interrupts
-   \   00000C   32D2         EINT
+   \   000010   32D2         EINT
      98          	// __enable_interrupt(); // Same as _EINT()?
      99          	
     100          	//IE1 |= WDTIE;                     // Enable WDT interrupt
     101          	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
     102          	
-    103          	for (int z = 100; z > 0; z--);        // Delay to allow baud rate stabilize
-   \   00000E   3F406400     MOV.W   #0x64, R15
+    103          	for (int z = 5000; z > 0; z--);        // Delay to allow baud rate stabilize
+   \   000012   3F408813     MOV.W   #0x1388, R15
    \                     ??main_0:
-   \   000012   1F93         CMP.W   #0x1, R15
-   \   000014   0238         JL      ??main_6
-   \   000016   3F53         ADD.W   #0xffff, R15
-   \   000018   FC3F         JMP     ??main_0
+   \   000016   1F93         CMP.W   #0x1, R15
+   \   000018   0238         JL      ??main_6
+   \   00001A   3F53         ADD.W   #0xffff, R15
+   \   00001C   FC3F         JMP     ??main_0
     104          	
     105          	UART0_putchar('\n');    // newline
    \                     ??main_6:
-   \   00001A   7C400A00     MOV.B   #0xa, R12
-   \   00001E   ........     CALLA   #UART0_putchar
+   \   00001E   7C400A00     MOV.B   #0xa, R12
+   \   000022   ........     CALLA   #UART0_putchar
     106          	UART0_putchar('\r');    // carriage return
-   \   000022   7C400D00     MOV.B   #0xd, R12
-   \   000026   ........     CALLA   #UART0_putchar
+   \   000026   7C400D00     MOV.B   #0xd, R12
+   \   00002A   ........     CALLA   #UART0_putchar
     107          	
     108          	while (1)
     109          	{
     110          	
     111          		for(int i = 0; i < 21; i++) {
    \                     ??main_4:
-   \   00002A   0A43         MOV.W   #0x0, R10
+   \   00002E   0A43         MOV.W   #0x0, R10
    \                     ??main_1:
-   \   00002C   3A901500     CMP.W   #0x15, R10
-   \   000030   0934         JGE     ??main_2
+   \   000030   3A901500     CMP.W   #0x15, R10
+   \   000034   0934         JGE     ??main_2
     112          			ch = serialMessage[i];
-   \   000032   D24A........ MOV.B   serialMessage(R10), &ch
-    113          			UART0_putchar(ch); // print the greeting message on hyperterminal
-   \   000038   5C42....     MOV.B   &ch, R12
-   \   00003C   ........     CALLA   #UART0_putchar
+   \   000036   D24A........ MOV.B   serialMessage(R10), &ch
+    113          			UART0_putchar(ch); // print the greeting message
+   \   00003C   5C42....     MOV.B   &ch, R12
+   \   000040   ........     CALLA   #UART0_putchar
     114          		}
-   \   000040   1A53         ADD.W   #0x1, R10
-   \   000042   F43F         JMP     ??main_1
+   \   000044   1A53         ADD.W   #0x1, R10
+   \   000046   F43F         JMP     ??main_1
     115          		
-    116          		while(rx_flag != 1); // wait until receive the character from HyperTerminal
+    116          		while(rx_flag != 1); // wait until receive the character
    \                     ??main_2:
-   \   000044   D293....     CMP.B   #0x1, &rx_flag
-   \   000048   FD23         JNE     ??main_2
+   \   000048   D293....     CMP.B   #0x1, &rx_flag
+   \   00004C   FD23         JNE     ??main_2
     117          		rx_flag = 0;            // clear rx_flag
-   \   00004A   C243....     MOV.B   #0x0, &rx_flag
+   \   00004E   C243....     MOV.B   #0x0, &rx_flag
     118          		
     119          		UART0_putchar('\n');    // newline
-   \   00004E   7C400A00     MOV.B   #0xa, R12
-   \   000052   ........     CALLA   #UART0_putchar
+   \   000052   7C400A00     MOV.B   #0xa, R12
+   \   000056   ........     CALLA   #UART0_putchar
     120          		UART0_putchar('\r');    // carriage return
-   \   000056   7C400D00     MOV.B   #0xd, R12
-   \   00005A   ........     CALLA   #UART0_putchar
+   \   00005A   7C400D00     MOV.B   #0xd, R12
+   \   00005E   ........     CALLA   #UART0_putchar
     121          		switch (ch)
-   \   00005E   5E42....     MOV.B   &ch, R14
-   \   000062   7E803100     SUB.B   #0x31, R14
-   \   000066   0724         JEQ     ??main_7
-   \   000068   5E83         SUB.B   #0x1, R14
-   \   00006A   0A24         JEQ     ??main_8
+   \   000062   5E42....     MOV.B   &ch, R14
+   \   000066   7E803100     SUB.B   #0x31, R14
+   \   00006A   0724         JEQ     ??main_7
    \   00006C   5E83         SUB.B   #0x1, R14
-   \   00006E   0D24         JEQ     ??main_9
+   \   00006E   0A24         JEQ     ??main_8
    \   000070   5E83         SUB.B   #0x1, R14
-   \   000072   1024         JEQ     ??main_10
-   \   000074   143C         JMP     ??main_11
+   \   000072   0D24         JEQ     ??main_9
+   \   000074   5E83         SUB.B   #0x1, R14
+   \   000076   1024         JEQ     ??main_10
+   \   000078   143C         JMP     ??main_11
     122          		{
     123          			case '1' :
     124          				SPISetState(LED_1X_STATE);
    \                     ??main_7:
-   \   000076   7C403100     MOV.B   #0x31, R12
-   \   00007A   ........     CALLA   #SPISetState
+   \   00007A   7C403100     MOV.B   #0x31, R12
+   \   00007E   ........     CALLA   #SPISetState
     125          			break;
-   \   00007E   2C3C         JMP     ??main_12
+   \   000082   2C3C         JMP     ??main_12
     126          			
     127          			case '2' :
     128          				SPISetState(LED_2X_STATE);
    \                     ??main_8:
-   \   000080   7C403200     MOV.B   #0x32, R12
-   \   000084   ........     CALLA   #SPISetState
+   \   000084   7C403200     MOV.B   #0x32, R12
+   \   000088   ........     CALLA   #SPISetState
     129          			break;
-   \   000088   273C         JMP     ??main_12
+   \   00008C   273C         JMP     ??main_12
     130          			
     131          			case '3' :
     132          				SPISetState(LED_3X_STATE);
    \                     ??main_9:
-   \   00008A   7C403300     MOV.B   #0x33, R12
-   \   00008E   ........     CALLA   #SPISetState
+   \   00008E   7C403300     MOV.B   #0x33, R12
+   \   000092   ........     CALLA   #SPISetState
     133          			break;
-   \   000092   223C         JMP     ??main_12
+   \   000096   223C         JMP     ??main_12
     134          			
     135          			case '4' :
     136          				SPISetState(LED_4X_STATE);
    \                     ??main_10:
-   \   000094   7C403400     MOV.B   #0x34, R12
-   \   000098   ........     CALLA   #SPISetState
+   \   000098   7C403400     MOV.B   #0x34, R12
+   \   00009C   ........     CALLA   #SPISetState
     137          			break;
-   \   00009C   1D3C         JMP     ??main_12
+   \   0000A0   1D3C         JMP     ??main_12
     138          			
     139          			default:
     140          				for(int i = 0; i < 35; i++) {
    \                     ??main_11:
-   \   00009E   0A43         MOV.W   #0x0, R10
+   \   0000A2   0A43         MOV.W   #0x0, R10
    \                     ??main_3:
-   \   0000A0   3A902300     CMP.W   #0x23, R10
-   \   0000A4   0934         JGE     ??main_13
+   \   0000A4   3A902300     CMP.W   #0x23, R10
+   \   0000A8   0934         JGE     ??main_13
     141          					ch = serialChastise[i];
-   \   0000A6   D24A........ MOV.B   serialChastise(R10), &ch
-    142          					UART0_putchar(ch); // print the greeting message on hyperterminal
-   \   0000AC   5C42....     MOV.B   &ch, R12
-   \   0000B0   ........     CALLA   #UART0_putchar
+   \   0000AA   D24A........ MOV.B   serialChastise(R10), &ch
+    142          					UART0_putchar(ch); // print the greeting message
+   \   0000B0   5C42....     MOV.B   &ch, R12
+   \   0000B4   ........     CALLA   #UART0_putchar
     143          				}
-   \   0000B4   1A53         ADD.W   #0x1, R10
-   \   0000B6   F43F         JMP     ??main_3
+   \   0000B8   1A53         ADD.W   #0x1, R10
+   \   0000BA   F43F         JMP     ??main_3
     144          				UART0_putchar('\n');    // newline
    \                     ??main_13:
-   \   0000B8   7C400A00     MOV.B   #0xa, R12
-   \   0000BC   ........     CALLA   #UART0_putchar
+   \   0000BC   7C400A00     MOV.B   #0xa, R12
+   \   0000C0   ........     CALLA   #UART0_putchar
     145          				UART0_putchar('\r');    // carriage return
-   \   0000C0   7C400D00     MOV.B   #0xd, R12
-   \   0000C4   ........     CALLA   #UART0_putchar
+   \   0000C4   7C400D00     MOV.B   #0xd, R12
+   \   0000C8   ........     CALLA   #UART0_putchar
     146          				UART0_putchar('\n');    // newline
-   \   0000C8   7C400A00     MOV.B   #0xa, R12
-   \   0000CC   ........     CALLA   #UART0_putchar
+   \   0000CC   7C400A00     MOV.B   #0xa, R12
+   \   0000D0   ........     CALLA   #UART0_putchar
     147          				UART0_putchar('\r');    // carriage return
-   \   0000D0   7C400D00     MOV.B   #0xd, R12
-   \   0000D4   ........     CALLA   #UART0_putchar
+   \   0000D4   7C400D00     MOV.B   #0xd, R12
+   \   0000D8   ........     CALLA   #UART0_putchar
     148          			break;
     149          		}
     150          		
     151          		for(int i = 1000; i > 0;i--); //delay
    \                     ??main_12:
-   \   0000D8   3F40E803     MOV.W   #0x3e8, R15
+   \   0000DC   3F40E803     MOV.W   #0x3e8, R15
    \                     ??main_5:
-   \   0000DC   1F93         CMP.W   #0x1, R15
-   \   0000DE   A53B         JL      ??main_4
-   \   0000E0   3F53         ADD.W   #0xffff, R15
-   \   0000E2   FC3F         JMP     ??main_5
-   \   0000E4                REQUIRE WDTCTL
+   \   0000E0   1F93         CMP.W   #0x1, R15
+   \   0000E2   A53B         JL      ??main_4
+   \   0000E4   3F53         ADD.W   #0xffff, R15
+   \   0000E6   FC3F         JMP     ??main_5
+   \   0000E8                REQUIRE WDTCTL
     152          		
     153          	}
     154          }
@@ -573,6 +574,7 @@ D:\uah\cpe323\lab9\4618\lab9_4618.c
       4   USCIB0RX_ISR
       6   main
         6   -> SPISetState
+        6   -> SPISetup
         6   -> Serial_Initialize
         6   -> UART0_putchar
 
@@ -609,13 +611,13 @@ D:\uah\cpe323\lab9\4618\lab9_4618.c
       12  USCIB0RX_ISR
        2  WDTCTL
        1  ch
-     228  main
+     232  main
        1  rx_flag
       36  serialChastise
       22  serialMessage
 
  
- 340 bytes in segment CODE
+ 344 bytes in segment CODE
   19 bytes in segment DATA16_AN
   59 bytes in segment DATA16_I
   59 bytes in segment DATA16_ID
@@ -623,7 +625,7 @@ D:\uah\cpe323\lab9\4618\lab9_4618.c
    2 bytes in segment INTVEC
   12 bytes in segment ISR_CODE
  
- 352 bytes of CODE  memory
+ 356 bytes of CODE  memory
   59 bytes of CONST memory (+  2 bytes shared)
   60 bytes of DATA  memory (+ 19 bytes shared)
 

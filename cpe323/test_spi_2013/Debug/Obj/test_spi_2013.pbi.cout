@@ -1,4 +1,4 @@
-"D:\uah\cpe323\lab9\4618\lab9_4618.c"
+"D:\uah\cpe323\test_spi_2013\test_spi_2013.c"
 -std=c99
 -ferror-limit=100
 -I
@@ -7,7 +7,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib\c
--D__MSP430FG4618__=1
+-D__MSP430F2013__=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -144,8 +144,8 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib\c
 -D__UINTPTR_T_MAX__=0xffffU
 -D__INTPTR_SIZE_PREFIX__=""
 -D__JMP_BUF_ELEMENT_TYPE__=unsigned short int
--D__JMP_BUF_NUM_ELEMENTS__=20
--D__TID__=0xab10
+-D__JMP_BUF_NUM_ELEMENTS__=10
+-D__TID__=0xab00
 -D__VER__=610
 -D__SUBVERSION__=2
 -D__BUILD_NUMBER__=871
@@ -189,8 +189,8 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib\c
 -D__430__=0
 -D__CODE_MODEL_LARGE__=1
 -D__CODE_MODEL_SMALL__=0
--D__CODE_MODEL__=__CODE_MODEL_LARGE__
--D__CORE__=__430X__
+-D__CODE_MODEL__=__CODE_MODEL_SMALL__
+-D__CORE__=__430__
 -D__DATA_MODEL_LARGE__=2
 -D__DATA_MODEL_MEDIUM__=1
 -D__DATA_MODEL_SMALL__=0
@@ -204,7 +204,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib\c
 -D__HAS_LOCATED_DECLARATION__=1
 -D__IAR_COMPILERBASE__=593670
 -D__DATE__="Nov  4 2014"
--D__TIME__="13:31:11"
+-D__TIME__="12:46:45"
 -D__STDC__=1
 -D__STDC_VERSION__=199901L
 -D__STDC_HOSTED__=1
@@ -214,7 +214,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib\c
 -D__EDG_SIZE_TYPE__=unsigned int
 -D__EDG_PTRDIFF_TYPE__=int
 -D__EDG_JMP_BUF_ELEMENT_TYPE=unsigned short
--D__EDG_JMP_BUF_NUM_ELEMENTS=20
+-D__EDG_JMP_BUF_NUM_ELEMENTS=10
 -D__EDG_DELTA_TYPE=int
 -D__EDG_VIRTUAL_FUNCTION_INDEX_TYPE=unsigned short
 -D__EDG_VAR_HANDLE_TYPE=unsigned short
@@ -230,8 +230,8 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\inc\dlib\c
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP0X_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\lib\dlib\dl430xlsfn.h"
--D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.0\\430\\lib\\dlib\\dl430xlsfn.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\430\lib\dlib\dl430fn.h"
+-D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.0\\430\\lib\\dlib\\dl430fn.h"
 -D__VERSION__="IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )

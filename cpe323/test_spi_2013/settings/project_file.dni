@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1000751505
+Checksum=-443680869
 [CallStackLog]
 Enabled=0
 [CallStack]
@@ -73,8 +73,8 @@ LogFile=_ ""
 [Breakpoints]
 Count=0
 [FET]
-Clock mode=46
-Extended Clock mode=24791
+Clock mode=39
+Extended Clock mode=1
 Secure Password=
 Extended Clock Control Enable=1
 Advanced Extended Clock Control=0

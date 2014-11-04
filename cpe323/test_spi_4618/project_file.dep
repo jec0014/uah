@@ -2,12 +2,77 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>76410098</fileChecksum>
+  <fileChecksum>2370775525</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\main_code.c</file>
+      <file>$PROJ_DIR$\test_spi_4618.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\test_spi_4618.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\test_spi_4618.pbi</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
+      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\config\linker\lnk430fg4618.xcl</file>
+      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
+      <file>$PROJ_DIR$\Debug\List\test_spi_4618.lst</file>
+      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 4 14</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 3</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\test_spi_4618.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 13 1</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6 7 8 9</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 6 7 8 9</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\project_file.d43</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 10 11 1 12</file>
+        </tool>
+      </inputs>
+    </file>
   </configuration>
   <configuration>
     <name>Release</name>

@@ -71,7 +71,7 @@ void main(void)
 	SPISetup();                       //USi module in SPI mode initialization
 	InitComm();                       //Communication initialization 
 	
-	//_EINT();			// Enable interrupts
+	_EINT();			// Enable interrupts
 	// __enable_interrupt(); // Same as _EINT()?
 	
 	//IE1 |= WDTIE;                     // Enable WDT interrupt

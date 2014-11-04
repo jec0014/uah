@@ -143,10 +143,9 @@ void main(void)
     else
     {
       SET_LED();
-    }  
+    }
     USISRL = LEDState;            // prepares new communication with new state
     RESET_BUSY_FLAG();          // clears busy flag - ready for new communication
-    
   }
 }
 
@@ -158,3 +157,37 @@ __interrupt void USI_ISR(void)
   USICNT = 8;                 // Load bit counter for next TX
   _BIC_SR_IRQ(LPM4_bits);     // Exit from LPM4 on RETI
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
