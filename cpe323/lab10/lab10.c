@@ -82,9 +82,9 @@ void sendData(void)
 void main(void)
 {
   WDTCTL = WDTPW + WDTHOLD;	// Stop WDT
-  
+
   initializeUART();	                // Setup UART for RS-232
-  
+
   P6DIR &= ~0x15;	// Configure P6.0,2,4 as input pins  
   P6SEL |= 0x15;	// Configure P6.0,2,4 as analog pins
 

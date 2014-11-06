@@ -6,45 +6,22 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$TOOLKIT_DIR$\config\linker\lnk430fg4618.xcl</file>
-      <file>$PROJ_DIR$\Debug\Obj\lab10.r43</file>
-      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
-      <file>$PROJ_DIR$\lab10.c</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
-      <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
-      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
       <file>$PROJ_DIR$\Debug\List\lab10.lst</file>
-      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
+      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
+      <file>$TOOLKIT_DIR$\config\linker\lnk430fg4618.xcl</file>
       <file>$PROJ_DIR$\Debug\Obj\lab10.pbi</file>
-      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
+      <file>$PROJ_DIR$\Debug\Obj\lab10.r43</file>
+      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
+      <file>$PROJ_DIR$\lab10.c</file>
       <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
+      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
     </outputs>
-    <file>
-      <name>$PROJ_DIR$\lab10.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 12</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 10 1</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 9 7 14 4</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 9 7 14 4</file>
-        </tool>
-      </inputs>
-    </file>
     <file>
       <name>$PROJ_DIR$\Debug\Exe\project_file.d43</name>
       <outputs>
@@ -56,7 +33,30 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 0 2 1 5</file>
+          <file> 2 1 7 14</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\lab10.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 0 7</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8 9 11 5</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 8 9 11 5</file>
         </tool>
       </inputs>
     </file>
@@ -65,11 +65,11 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 13 11</file>
+          <file> 4 13</file>
         </tool>
         <tool>
           <name>ULP430</name>
-          <file> 8</file>
+          <file> 6</file>
         </tool>
       </outputs>
     </file>

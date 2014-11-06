@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1944567650
+Checksum=1000751505
 [CallStackLog]
 Enabled=0
 [CallStack]
@@ -63,9 +63,6 @@ State Storage=0
 Number=4
 [EEM Sequencer]
 Buffer=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-[SfrWindow]
-Show=1 1
-Sort=4 0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
