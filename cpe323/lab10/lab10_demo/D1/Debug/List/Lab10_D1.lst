@@ -1,0 +1,639 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         04/Nov/2014  14:10:31
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  D:\uah\cpe323\lab10\lab10_demo\D1\Lab10_D1.c
+#    Command line  =  
+#        D:\uah\cpe323\lab10\lab10_demo\D1\Lab10_D1.c -lCN
+#        D:\uah\cpe323\lab10\lab10_demo\D1\Debug\List\ -o
+#        D:\uah\cpe323\lab10\lab10_demo\D1\Debug\Obj\ --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --debug -D__MSP430FG4618__ -e
+#        --double=32 --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.0\430\lib\dlib\dl430xlsfn.h" --core=430X
+#        --data_model=small -On --multiplier=16 --segment __data16=DATA16
+#        --segment __data20=DATA20 --code_model=large
+#    List file     =  D:\uah\cpe323\lab10\lab10_demo\D1\Debug\List\Lab10_D1.lst
+#    Object file   =  D:\uah\cpe323\lab10\lab10_demo\D1\Debug\Obj\Lab10_D1.r43
+#
+###############################################################################
+
+D:\uah\cpe323\lab10\lab10_demo\D1\Lab10_D1.c
+      1          /**********************************************************************************
+      2          //  TI Experimenter's Board Demo - Temperature Display in Hyperterminal
+      3          //
+      4          //  Filename: Temp_Display.c
+      5          //
+      6          //  Description: 
+      7          //              This program samples the on-chip temperature sensor, converts the sampled 
+      8          //              voltage from the sensor to temperature in degrees Celsius and 
+      9          //              Fahrenheit, and sends the temperature sensor through a RS232 link 
+     10          //              to the Hyper-terminal application.
+     11          //  Instructions: Set the following parameters in hyperterminal 
+     12          //						Port :		COM1
+     13          //						Baud rate :	38400
+     14          //						Data bits:	8
+     15          //						Parity:		None
+     16          //						Stop bits:	1
+     17          //						Flow Control:	None	
+     18          //
+     19          //  Authors: A. Milenkovic, milenkovic@computer.org
+     20          //			 Max Avula (ma0004@uah.edu)
+     21          //  	     UAH
+     22          //  March 2012
+     23          //  Built with IAR Embedded Workbench IDE Version: 6.3.11.2079
+     24          **********************************************************************************/
+     25          
+     26          #include  <msp430xG46x.h>
+
+   \                                 In  segment DATA16_AN, at 0x1
+   \   unsigned char volatile IE2
+   \                     IE2:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x3
+   \   unsigned char volatile IFG2
+   \                     IFG2:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x1a0
+   \   unsigned short volatile ADC12CTL0
+   \                     ADC12CTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x1a2
+   \   unsigned short volatile ADC12CTL1
+   \                     ADC12CTL1:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x1a6
+   \   unsigned short volatile ADC12IE
+   \                     ADC12IE:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x140
+   \   unsigned short volatile ADC12MEM0
+   \                     ADC12MEM0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x80
+   \   unsigned char volatile ADC12MCTL0
+   \                     ADC12MCTL0:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2e
+   \   unsigned char volatile P2SEL
+   \                     P2SEL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x60
+   \   unsigned char volatile UCA0CTL0
+   \                     UCA0CTL0:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x61
+   \   unsigned char volatile UCA0CTL1
+   \                     UCA0CTL1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x62
+   \   unsigned char volatile UCA0BR0
+   \                     UCA0BR0:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x63
+   \   unsigned char volatile UCA0BR1
+   \                     UCA0BR1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x64
+   \   unsigned char volatile UCA0MCTL
+   \                     UCA0MCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x66
+   \   unsigned char const volatile UCA0RXBUF
+   \                     UCA0RXBUF:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x67
+   \   unsigned char volatile UCA0TXBUF
+   \                     UCA0TXBUF:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     27          #include  <stdio.h>
+     28          
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     29          unsigned char thr_char;  /* hold char from UART RX*/
+   \                     thr_char:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     30          unsigned char rx_flag;   /* receiver rx status flag */
+   \                     rx_flag:
+   \   000000                DS8 1
+     31          
+
+   \                                 In  segment DATA16_I, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     32          char gm1[] = "Hello! I am an MSP430. Would you like to know my temperature? (Y|N)";
+   \                     gm1:
+   \   000000                DS8 68
+   \   000044                REQUIRE `?<Initializer for gm1>`
+
+   \                                 In  segment DATA16_I, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     33          char gm2[] = "Bye, bye!";
+   \                     gm2:
+   \   000000                DS8 10
+   \   00000A                REQUIRE `?<Initializer for gm2>`
+
+   \                                 In  segment DATA16_I, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     34          char gm3[] = "Type in Y or N!";
+   \                     gm3:
+   \   000000                DS8 16
+   \   000010                REQUIRE `?<Initializer for gm3>`
+     35          
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     36          long int temp;
+   \                     temp:
+   \   000000                DS8 4
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     37          long int IntDegF;
+   \                     IntDegF:
+   \   000000                DS8 4
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     38          long int IntDegC;
+   \                     IntDegC:
+   \   000000                DS8 4
+     39          
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     40          char NewKey[25];
+   \                     NewKey:
+   \   000000                DS8 25
+     41          
+     42          
+     43          // UART Initializaion
+     44          void UART_Initialize(void);
+     45          //send char function
+     46          void UART_putchar(char c);
+     47          
+
+   \                                 In  segment CODE, align 2
+     48          void main(void)
+   \                     main:
+     49          {
+   \   000000   0A12         PUSH.W  R10
+     50            int i = 0;
+   \   000002   0A43         MOV.W   #0x0, R10
+     51          
+     52            WDTCTL = WDTPW + WDTHOLD;   // Stop watchdog timer
+   \   000004   B240805A2001 MOV.W   #0x5a80, &0x120
+     53          
+     54            UART_Initialize();
+   \   00000A   ........     CALLA   #UART_Initialize
+     55          
+     56            ADC12CTL0 = SHT0_8 + REFON + ADC12ON;
+   \   00000E   B2403008A001 MOV.W   #0x830, &0x1a0
+     57            ADC12CTL1 = SHP;                      // enable sample timer
+   \   000014   B2400002A201 MOV.W   #0x200, &0x1a2
+     58            ADC12MCTL0 = 0x01A;
+   \   00001A   F2401A008000 MOV.B   #0x1a, &0x80
+     59            ADC12IE = 0x001;
+   \   000020   9243A601     MOV.W   #0x1, &0x1a6
+     60          
+     61            rx_flag = 0;            // rx default state "empty"
+   \   000024   C243....     MOV.B   #0x0, &rx_flag
+     62            _EINT();                // enable global interrupts
+   \   000028   32D2         EINT
+   \   00002A   0343         NOP
+     63          
+     64          
+     65          Wait:
+     66          	//send a greeting message
+     67          	for(i = 0; i < 67; i++)
+   \                     ??main_3:
+   \   00002C   0A43         MOV.W   #0x0, R10
+   \                     ??main_0:
+   \   00002E   3A904300     CMP.W   #0x43, R10
+   \   000032   0934         JGE     ??main_1
+     68          	{
+     69          		thr_char = gm1[i];
+   \   000034   D24A........ MOV.B   gm1(R10), &thr_char
+     70          		UART_putchar(thr_char);
+   \   00003A   5C42....     MOV.B   &thr_char, R12
+   \   00003E   ........     CALLA   #UART_putchar
+     71          	}
+   \   000042   1A53         ADD.W   #0x1, R10
+   \   000044   F43F         JMP     ??main_0
+     72              while(!(rx_flag&0x01)); // wait until receive the character from HyperTerminal
+   \                     ??main_1:
+   \   000046   D2B3....     BIT.B   #0x1, &rx_flag
+   \   00004A   FD2B         JNC     ??main_1
+     73              rx_flag = 0;            // clear rx_flag
+   \   00004C   C243....     MOV.B   #0x0, &rx_flag
+     74              UART_putchar(thr_char);
+   \   000050   5C42....     MOV.B   &thr_char, R12
+   \   000054   ........     CALLA   #UART_putchar
+     75              UART_putchar('\n');    // newline
+   \   000058   7C400A00     MOV.B   #0xa, R12
+   \   00005C   ........     CALLA   #UART_putchar
+     76              UART_putchar('\r');    // carriage return
+   \   000060   7C400D00     MOV.B   #0xd, R12
+   \   000064   ........     CALLA   #UART_putchar
+     77              
+     78          	// character input validation
+     79              if ((thr_char != 'y') && (thr_char != 'n') && (thr_char !='Y') && (thr_char !='N')) 
+   \   000068   F2907900.... CMP.B   #0x79, &thr_char
+   \   00006E   2224         JEQ     ??main_6
+   \   000070   F2906E00.... CMP.B   #0x6e, &thr_char
+   \   000076   1E24         JEQ     ??main_6
+   \   000078   F2905900.... CMP.B   #0x59, &thr_char
+   \   00007E   1A24         JEQ     ??main_6
+   \   000080   F2904E00.... CMP.B   #0x4e, &thr_char
+   \   000086   1624         JEQ     ??main_6
+     80          	{
+     81          		for(i = 0; i < 15; i++) 
+   \   000088   0A43         MOV.W   #0x0, R10
+   \                     ??main_2:
+   \   00008A   3A900F00     CMP.W   #0xf, R10
+   \   00008E   0934         JGE     ??main_7
+     82          		{
+     83          			thr_char = gm3[i];
+   \   000090   D24A........ MOV.B   gm3(R10), &thr_char
+     84          			UART_putchar(thr_char);
+   \   000096   5C42....     MOV.B   &thr_char, R12
+   \   00009A   ........     CALLA   #UART_putchar
+     85          		}
+   \   00009E   1A53         ADD.W   #0x1, R10
+   \   0000A0   F43F         JMP     ??main_2
+     86          		UART_putchar('\n');    // newline
+   \                     ??main_7:
+   \   0000A2   7C400A00     MOV.B   #0xa, R12
+   \   0000A6   ........     CALLA   #UART_putchar
+     87          		UART_putchar('\r');    // carriage return
+   \   0000AA   7C400D00     MOV.B   #0xd, R12
+   \   0000AE   ........     CALLA   #UART_putchar
+     88          		goto Wait;
+   \   0000B2   BC3F         JMP     ??main_3
+     89              }
+     90          
+     91             if ((thr_char == 'y') || (thr_char == 'Y')) 
+   \                     ??main_6:
+   \   0000B4   F2907900.... CMP.B   #0x79, &thr_char
+   \   0000BA   0424         JEQ     ??main_8
+   \   0000BC   F2905900.... CMP.B   #0x59, &thr_char
+   \   0000C2   6420         JNE     ??main_9
+     92             {
+     93                 ADC12CTL0 |= ENC + ADC12SC;         // Sampling and conversion start
+   \                     ??main_8:
+   \   0000C4   B2D00300A001 BIS.W   #0x3, &0x1a0
+     94                _BIS_SR(CPUOFF + GIE);              // LPM0 with interrupts enabled
+   \   0000CA   32D01800     BIS.W   #0x18, SR
+     95          
+     96                //  oF = ((x/4096)*1500mV)-923mV)*1/1.97mV = x*761/4096 - 468
+     97                //  IntDegF = (ADC12MEM0 - 2519)* 761/4096
+     98          
+     99                IntDegF = (temp - 2519) * 761;
+   \   0000CE   1C42....     MOV.W   &temp, R12
+   \   0000D2   1D42....     MOV.W   &temp + 2, R13
+   \   0000D6   3C5029F6     ADD.W   #0xf629, R12
+   \   0000DA   3D63         ADDC.W  #0xffff, R13
+   \   0000DC   3E40F902     MOV.W   #0x2f9, R14
+   \   0000E0   0F43         MOV.W   #0x0, R15
+   \   0000E2   ........     CALLA   #?Mul32
+   \   0000E6   824C....     MOV.W   R12, &IntDegF
+   \   0000EA   824D....     MOV.W   R13, &IntDegF + 2
+    100                IntDegF = IntDegF / 4096;
+   \   0000EE   1C42....     MOV.W   &IntDegF, R12
+   \   0000F2   1D42....     MOV.W   &IntDegF + 2, R13
+   \   0000F6   3E400010     MOV.W   #0x1000, R14
+   \   0000FA   0F43         MOV.W   #0x0, R15
+   \   0000FC   ........     CALLA   #?DivMod32s
+   \   000100   824C....     MOV.W   R12, &IntDegF
+   \   000104   824D....     MOV.W   R13, &IntDegF + 2
+    101          
+    102                //  oC = ((x/4096)*1500mV)-986mV)*1/3.55mV = x*423/4096 - 278
+    103                //  IntDegC = (ADC12MEM0 - 2692)* 423/4096
+    104          
+    105                IntDegC = (temp - 2692) * 423;
+   \   000108   1C42....     MOV.W   &temp, R12
+   \   00010C   1D42....     MOV.W   &temp + 2, R13
+   \   000110   3C507CF5     ADD.W   #0xf57c, R12
+   \   000114   3D63         ADDC.W  #0xffff, R13
+   \   000116   3E40A701     MOV.W   #0x1a7, R14
+   \   00011A   0F43         MOV.W   #0x0, R15
+   \   00011C   ........     CALLA   #?Mul32
+   \   000120   824C....     MOV.W   R12, &IntDegC
+   \   000124   824D....     MOV.W   R13, &IntDegC + 2
+    106                IntDegC = IntDegC / 4096;
+   \   000128   1C42....     MOV.W   &IntDegC, R12
+   \   00012C   1D42....     MOV.W   &IntDegC + 2, R13
+   \   000130   3E400010     MOV.W   #0x1000, R14
+   \   000134   0F43         MOV.W   #0x0, R15
+   \   000136   ........     CALLA   #?DivMod32s
+   \   00013A   824C....     MOV.W   R12, &IntDegC
+   \   00013E   824D....     MOV.W   R13, &IntDegC + 2
+    107          
+    108                //printing the temperature on hyperterminal
+    109          	  sprintf(NewKey, "T(F)=%ld\tT(C)=%ld\n", IntDegF, IntDegC);
+   \   000142   1212....     PUSH.W  &IntDegC + 2
+   \   000146   1212....     PUSH.W  &IntDegC
+   \   00014A   1212....     PUSH.W  &IntDegF + 2
+   \   00014E   1212....     PUSH.W  &IntDegF
+   \   000152   3D40....     MOV.W   #`?<Constant "T(F)=%ld\\tT(C)=%ld\\n">`, R13
+   \   000156   3C40....     MOV.W   #NewKey, R12
+   \   00015A   ........     CALLA   #sprintf
+    110          	  for(i = 0; i < 25; i++) {
+   \   00015E   0A43         MOV.W   #0x0, R10
+   \   000160   3152         ADD.W   #0x8, SP
+   \                     ??main_4:
+   \   000162   3A901900     CMP.W   #0x19, R10
+   \   000166   0934         JGE     ??main_10
+    111                   thr_char = NewKey[i];
+   \   000168   D24A........ MOV.B   NewKey(R10), &thr_char
+    112                   UART_putchar(thr_char);
+   \   00016E   5C42....     MOV.B   &thr_char, R12
+   \   000172   ........     CALLA   #UART_putchar
+    113                }
+   \   000176   1A53         ADD.W   #0x1, R10
+   \   000178   F43F         JMP     ??main_4
+    114                UART_putchar('\n');    // newline
+   \                     ??main_10:
+   \   00017A   7C400A00     MOV.B   #0xa, R12
+   \   00017E   ........     CALLA   #UART_putchar
+    115                UART_putchar('\r');    // carriage return
+   \   000182   7C400D00     MOV.B   #0xd, R12
+   \   000186   ........     CALLA   #UART_putchar
+    116                goto Wait;
+   \   00018A   503F         JMP     ??main_3
+    117             }
+    118          
+    119              if ((thr_char == 'n') || (thr_char == 'N')) 
+   \                     ??main_9:
+   \   00018C   F2906E00.... CMP.B   #0x6e, &thr_char
+   \   000192   0424         JEQ     ??main_11
+   \   000194   F2904E00.... CMP.B   #0x4e, &thr_char
+   \   00019A   1520         JNE     ??main_12
+    120          	{
+    121          		for(i = 0; i < 9; i++) 
+   \                     ??main_11:
+   \   00019C   0A43         MOV.W   #0x0, R10
+   \                     ??main_5:
+   \   00019E   3A900900     CMP.W   #0x9, R10
+   \   0001A2   0934         JGE     ??main_13
+    122          		{
+    123          			thr_char = gm2[i];
+   \   0001A4   D24A........ MOV.B   gm2(R10), &thr_char
+    124          			UART_putchar(thr_char);
+   \   0001AA   5C42....     MOV.B   &thr_char, R12
+   \   0001AE   ........     CALLA   #UART_putchar
+    125          		}
+   \   0001B2   1A53         ADD.W   #0x1, R10
+   \   0001B4   F43F         JMP     ??main_5
+    126          		UART_putchar('\n');    // newline
+   \                     ??main_13:
+   \   0001B6   7C400A00     MOV.B   #0xa, R12
+   \   0001BA   ........     CALLA   #UART_putchar
+    127          		UART_putchar('\r');    // carriage return
+   \   0001BE   7C400D00     MOV.B   #0xd, R12
+   \   0001C2   ........     CALLA   #UART_putchar
+    128             }
+    129          }
+   \                     ??main_12:
+   \   0001C6   3A41         POP.W   R10
+   \   0001C8   1001         RETA
+   \   0001CA                REQUIRE WDTCTL
+   \   0001CA                REQUIRE ADC12CTL0
+   \   0001CA                REQUIRE ADC12CTL1
+   \   0001CA                REQUIRE ADC12MCTL0
+   \   0001CA                REQUIRE ADC12IE
+    130          
+
+   \                                 In  segment CODE, align 2
+    131          void UART_Initialize(void)
+   \                     UART_Initialize:
+    132          {
+    133          	P2SEL |= BIT4+BIT5; // Set UC0TXD and UC0RXD to transmit and receive data   
+   \   000000   F2D030002E00 BIS.B   #0x30, &0x2e
+    134          	UCA0CTL1 |= BIT0; // Software reset   
+   \   000006   D2D36100     BIS.B   #0x1, &0x61
+    135          	UCA0CTL0 = 0; // USCI_A0 control register   
+   \   00000A   C2436000     MOV.B   #0x0, &0x60
+    136          	UCA0CTL1 |= UCSSEL_2; // Clock source SMCLK   
+   \   00000E   F2D080006100 BIS.B   #0x80, &0x61
+    137          	UCA0BR0=54; // 1048576 Hz / 19200   
+   \   000014   F24036006200 MOV.B   #0x36, &0x62
+    138          	UCA0BR1=0; //   
+   \   00001A   C2436300     MOV.B   #0x0, &0x63
+    139          	UCA0MCTL=0x0A; // Modulation   
+   \   00001E   F2400A006400 MOV.B   #0xa, &0x64
+    140          	UCA0CTL1 &= ~BIT0; // Undo software reset 
+   \   000024   D2C36100     BIC.B   #0x1, &0x61
+    141          	IE2 |=UCA0RXIE;       // Enable USCI_A0 RX interrupt
+   \   000028   D2D30100     BIS.B   #0x1, &0x1
+    142          }
+   \   00002C   1001         RETA
+   \   00002E                REQUIRE P2SEL
+   \   00002E                REQUIRE UCA0CTL1
+   \   00002E                REQUIRE UCA0CTL0
+   \   00002E                REQUIRE UCA0BR0
+   \   00002E                REQUIRE UCA0BR1
+   \   00002E                REQUIRE UCA0MCTL
+   \   00002E                REQUIRE IE2
+    143          
+    144          
+
+   \                                 In  segment CODE, align 2
+    145          void UART_putchar(char c) {
+   \                     UART_putchar:
+   \                     ??UART_putchar_0:
+    146            // wait for other character to transmit
+    147            while (!(IFG2 & UCA0TXIFG));
+   \   000000   E2B30300     BIT.B   #0x2, &0x3
+   \   000004   FD2B         JNC     ??UART_putchar_0
+    148            UCA0TXBUF = c;
+   \   000006   C24C6700     MOV.B   R12, &0x67
+    149          }
+   \   00000A   1001         RETA
+   \   00000C                REQUIRE IFG2
+   \   00000C                REQUIRE UCA0TXBUF
+    150          
+    151          #pragma vector=USCIAB0RX_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+    152          __interrupt void USCIA0RX_ISR (void)
+   \                     USCIA0RX_ISR:
+    153          {
+    154            thr_char = UCA0RXBUF;
+   \   000000   D2426600.... MOV.B   &0x66, &thr_char
+    155            rx_flag=0x01;          // signal main function receiving a char
+   \   000006   D243....     MOV.B   #0x1, &rx_flag
+    156            LPM0_EXIT;
+   \   00000A   B1C010000000 BIC.W   #0x10, 0(SP)
+    157          }
+   \   000010   0013         RETI
+   \   000012                REQUIRE UCA0RXBUF
+    158          
+    159          
+    160          #pragma vector=ADC12_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+    161          __interrupt void ADC12ISR (void)
+   \                     ADC12ISR:
+    162          {
+   \   000000   1F15         PUSHM.W #0x2, R15
+    163              temp = ADC12MEM0;                   // Move results, IFG is cleared
+   \   000002   1E424001     MOV.W   &0x140, R14
+   \   000006   0F43         MOV.W   #0x0, R15
+   \   000008   824E....     MOV.W   R14, &temp
+   \   00000C   824F....     MOV.W   R15, &temp + 2
+    164              _BIC_SR_IRQ(CPUOFF);                // Clear CPUOFF bit from 0(SR)
+   \   000010   B1C010000400 BIC.W   #0x10, 0x4(SP)
+    165          }
+   \   000016   1E17         POPM.W  #0x2, R15
+   \   000018   0013         RETI
+   \   00001A                REQUIRE ADC12MEM0
+
+   \                                 In  segment INTVEC, offset 0x2e, root
+   \                     `??ADC12ISR??INTVEC 46`:
+   \   00002E   ....         DC16    ADC12ISR
+
+   \                                 In  segment INTVEC, offset 0x32, root
+   \                     `??USCIA0RX_ISR??INTVEC 50`:
+   \   000032   ....         DC16    USCIA0RX_ISR
+
+   \                                 In  segment DATA16_ID, align 1, align-sorted
+   \                     `?<Initializer for gm1>`:
+   \   000000   48656C6C6F21 DC8 48H, 65H, 6CH, 6CH, 6FH, 21H, 20H, 49H
+   \            2049        
+   \   000008   20616D20616E DC8 20H, 61H, 6DH, 20H, 61H, 6EH, 20H, 4DH
+   \            204D        
+   \   000010   53503433302E DC8 53H, 50H, 34H, 33H, 30H, 2EH, 20H, 57H
+   \            2057        
+   \   000018   6F756C642079 DC8 6FH, 75H, 6CH, 64H, 20H, 79H, 6FH, 75H
+   \            6F75        
+   \   000020   206C696B6520 DC8 20H, 6CH, 69H, 6BH, 65H, 20H, 74H, 6FH
+   \            746F        
+   \   000028   206B6E6F7720 DC8 20H, 6BH, 6EH, 6FH, 77H, 20H, 6DH, 79H
+   \            6D79        
+   \   000030   2074656D7065 DC8 20H, 74H, 65H, 6DH, 70H, 65H, 72H, 61H
+   \            7261        
+   \   000038   747572653F20 DC8 74H, 75H, 72H, 65H, 3FH, 20H, 28H, 59H
+   \            2859        
+   \   000040   7C4E2900     DC8 7CH, 4EH, 29H, 0
+
+   \                                 In  segment DATA16_ID, align 1, align-sorted
+   \                     `?<Initializer for gm2>`:
+   \   000000   4279652C2062 DC8 "Bye, bye!"
+   \            79652100    
+
+   \                                 In  segment DATA16_ID, align 1, align-sorted
+   \                     `?<Initializer for gm3>`:
+   \   000000   547970652069 DC8 "Type in Y or N!"
+   \            6E2059206F72
+   \            204E2100    
+
+   \                                 In  segment DATA16_C, align 1, align-sorted
+   \                     `?<Constant "T(F)=%ld\\tT(C)=%ld\\n">`:
+   \   000000   542846293D25 DC8 "T(F)=%ld\tT(C)=%ld\012"
+   \            6C6409542843
+   \            293D256C640A
+   \            00          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      8   ADC12ISR
+      4   UART_Initialize
+      4   UART_putchar
+      4   USCIA0RX_ISR
+     14   main
+        6   -> UART_Initialize
+        6   -> UART_putchar
+       14   -> sprintf
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      19  ?<Constant "T(F)=%ld\tT(C)=%ld\n">
+      68  ?<Initializer for gm1>
+      10  ?<Initializer for gm2>
+      16  ?<Initializer for gm3>
+       2  ??ADC12ISR??INTVEC 46
+       2  ??USCIA0RX_ISR??INTVEC 50
+       2  ADC12CTL0
+       2  ADC12CTL1
+       2  ADC12IE
+      26  ADC12ISR
+       1  ADC12MCTL0
+       2  ADC12MEM0
+       1  IE2
+       1  IFG2
+       4  IntDegC
+       4  IntDegF
+      25  NewKey
+       1  P2SEL
+      46  UART_Initialize
+      12  UART_putchar
+       1  UCA0BR0
+       1  UCA0BR1
+       1  UCA0CTL0
+       1  UCA0CTL1
+       1  UCA0MCTL
+       1  UCA0RXBUF
+       1  UCA0TXBUF
+      18  USCIA0RX_ISR
+       2  WDTCTL
+      68  gm1
+      10  gm2
+      16  gm3
+     458  main
+       1  rx_flag
+       4  temp
+       1  thr_char
+
+ 
+ 516 bytes in segment CODE
+  21 bytes in segment DATA16_AN
+  19 bytes in segment DATA16_C
+  94 bytes in segment DATA16_I
+  94 bytes in segment DATA16_ID
+  39 bytes in segment DATA16_Z
+   4 bytes in segment INTVEC
+  44 bytes in segment ISR_CODE
+ 
+ 560 bytes of CODE  memory
+ 113 bytes of CONST memory (+  4 bytes shared)
+ 133 bytes of DATA  memory (+ 21 bytes shared)
+
+Errors: none
+Warnings: none

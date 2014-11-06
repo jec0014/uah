@@ -1,0 +1,330 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         04/Nov/2014  12:46:43
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430
+#    Source file   =  D:\uah\cpe323\test_spi_2013\test_spi_2013.c
+#    Command line  =  
+#        D:\uah\cpe323\test_spi_2013\test_spi_2013.c -lCN
+#        D:\uah\cpe323\test_spi_2013\Debug\List\ -o
+#        D:\uah\cpe323\test_spi_2013\Debug\Obj\ --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --debug -D__MSP430F2013__ -e
+#        --double=32 --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.0\430\lib\dlib\dl430fn.h" -On --segment __data16=DATA16
+#        --segment __data20=DATA20
+#    List file     =  D:\uah\cpe323\test_spi_2013\Debug\List\test_spi_2013.lst
+#    Object file   =  D:\uah\cpe323\test_spi_2013\Debug\Obj\test_spi_2013.r43
+#
+###############################################################################
+
+D:\uah\cpe323\test_spi_2013\test_spi_2013.c
+      1          /***********************************************************************
+      2           * Title: Test - SPI for MSP430x2013
+      3           * Date Due: NEVA!
+      4           * 
+      5           * Description:
+      6           *
+      7           * By: Christopher 'ctag' Bero <csb0019@uah.edu>
+      8           * Project: https://github.com/ctag/uah
+      9           *
+     10           * This software is licensed under the GPLv3,
+     11           * consult the LICENSE file for more information.
+     12           **********************************************************************/
+     13          
+     14          #include <msp430.h> // The *correct* include statement
+
+   \                                 In  segment DATA16_AN, at 0x21
+   \   unsigned char volatile P1OUT
+   \                     P1OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x22
+   \   unsigned char volatile P1DIR
+   \                     P1DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x78
+   \   union <unnamed> _A_USICTL0
+   \                     _A_USICTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x7a
+   \   union <unnamed> _A_USICKCTL
+   \                     _A_USICKCTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x7c
+   \   union <unnamed> _A_USISRL
+   \                     _A_USISRL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     15          
+     16          // Set MOSI definitions
+     17          #define LED_ON_STATE    0x31	// character '1'
+     18          #define LED_OFF_STATE   0x30    // character '0'
+     19          #define LED_NUL_STATE   0x00    // character NULL - used for dummy write operation
+     20          
+     21          // Set MISO definitions
+     22          #define LED_ON          0x01
+     23          #define LED_OFF         0x00
+     24          
+     25          #define SET_BUSY_FLAG()   P1OUT |= 0x10;
+     26          #define RESET_BUSY_FLAG() P1OUT &= ~0x10;
+     27          
+     28          #define SET_LED()       P1OUT |= 0x01;
+     29          #define RESET_LED()     P1OUT &= ~0x01;
+     30          
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     31          unsigned char LEDState;
+   \                     LEDState:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     32          unsigned char NextState;
+   \                     NextState:
+   \   000000                DS8 1
+     33          
+
+   \                                 In  segment CODE, align 2
+     34          void SPISetup(void)
+   \                     SPISetup:
+     35          {
+     36            
+     37            USICTL0 |= USISWRST;      //Set UCSWRST -- needed for re-configuration process
+   \   000000   D2D37800     BIS.B   #0x1, &0x78
+     38            USICTL0 |= USIPE5 + USIPE6 + USIPE7 + USIOE; // SCLK-SDO-SDI port enable,MSB first   
+   \   000004   F2D0E2007800 BIS.B   #0xe2, &0x78
+     39            USICTL1 = USIIE;          // USI  Counter Interrupt enable                              
+   \   00000A   F24010007900 MOV.B   #0x10, &0x79
+     40            USICTL0 &= ~USISWRST;     // **Initialize USCI state machine**
+   \   000010   D2C37800     BIC.B   #0x1, &0x78
+     41          }
+   \   000014   3041         RET
+   \   000016                REQUIRE _A_USICTL0
+     42          
+
+   \                                 In  segment CODE, align 2
+     43          void InitComm(void)
+   \                     InitComm:
+     44          { 
+     45           USICNT = 8;                 // Load bit counter, clears IFG
+   \   000000   F2427B00     MOV.B   #0x8, &0x7b
+     46           USISRL = LEDState;          // set LED state
+   \   000004   D242....7C00 MOV.B   &LEDState, &0x7c
+     47           RESET_BUSY_FLAG();          // reset busy flag
+   \   00000A   F2C010002100 BIC.B   #0x10, &0x21
+     48          } 
+   \   000010   3041         RET
+   \   000012                REQUIRE _A_USICKCTL
+   \   000012                REQUIRE _A_USISRL
+   \   000012                REQUIRE P1OUT
+     49          
+
+   \                                 In  segment CODE, align 2
+     50          void LEdInit(unsigned char state)
+   \                     LEdInit:
+     51          {
+     52            if (state == LED_OFF_STATE)
+   \   000000   7C903000     CMP.B   #0x30, R12
+   \   000004   0620         JNE     ??LEdInit_0
+     53            {
+     54              RESET_LED();
+   \   000006   D2C32100     BIC.B   #0x1, &0x21
+     55              LEDState = LED_OFF_STATE;
+   \   00000A   F2403000.... MOV.B   #0x30, &LEDState
+   \   000010   053C         JMP     ??LEdInit_1
+     56            }
+     57            else
+     58            {
+     59              SET_LED();
+   \                     ??LEdInit_0:
+   \   000012   D2D32100     BIS.B   #0x1, &0x21
+     60              LEDState = LED_ON_STATE;
+   \   000016   F2403100.... MOV.B   #0x31, &LEDState
+     61            }  
+     62            P1DIR |= 0x11;                        //  P1.0,4 output
+   \                     ??LEdInit_1:
+   \   00001C   F2D011002200 BIS.B   #0x11, &0x22
+     63          } 
+   \   000022   3041         RET
+   \   000024                REQUIRE P1OUT
+   \   000024                REQUIRE P1DIR
+     64          
+
+   \                                 In  segment CODE, align 2
+     65          void main(void)
+   \                     main:
+     66          {
+     67          	//WDTCTL = WDT_ADLY_250;	// 1 s interval timer
+     68          	WDTCTL = (WDTPW|WDTHOLD);
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+     69          	
+     70          	LEdInit(LED_OFF_STATE);           //LED state initialization
+   \   000006   7C403000     MOV.B   #0x30, R12
+   \   00000A   B012....     CALL    #LEdInit
+     71          	SPISetup();                       //USi module in SPI mode initialization
+   \   00000E   B012....     CALL    #SPISetup
+     72          	InitComm();                       //Communication initialization 
+   \   000012   B012....     CALL    #InitComm
+     73          	
+     74          	//_EINT();			// Enable interrupts
+     75          	// __enable_interrupt(); // Same as _EINT()?
+     76          	
+     77          	//IE1 |= WDTIE;                     // Enable WDT interrupt
+     78          	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
+     79          
+     80          	while (1)
+     81          	{
+     82          		_BIS_SR(LPM0_bits + GIE);           // Enter LPM0 w/ interrupt
+   \                     ??main_0:
+   \   000016   32D01800     BIS.W   #0x18, SR
+     83          		switch (NextState)
+   \   00001A   C293....     CMP.B   #0x0, &NextState
+   \   00001E   0324         JEQ     ??main_2
+     84          		{
+     85          		  case 0x00 :
+     86          			break;
+     87          		  default :
+     88          			LEDState = NextState;          // new state
+   \   000020   D242........ MOV.B   &NextState, &LEDState
+     89          			break;
+     90          		 }    
+     91          		if (LEDState == LED_OFF_STATE)
+   \                     ??main_2:
+   \   000026   F2903000.... CMP.B   #0x30, &LEDState
+   \   00002C   0320         JNE     ??main_3
+     92          		{
+     93          		  RESET_LED();
+   \   00002E   D2C32100     BIC.B   #0x1, &0x21
+   \   000032   023C         JMP     ??main_4
+     94          		}
+     95          		else
+     96          		{
+     97          		  SET_LED();
+   \                     ??main_3:
+   \   000034   D2D32100     BIS.B   #0x1, &0x21
+     98          		}  
+     99          		USISRL = LEDState;            // prepares new communication with new state
+   \                     ??main_4:
+   \   000038   D242....7C00 MOV.B   &LEDState, &0x7c
+    100          		RESET_BUSY_FLAG();          // clears busy flag - ready for new communication
+   \   00003E   F2C010002100 BIC.B   #0x10, &0x21
+   \   000044   E83F         JMP     ??main_0
+   \   000046                REQUIRE WDTCTL
+   \   000046                REQUIRE P1OUT
+   \   000046                REQUIRE _A_USISRL
+    101          	}
+    102          }
+    103          
+    104          #pragma vector=USI_VECTOR
+
+   \                                 In  segment CODE, align 2
+    105          __interrupt void USI_ISR(void)
+   \                     USI_ISR:
+    106          {
+    107            SET_BUSY_FLAG();            // set busy flag - slave is ready with a new communication
+   \   000000   F2D010002100 BIS.B   #0x10, &0x21
+    108            NextState = USISRL;         // read new command
+   \   000006   D2427C00.... MOV.B   &0x7c, &NextState
+    109            USICNT = 8;                 // Load bit counter for next TX
+   \   00000C   F2427B00     MOV.B   #0x8, &0x7b
+    110            _BIC_SR_IRQ(LPM4_bits);     // Exit from LPM4 on RETI
+   \   000010   B1C0F0000000 BIC.W   #0xf0, 0(SP)
+    111          }
+   \   000016   0013         RETI
+   \   000018                REQUIRE P1OUT
+   \   000018                REQUIRE _A_USISRL
+   \   000018                REQUIRE _A_USICKCTL
+
+   \                                 In  segment INTVEC, offset 0x8, root
+   \                     `??USI_ISR??INTVEC 8`:
+   \   000008   ....         DC16    USI_ISR
+    112          
+    113          
+    114          
+    115          
+    116          
+    117          
+    118          
+    119          
+    120          
+    121          
+    122          
+    123          
+    124          
+    125          
+    126          
+    127          
+    128          
+    129          
+    130          
+    131          
+    132          
+    133          
+    134          
+    135          
+    136          
+    137          
+    138          
+    139          
+    140          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      2   InitComm
+      2   LEdInit
+      2   SPISetup
+      4   USI_ISR
+      2   main
+        2   -> InitComm
+        2   -> LEdInit
+        2   -> SPISetup
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ??USI_ISR??INTVEC 8
+      18  InitComm
+       1  LEDState
+      36  LEdInit
+       1  NextState
+       1  P1DIR
+       1  P1OUT
+      22  SPISetup
+      24  USI_ISR
+       2  WDTCTL
+       2  _A_USICKCTL
+       2  _A_USICTL0
+       2  _A_USISRL
+      70  main
+
+ 
+ 170 bytes in segment CODE
+  10 bytes in segment DATA16_AN
+   2 bytes in segment DATA16_Z
+   2 bytes in segment INTVEC
+ 
+ 170 bytes of CODE  memory
+   0 bytes of CONST memory (+  2 bytes shared)
+   2 bytes of DATA  memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none

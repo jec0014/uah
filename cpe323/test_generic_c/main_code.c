@@ -21,8 +21,7 @@ void main(void)
 	//WDTCTL = WDT_ADLY_250;	// 1 s interval timer
 	//WDTCTL = (WDTPW|WDTHOLD);
 	
-	//_EINT();			// Enable interrupts
-	// __enable_interrupt(); // Same as _EINT()?
+	//_EINT();	// Enable interrupts
 	
 	//IE1 |= WDTIE;                     // Enable WDT interrupt
 	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt

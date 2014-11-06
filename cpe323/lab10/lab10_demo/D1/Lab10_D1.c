@@ -130,16 +130,15 @@ Wait:
 
 void UART_Initialize(void)
 {
-
-  P2SEL |= BIT4+BIT5;	// Set UC0TXD and UC0RXD to transmit and receive data	
-  UCA0CTL1 |= BIT0;		// software reset
-  UCA0CTL0 = 0;			// USCI_A0 control register
-  UCA0CTL1 |= UCSSEL_2; // clock source SMCLK
-  UCA0BR0=27;			// 1 MHz 38400
-  UCA0BR1=0;			// 1 MHz 38400
-  UCA0MCTL=0x94;		// Modulation
-  UCA0CTL1 &= ~BIT0;	// software reset
-  IE2 |=UCA0RXIE;       // Enable USCI_A0 RX interrupt
+	P2SEL |= BIT4+BIT5; // Set UC0TXD and UC0RXD to transmit and receive data   
+	UCA0CTL1 |= BIT0; // Software reset   
+	UCA0CTL0 = 0; // USCI_A0 control register   
+	UCA0CTL1 |= UCSSEL_2; // Clock source SMCLK   
+	UCA0BR0=54; // 1048576 Hz / 19200   
+	UCA0BR1=0; //   
+	UCA0MCTL=0x0A; // Modulation   
+	UCA0CTL1 &= ~BIT0; // Undo software reset 
+	IE2 |=UCA0RXIE;       // Enable USCI_A0 RX interrupt
 }
 
 

@@ -54,7 +54,6 @@ void main(void)
 {
 	WDTCTL = (WDTPW|WDTHOLD);
 	
-	Serial_Initialize();
 	SPISetup();
 	
 	_EINT();	// Enable interrupts
