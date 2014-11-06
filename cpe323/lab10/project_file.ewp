@@ -2146,6 +2146,9 @@
       <data/>
     </settings>
   </configuration>
+  <file>
+    <name>$PROJ_DIR$\lab10.c</name>
+  </file>
 </project>
 
 
