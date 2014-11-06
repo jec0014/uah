@@ -24,8 +24,8 @@ void main(void)
   
   initializeUART();	                // Setup UART for RS-232
   
-  P6DIR &= ~0x88;	// Configure P6.3 and P6.7 as input pins  
-  P6SEL |= 0x88;	// Configure P6.3 and P6.7 as analog pins
+  P6DIR &= ~0x05;	// Configure P6.3 and P6.7 as input pins  
+  P6SEL |= 0x05;	// Configure P6.3 and P6.7 as analog pins
 
   //Set up timer to send ADC info to PC overy 100 ms
   TACCR0 = 3277;                //3277 / 32768 Hz = 0.1s
@@ -35,8 +35,8 @@ void main(void)
   //Set up ADC 12
   ADC12CTL0 = ADC12ON + SHT0_6 + MSC; // configure ADC converter
   ADC12CTL1 = SHP + CONSEQ_1;     // Use sample timer, single sequence
-  ADC12MCTL0 = INCH_3;            // ADC chan 0 is A3 pin - Stick X-axis
-  ADC12MCTL1 = INCH_7 + EOS;      // ADC chan 1 is A7 pin - Stick Y-axis
+  ADC12MCTL0 = INCH_0;            // ADC chan 0 is A3 pin - Stick X-axis
+  ADC12MCTL1 = INCH_5 + EOS;      // ADC chan 1 is A7 pin - Stick Y-axis
 				  //EOS - End of Sequence for Conversions	
   ADC12IE |= 0x02;                           // Enable ADC12IFG.8
   for (int i = 0; i < 0x3600; i++);         // Delay for reference start-up

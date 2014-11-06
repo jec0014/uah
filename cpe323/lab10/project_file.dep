@@ -11,30 +11,17 @@
       <file>$PROJ_DIR$\Debug\Obj\lab10.pbi</file>
       <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
       <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
-      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
       <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
       <file>$TOOLKIT_DIR$\inc\msp430.h</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
       <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
+      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
       <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
       <file>$PROJ_DIR$\Debug\List\project_file.map</file>
       <file>$TOOLKIT_DIR$\config\linker\lnk430fg4618.xcl</file>
       <file>$PROJ_DIR$\Debug\List\lab10.lst</file>
     </outputs>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 4 12</file>
-        </tool>
-        <tool>
-          <name>ULP430</name>
-          <file> 3</file>
-        </tool>
-      </outputs>
-    </file>
     <file>
       <name>$PROJ_DIR$\lab10.c</name>
       <outputs>
@@ -50,11 +37,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 7 6 8 9</file>
+          <file> 6 5 9 11</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 7 6 8 9</file>
+          <file> 6 5 9 11</file>
         </tool>
       </inputs>
     </file>
@@ -69,9 +56,22 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 13 10 1 11</file>
+          <file> 13 7 1 10</file>
         </tool>
       </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 4 12</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 3</file>
+        </tool>
+      </outputs>
     </file>
   </configuration>
   <configuration>

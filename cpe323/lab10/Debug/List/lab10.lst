@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         06/Nov/2014  12:53:57
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         06/Nov/2014  13:07:35
 # Copyright 1996-2014 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
 #
@@ -424,28 +424,30 @@ D:\uah\cpe323\lab10\lab10.c
     104            
     105            _EINT();
    \   000056   32D2         EINT
+   \   000058   0343         NOP
     106            
-    107            ADC12CTL0 |= ADC12SC;	// Start conversions
-   \   000058   92D3A001     BIS.W   #0x1, &0x1a0
+    107            //ADC12CTL0 |= ADC12SC;	// Start conversions
     108            
     109            while (1)
-   \                     ??main_1:
-   \   00005C   FF3F         JMP     ??main_1
-   \   00005E                REQUIRE WDTCTL
-   \   00005E                REQUIRE P6DIR
-   \   00005E                REQUIRE P6SEL
-   \   00005E                REQUIRE TACCR0
-   \   00005E                REQUIRE TACTL
-   \   00005E                REQUIRE TACCTL0
-   \   00005E                REQUIRE ADC12CTL0
-   \   00005E                REQUIRE ADC12CTL1
-   \   00005E                REQUIRE ADC12MCTL0
-   \   00005E                REQUIRE ADC12MCTL1
-   \   00005E                REQUIRE ADC12MCTL2
-   \   00005E                REQUIRE ADC12IE
     110            {
-    111               
-    112              //__bis_SR_register(LPM0_bits + GIE);	    // enter LPM0
+    111               ADC12CTL0 |= ADC12SC;	// Start conversions
+   \                     ??main_1:
+   \   00005A   92D3A001     BIS.W   #0x1, &0x1a0
+    112              __bis_SR_register(LPM0_bits + GIE);	    // enter LPM0
+   \   00005E   32D01800     BIS.W   #0x18, SR
+   \   000062   FB3F         JMP     ??main_1
+   \   000064                REQUIRE WDTCTL
+   \   000064                REQUIRE P6DIR
+   \   000064                REQUIRE P6SEL
+   \   000064                REQUIRE TACCR0
+   \   000064                REQUIRE TACTL
+   \   000064                REQUIRE TACCTL0
+   \   000064                REQUIRE ADC12CTL0
+   \   000064                REQUIRE ADC12CTL1
+   \   000064                REQUIRE ADC12MCTL0
+   \   000064                REQUIRE ADC12MCTL1
+   \   000064                REQUIRE ADC12MCTL2
+   \   000064                REQUIRE ADC12IE
     113            }
     114          
     115          }
@@ -472,30 +474,29 @@ D:\uah\cpe323\lab10\lab10.c
    \   000022   0F43         MOV.W   #0x0, R15
    \   000024   824E....     MOV.W   R14, &ADCZval
    \   000028   824F....     MOV.W   R15, &ADCZval + 2
-    123            //__bic_SR_register_on_exit(LPM0_bits);     // Exit LPM0
-    124            ADC12CTL0 |= ADC12SC;	// Start conversions
-   \   00002C   92D3A001     BIS.W   #0x1, &0x1a0
-    125          }
-   \   000030   1E17         POPM.W  #0x2, R15
-   \   000032   0013         RETI
-   \   000034                REQUIRE ADC12MEM0
-   \   000034                REQUIRE ADC12MEM1
-   \   000034                REQUIRE ADC12MEM2
-   \   000034                REQUIRE ADC12CTL0
-    126          
-    127          #pragma vector = TIMERA0_VECTOR
+    123            __bic_SR_register_on_exit(LPM0_bits);     // Exit LPM0
+   \   00002C   B1C010000400 BIC.W   #0x10, 0x4(SP)
+    124          }
+   \   000032   1E17         POPM.W  #0x2, R15
+   \   000034   0013         RETI
+   \   000036                REQUIRE ADC12MEM0
+   \   000036                REQUIRE ADC12MEM1
+   \   000036                REQUIRE ADC12MEM2
+    125          
+    126          #pragma vector = TIMERA0_VECTOR
 
    \                                 In  segment ISR_CODE, align 2
-    128          __interrupt void timerA_isr()
+    127          __interrupt void timerA_isr()
    \                     timerA_isr:
-    129          {
+    128          {
    \   000000   3F15         PUSHM.W #0x4, R15
-    130            sendData();
+    129            sendData();
    \   000002   ........     CALLA   #sendData
-    131            //__bic_SR_register_on_exit(LPM0_bits);     // Exit LPM0
-    132          }
-   \   000006   3C17         POPM.W  #0x4, R15
-   \   000008   0013         RETI
+    130            __bic_SR_register_on_exit(LPM0_bits);     // Exit LPM0
+   \   000006   B1C010000800 BIC.W   #0x10, 0x8(SP)
+    131          }
+   \   00000C   3C17         POPM.W  #0x4, R15
+   \   00000E   0013         RETI
 
    \                                 In  segment INTVEC, offset 0x2c, root
    \                     `??timerA_isr??INTVEC 44`:
@@ -504,6 +505,7 @@ D:\uah\cpe323\lab10\lab10.c
    \                                 In  segment INTVEC, offset 0x2e, root
    \                     `??ADC12ISR??INTVEC 46`:
    \   00002E   ....         DC16    ADC12ISR
+    132          
     133          
     134          
     135          
@@ -532,7 +534,6 @@ D:\uah\cpe323\lab10\lab10.c
     158          
     159          
     160          
-    161          
 
    Maximum stack usage in bytes:
 
@@ -559,7 +560,7 @@ D:\uah\cpe323\lab10\lab10.c
        2  ADC12CTL0
        2  ADC12CTL1
        2  ADC12IE
-      52  ADC12ISR
+      54  ADC12ISR
        1  ADC12MCTL0
        1  ADC12MCTL1
        1  ADC12MCTL2
@@ -588,18 +589,18 @@ D:\uah\cpe323\lab10\lab10.c
        4  Yper
        4  Zper
       38  initializeUART
-      94  main
+     100  main
      266  sendData
-      10  timerA_isr
+      16  timerA_isr
 
  
- 410 bytes in segment CODE
+ 416 bytes in segment CODE
   33 bytes in segment DATA16_AN
   24 bytes in segment DATA16_Z
    4 bytes in segment INTVEC
-  62 bytes in segment ISR_CODE
+  70 bytes in segment ISR_CODE
  
- 472 bytes of CODE  memory
+ 486 bytes of CODE  memory
    0 bytes of CONST memory (+  4 bytes shared)
   24 bytes of DATA  memory (+ 33 bytes shared)
 
