@@ -6,42 +6,42 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\lab10.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\lab10.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\lab10.pbi</file>
-      <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
-      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
-      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
-      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
-      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
-      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
       <file>$TOOLKIT_DIR$\config\linker\lnk430fg4618.xcl</file>
+      <file>$PROJ_DIR$\Debug\Obj\lab10.r43</file>
+      <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
+      <file>$PROJ_DIR$\lab10.c</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
+      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
       <file>$PROJ_DIR$\Debug\List\lab10.lst</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
+      <file>$PROJ_DIR$\Debug\Obj\lab10.pbi</file>
+      <file>$PROJ_DIR$\Debug\List\project_file.map</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\lab10.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 2</file>
+          <file> 12</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 14 1</file>
+          <file> 10 1</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 6 5 9 11</file>
+          <file> 9 7 14 4</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 6 5 9 11</file>
+          <file> 9 7 14 4</file>
         </tool>
       </inputs>
     </file>
@@ -50,13 +50,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 12</file>
+          <file> 13</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 13 7 1 10</file>
+          <file> 0 2 1 5</file>
         </tool>
       </inputs>
     </file>
@@ -65,11 +65,11 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 4 12</file>
+          <file> 13 11</file>
         </tool>
         <tool>
           <name>ULP430</name>
-          <file> 3</file>
+          <file> 8</file>
         </tool>
       </outputs>
     </file>

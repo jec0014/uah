@@ -42,9 +42,13 @@ void initializeUART(void)
 
 void sendData(void)
 {
-  Xper = (ADCXval*3/4095*100/3);        //calculate percentage outputs
-  Yper = (ADCYval*3/4095*100/3);
-  Zper = (ADCZval*3/4095*100/3);
+  //Xper = (ADCXval*3/4095*100/3);        //calculate percentage outputs
+  //Yper = (ADCYval*3/4095*100/3);
+  //Zper = (ADCZval*3/4095*100/3);
+  
+  Xper = ADCXval;
+  Yper = ADCYval;
+  Zper = ADCZval;
   
   int i;
   
