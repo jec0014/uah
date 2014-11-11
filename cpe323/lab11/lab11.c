@@ -20,6 +20,7 @@
 unsigned short int index = 0; // waveform array index
 unsigned short int array = 0; // Alternate waveforms
 unsigned short int amp = 1; // Alternate amplitude
+float div = 1.0;
 
 void main(void)
 {
@@ -27,7 +28,7 @@ void main(void)
 	
 	// Setup ADC
 	ADC12CTL0 = REF2_5V + REFON;	// internal 2.5Vref
-	for (i=50000; i>0; i--);		// Setup delay for Vref
+	for (unsigned int i=50000; i>0; i--);		// Setup delay for Vref
 	__disable_interrupt();			// I don't feel this is necessary, but whatever
 	DAC12_0CTL = DAC12IR + DAC12AMP_5 + DAC12ENC;	//Setup DAC12
 	CCTL0 = CCIE;	// CapCom interrupt enabled
@@ -49,13 +50,13 @@ void main(void)
 		__bis_SR_register(LPM0_bits + GIE);		// Enter LPM0, interrupts enabled
 		switch (array) {
 			case 0:
-				DAC12_0DAT = (sine[index]/amp);		// Load next 1/256th chunk of the waveform
+				DAC12_0DAT = (sine[index]/div);		// Load next 1/256th chunk of the waveform
 			break;
 			case 1:
-				DAC12_0DAT = (triangle[index]/amp);		// Load next 1/256th chunk of the waveform
+				DAC12_0DAT = (triangle[index]/div);		// Load next 1/256th chunk of the waveform
 			break;
 			case 2:
-				DAC12_0DAT = (saw[index]/amp);		// Load next 1/256th chunk of the waveform
+				DAC12_0DAT = (saw[index]/div);		// Load next 1/256th chunk of the waveform
 			break;
 		}
 		
@@ -82,8 +83,8 @@ __interrupt void Port1_ISR (void)
 	// Constant delay debounce
 	int factor = (SCFQCTL / 30);
 	int looper = (20 * factor);
-	for (int c = 0; c < looper; c++)
-	{ asm("NOP"); }
+	//for (int c = 0; c < looper; c++)
+	//{ asm("NOP"); }
 
 	if (((SW1) == 0) && ((SW2) != 0)) // SW1 is pressed
 	{
@@ -97,16 +98,20 @@ __interrupt void Port1_ISR (void)
 		switch (amp) {
 			case 1:
 				amp = 2;
+                                div = 1.0;
 			break;
 			case 2:
-				amp = 4;
+				amp = 3;
+                                div = 2.0;
 			break;
-			case 4:
+			case 3:
 				amp = 1;
+                                div = 4.0;
 			break;
 			default:
 				amp = 1;
 			break;
+                }
 	}
 
 	P1IFG &= ~BIT1;		// Clear P1.1 IFG

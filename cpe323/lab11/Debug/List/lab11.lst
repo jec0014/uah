@@ -1,0 +1,778 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         11/Nov/2014  13:57:11
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  D:\uah\cpe323\lab11\lab11.c
+#    Command line  =  
+#        D:\uah\cpe323\lab11\lab11.c -lCN D:\uah\cpe323\lab11\Debug\List\ -o
+#        D:\uah\cpe323\lab11\Debug\Obj\ --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --debug -D__MSP430FG4618__ -e --double=32
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.0\430\lib\dlib\dl430xlsfn.h" --core=430X --data_model=small -On
+#        --multiplier=16 --segment __data16=DATA16 --segment __data20=DATA20
+#        --code_model=large
+#    List file     =  D:\uah\cpe323\lab11\Debug\List\lab11.lst
+#    Object file   =  D:\uah\cpe323\lab11\Debug\Obj\lab11.r43
+#
+###############################################################################
+
+D:\uah\cpe323\lab11\lab11.c
+      1          /***********************************************************************
+      2           * Title:
+      3           * Date Due:
+      4           * 
+      5           * Description:
+      6           *
+      7           * By: Christopher 'ctag' Bero <csb0019@uah.edu>
+      8           * Project: https://github.com/ctag/uah
+      9           *
+     10           * This software is licensed under the GPLv3,
+     11           * consult the LICENSE file for more information.
+     12           **********************************************************************/
+     13          
+     14          #include <msp430.h> // The *correct* include statement
+
+   \                                 In  segment DATA16_AN, at 0x1a0
+   \   unsigned short volatile ADC12CTL0
+   \                     ADC12CTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x1c0
+   \   unsigned short volatile DAC12_0CTL
+   \                     DAC12_0CTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x1c8
+   \   unsigned short volatile DAC12_0DAT
+   \                     DAC12_0DAT:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x52
+   \   unsigned char volatile SCFQCTL
+   \                     SCFQCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x20
+   \   unsigned char const volatile P1IN
+   \                     P1IN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x23
+   \   unsigned char volatile P1IFG
+   \                     P1IFG:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x24
+   \   unsigned char volatile P1IES
+   \                     P1IES:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x25
+   \   unsigned char volatile P1IE
+   \                     P1IE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x160
+   \   unsigned short volatile TACTL
+   \                     TACTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x162
+   \   unsigned short volatile TACCTL0
+   \                     TACCTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x172
+   \   unsigned short volatile TACCR0
+   \                     TACCR0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     15          #include "waveform.h" // Local header
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+   \   unsigned int const sine[256]
+   \                     sine:
+   \   000000   000832086408 DC16 2048, 2098, 2148, 2199, 2249, 2299, 2349, 2398, 2448, 2497, 2546
+   \            9708C908FB08
+   \            2D095E099009
+   \            C109F209    
+   \   000016   220A530A820A DC16 2594, 2643, 2690, 2738, 2785, 2832, 2878, 2924, 2969, 3013, 3057
+   \            B20AE10A100B
+   \            3E0B6C0B990B
+   \            C50BF10B    
+   \   00002C   1D0C480C720C DC16 3101, 3144, 3186, 3227, 3268, 3308, 3347, 3386, 3423, 3460, 3496
+   \            9B0CC40CEC0C
+   \            130D3A0D5F0D
+   \            840DA80D    
+   \   000042   CB0DED0D0F0E DC16 3531, 3565, 3599, 3631, 3663, 3693, 3722, 3751, 3778, 3805, 3830
+   \            2F0E4F0E6D0E
+   \            8A0EA70EC20E
+   \            DD0EF60E    
+   \   000058   0E0F250F3B0F DC16 3854, 3877, 3899, 3920, 3940, 3959, 3976, 3993, 4008, 4022, 4035
+   \            500F640F770F
+   \            880F990FA80F
+   \            B60FC30F    
+   \   00006E   CE0FD90FE20F DC16 4046, 4057, 4066, 4074, 4081, 4086, 4090, 4094, 4095, 4095, 4095
+   \            EA0FF10FF60F
+   \            FA0FFE0FFF0F
+   \            FF0FFF0F    
+   \   000084   FE0FFA0FF60F DC16 4094, 4090, 4086, 4081, 4074, 4066, 4057, 4046, 4035, 4022, 4008
+   \            F10FEA0FE20F
+   \            D90FCE0FC30F
+   \            B60FA80F    
+   \   00009A   990F880F770F DC16 3993, 3976, 3959, 3940, 3920, 3899, 3877, 3854, 3830, 3805, 3778
+   \            640F500F3B0F
+   \            250F0E0FF60E
+   \            DD0EC20E    
+   \   0000B0   A70E8A0E6D0E DC16 3751, 3722, 3693, 3663, 3631, 3599, 3565, 3531, 3496, 3460, 3423
+   \            4F0E2F0E0F0E
+   \            ED0DCB0DA80D
+   \            840D5F0D    
+   \   0000C6   3A0D130DEC0C DC16 3386, 3347, 3308, 3268, 3227, 3186, 3144, 3101, 3057, 3013, 2969
+   \            C40C9B0C720C
+   \            480C1D0CF10B
+   \            C50B990B    
+   \   0000DC   6C0B3E0B100B DC16 2924, 2878, 2832, 2785, 2738, 2690, 2643, 2594, 2546, 2497, 2448
+   \            E10AB20A820A
+   \            530A220AF209
+   \            C1099009    
+   \   0000F2   5E092D09FB08 DC16 2398, 2349, 2299, 2249, 2199, 2148, 2098, 2048, 1998, 1948, 1897
+   \            C90897086408
+   \            32080008CE07
+   \            9C076907    
+   \   000108   37070507D306 DC16 1847, 1797, 1747, 1698, 1648, 1599, 1550, 1502, 1453, 1406, 1358
+   \            A20670063F06
+   \            0E06DE05AD05
+   \            7E054E05    
+   \   00011E   1F05F004C204 DC16 1311, 1264, 1218, 1172, 1127, 1083, 1039, 995, 952, 910, 869, 828
+   \            940467043B04
+   \            0F04E303B803
+   \            8E0365033C03
+   \   000136   1403ED02C602 DC16 788, 749, 710, 673, 636, 600, 565, 531, 497, 465, 433, 403, 374
+   \            A1027C025802
+   \            35021302F101
+   \            D101B1019301
+   \            7601        
+   \   000150   59013E012301 DC16 345, 318, 291, 266, 242, 219, 197, 176, 156, 137, 120, 103, 88, 74
+   \            0A01F200DB00
+   \            C500B0009C00
+   \            890078006700
+   \            58004A00    
+   \   00016C   3D0032002700 DC16 61, 50, 39, 30, 22, 15, 10, 6, 2, 1, 0, 1, 2, 6, 10, 15, 22, 30
+   \            1E0016000F00
+   \            0A0006000200
+   \            010000000100
+   \            020006000A00
+   \            0F0016001E00
+   \   000190   270032003D00 DC16 39, 50, 61, 74, 88, 103, 120, 137, 156, 176, 197, 219, 242, 266
+   \            4A0058006700
+   \            780089009C00
+   \            B000C500DB00
+   \            F2000A01    
+   \   0001AC   23013E015901 DC16 291, 318, 345, 374, 403, 433, 465, 497, 531, 565, 600, 636, 673
+   \            76019301B101
+   \            D101F1011302
+   \            350258027C02
+   \            A102        
+   \   0001C6   C602ED021403 DC16 710, 749, 788, 828, 869, 910, 952, 995, 1039, 1083, 1127, 1172
+   \            3C0365038E03
+   \            B803E3030F04
+   \            3B0467049404
+   \   0001DE   C204F0041F05 DC16 1218, 1264, 1311, 1358, 1406, 1453, 1502, 1550, 1599, 1648, 1698
+   \            4E057E05AD05
+   \            DE050E063F06
+   \            7006A206    
+   \   0001F4   D30605073707 DC16 1747, 1797, 1847, 1897, 1948, 1998
+   \            69079C07CE07
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+   \   unsigned int const triangle[258]
+   \                     triangle:
+   \   000000   000020004000 DC16 0, 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416
+   \            60008000A000
+   \            C000E0000001
+   \            200140016001
+   \            8001A001    
+   \   00001C   C001E0010002 DC16 448, 480, 512, 544, 576, 608, 640, 672, 704, 736, 768, 800, 832
+   \            200240026002
+   \            8002A002C002
+   \            E00200032003
+   \            4003        
+   \   000036   60038003A003 DC16 864, 896, 928, 960, 992, 1024, 1056, 1088, 1120, 1152, 1184, 1216
+   \            C003E0030004
+   \            200440046004
+   \            8004A004C004
+   \   00004E   E00400052005 DC16 1248, 1280, 1312, 1344, 1376, 1408, 1440, 1472, 1504, 1536, 1568
+   \            400560058005
+   \            A005C005E005
+   \            00062006    
+   \   000064   400660068006 DC16 1600, 1632, 1664, 1696, 1728, 1760, 1792, 1824, 1856, 1888, 1920
+   \            A006C006E006
+   \            000720074007
+   \            60078007    
+   \   00007A   A007C007E007 DC16 1952, 1984, 2016, 2048, 2079, 2111, 2143, 2175, 2207, 2239, 2271
+   \            00081F083F08
+   \            5F087F089F08
+   \            BF08DF08    
+   \   000090   FF081F093F09 DC16 2303, 2335, 2367, 2399, 2431, 2463, 2495, 2527, 2559, 2591, 2623
+   \            5F097F099F09
+   \            BF09DF09FF09
+   \            1F0A3F0A    
+   \   0000A6   5F0A7F0A9F0A DC16 2655, 2687, 2719, 2751, 2783, 2815, 2847, 2879, 2911, 2943, 2975
+   \            BF0ADF0AFF0A
+   \            1F0B3F0B5F0B
+   \            7F0B9F0B    
+   \   0000BC   BF0BDF0BFF0B DC16 3007, 3039, 3071, 3103, 3135, 3167, 3199, 3231, 3263, 3295, 3327
+   \            1F0C3F0C5F0C
+   \            7F0C9F0CBF0C
+   \            DF0CFF0C    
+   \   0000D2   1F0D3F0D5F0D DC16 3359, 3391, 3423, 3455, 3487, 3519, 3551, 3583, 3615, 3647, 3679
+   \            7F0D9F0DBF0D
+   \            DF0DFF0D1F0E
+   \            3F0E5F0E    
+   \   0000E8   7F0E9F0EBF0E DC16 3711, 3743, 3775, 3807, 3839, 3871, 3903, 3935, 3967, 3999, 4031
+   \            DF0EFF0E1F0F
+   \            3F0F5F0F7F0F
+   \            9F0FBF0F    
+   \   0000FE   DF0FFF0FFF0F DC16 4063, 4095, 4095, 4063, 4031, 3999, 3967, 3935, 3903, 3871, 3839
+   \            DF0FBF0F9F0F
+   \            7F0F5F0F3F0F
+   \            1F0FFF0E    
+   \   000114   DF0EBF0E9F0E DC16 3807, 3775, 3743, 3711, 3679, 3647, 3615, 3583, 3551, 3519, 3487
+   \            7F0E5F0E3F0E
+   \            1F0EFF0DDF0D
+   \            BF0D9F0D    
+   \   00012A   7F0D5F0D3F0D DC16 3455, 3423, 3391, 3359, 3327, 3295, 3263, 3231, 3199, 3167, 3135
+   \            1F0DFF0CDF0C
+   \            BF0C9F0C7F0C
+   \            5F0C3F0C    
+   \   000140   1F0CFF0BDF0B DC16 3103, 3071, 3039, 3007, 2975, 2943, 2911, 2879, 2847, 2815, 2783
+   \            BF0B9F0B7F0B
+   \            5F0B3F0B1F0B
+   \            FF0ADF0A    
+   \   000156   BF0A9F0A7F0A DC16 2751, 2719, 2687, 2655, 2623, 2591, 2559, 2527, 2495, 2463, 2431
+   \            5F0A3F0A1F0A
+   \            FF09DF09BF09
+   \            9F097F09    
+   \   00016C   5F093F091F09 DC16 2399, 2367, 2335, 2303, 2271, 2239, 2207, 2175, 2143, 2111, 2079
+   \            FF08DF08BF08
+   \            9F087F085F08
+   \            3F081F08    
+   \   000182   0008E007C007 DC16 2048, 2016, 1984, 1952, 1920, 1888, 1856, 1824, 1792, 1760, 1728
+   \            A00780076007
+   \            400720070007
+   \            E006C006    
+   \   000198   A00680066006 DC16 1696, 1664, 1632, 1600, 1568, 1536, 1504, 1472, 1440, 1408, 1376
+   \            400620060006
+   \            E005C005A005
+   \            80056005    
+   \   0001AE   400520050005 DC16 1344, 1312, 1280, 1248, 1216, 1184, 1152, 1120, 1088, 1056, 1024
+   \            E004C004A004
+   \            800460044004
+   \            20040004    
+   \   0001C4   E003C003A003 DC16 992, 960, 928, 896, 864, 832, 800, 768, 736, 704, 672, 640, 608
+   \            800360034003
+   \            20030003E002
+   \            C002A0028002
+   \            6002        
+   \   0001DE   400220020002 DC16 576, 544, 512, 480, 448, 416, 384, 352, 320, 288, 256, 224, 192
+   \            E001C001A001
+   \            800160014001
+   \            20010001E000
+   \            C000        
+   \   0001F8   A00080006000 DC16 160, 128, 96, 64, 32, 0
+   \            400020000000
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+   \   unsigned int const saw[257]
+   \                     saw:
+   \   000000   000010002000 DC16 0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224
+   \            300040005000
+   \            600070008000
+   \            9000A000B000
+   \            C000D000E000
+   \   00001E   F00000011001 DC16 240, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432
+   \            200130014001
+   \            500160017001
+   \            80019001A001
+   \            B001        
+   \   000038   C001D001E001 DC16 448, 464, 480, 496, 512, 528, 544, 560, 576, 592, 608, 624, 640
+   \            F00100021002
+   \            200230024002
+   \            500260027002
+   \            8002        
+   \   000052   9002A002B002 DC16 656, 672, 688, 704, 720, 736, 752, 768, 784, 800, 816, 832, 848
+   \            C002D002E002
+   \            F00200031003
+   \            200330034003
+   \            5003        
+   \   00006C   600370038003 DC16 864, 880, 896, 912, 928, 944, 960, 976, 992, 1008, 1024, 1040
+   \            9003A003B003
+   \            C003D003E003
+   \            F00300041004
+   \   000084   200430044004 DC16 1056, 1072, 1088, 1104, 1120, 1136, 1152, 1168, 1184, 1200, 1216
+   \            500460047004
+   \            80049004A004
+   \            B004C004    
+   \   00009A   D004E004F004 DC16 1232, 1248, 1264, 1280, 1296, 1312, 1328, 1344, 1360, 1376, 1392
+   \            000510052005
+   \            300540055005
+   \            60057005    
+   \   0000B0   80059005A005 DC16 1408, 1424, 1440, 1456, 1472, 1488, 1504, 1520, 1536, 1552, 1568
+   \            B005C005D005
+   \            E005F0050006
+   \            10062006    
+   \   0000C6   300640065006 DC16 1584, 1600, 1616, 1632, 1648, 1664, 1680, 1696, 1712, 1728, 1744
+   \            600670068006
+   \            9006A006B006
+   \            C006D006    
+   \   0000DC   E006F0060007 DC16 1760, 1776, 1792, 1808, 1824, 1840, 1856, 1872, 1888, 1904, 1920
+   \            100720073007
+   \            400750076007
+   \            70078007    
+   \   0000F2   9007A007B007 DC16 1936, 1952, 1968, 1984, 2000, 2016, 2032, 2048, 2063, 2079, 2095
+   \            C007D007E007
+   \            F00700080F08
+   \            1F082F08    
+   \   000108   3F084F085F08 DC16 2111, 2127, 2143, 2159, 2175, 2191, 2207, 2223, 2239, 2255, 2271
+   \            6F087F088F08
+   \            9F08AF08BF08
+   \            CF08DF08    
+   \   00011E   EF08FF080F09 DC16 2287, 2303, 2319, 2335, 2351, 2367, 2383, 2399, 2415, 2431, 2447
+   \            1F092F093F09
+   \            4F095F096F09
+   \            7F098F09    
+   \   000134   9F09AF09BF09 DC16 2463, 2479, 2495, 2511, 2527, 2543, 2559, 2575, 2591, 2607, 2623
+   \            CF09DF09EF09
+   \            FF090F0A1F0A
+   \            2F0A3F0A    
+   \   00014A   4F0A5F0A6F0A DC16 2639, 2655, 2671, 2687, 2703, 2719, 2735, 2751, 2767, 2783, 2799
+   \            7F0A8F0A9F0A
+   \            AF0ABF0ACF0A
+   \            DF0AEF0A    
+   \   000160   FF0A0F0B1F0B DC16 2815, 2831, 2847, 2863, 2879, 2895, 2911, 2927, 2943, 2959, 2975
+   \            2F0B3F0B4F0B
+   \            5F0B6F0B7F0B
+   \            8F0B9F0B    
+   \   000176   AF0BBF0BCF0B DC16 2991, 3007, 3023, 3039, 3055, 3071, 3087, 3103, 3119, 3135, 3151
+   \            DF0BEF0BFF0B
+   \            0F0C1F0C2F0C
+   \            3F0C4F0C    
+   \   00018C   5F0C6F0C7F0C DC16 3167, 3183, 3199, 3215, 3231, 3247, 3263, 3279, 3295, 3311, 3327
+   \            8F0C9F0CAF0C
+   \            BF0CCF0CDF0C
+   \            EF0CFF0C    
+   \   0001A2   0F0D1F0D2F0D DC16 3343, 3359, 3375, 3391, 3407, 3423, 3439, 3455, 3471, 3487, 3503
+   \            3F0D4F0D5F0D
+   \            6F0D7F0D8F0D
+   \            9F0DAF0D    
+   \   0001B8   BF0DCF0DDF0D DC16 3519, 3535, 3551, 3567, 3583, 3599, 3615, 3631, 3647, 3663, 3679
+   \            EF0DFF0D0F0E
+   \            1F0E2F0E3F0E
+   \            4F0E5F0E    
+   \   0001CE   6F0E7F0E8F0E DC16 3695, 3711, 3727, 3743, 3759, 3775, 3791, 3807, 3823, 3839, 3855
+   \            9F0EAF0EBF0E
+   \            CF0EDF0EEF0E
+   \            FF0E0F0F    
+   \   0001E4   1F0F2F0F3F0F DC16 3871, 3887, 3903, 3919, 3935, 3951, 3967, 3983, 3999, 4015, 4031
+   \            4F0F5F0F6F0F
+   \            7F0F8F0F9F0F
+   \            AF0FBF0F    
+   \   0001FA   CF0FDF0FEF0F DC16 4047, 4063, 4079, 4095
+   \            FF0F        
+     16          
+     17          #define SW1 0x01&P1IN	// B1 - P1.0 switch SW1 
+     18          #define SW2 0x02&P1IN	// B2 - P1.1 switch SW2
+     19          
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     20          unsigned short int index = 0; // waveform array index
+   \                     index:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     21          unsigned short int array = 0; // Alternate waveforms
+   \                     array:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     22          unsigned short int amp = 1; // Alternate amplitude
+   \                     amp:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for amp>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     23          float div = 1.0;
+   \                     div:
+   \   000000                DS8 4
+   \   000004                REQUIRE `?<Initializer for div>`
+     24          
+
+   \                                 In  segment CODE, align 2
+     25          void main(void)
+   \                     main:
+     26          {
+     27          	WDTCTL = (WDTPW|WDTHOLD);
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+     28          	
+     29          	// Setup ADC
+     30          	ADC12CTL0 = REF2_5V + REFON;	// internal 2.5Vref
+   \   000006   B2406000A001 MOV.W   #0x60, &0x1a0
+     31          	for (unsigned int i=50000; i>0; i--);		// Setup delay for Vref
+   \   00000C   3F4050C3     MOV.W   #0xc350, R15
+   \                     ??main_0:
+   \   000010   0F93         CMP.W   #0x0, R15
+   \   000012   0224         JEQ     ??main_2
+   \   000014   3F53         ADD.W   #0xffff, R15
+   \   000016   FC3F         JMP     ??main_0
+     32          	__disable_interrupt();			// I don't feel this is necessary, but whatever
+   \                     ??main_2:
+   \   000018   32C2         DINT
+   \   00001A   0343         NOP
+     33          	DAC12_0CTL = DAC12IR + DAC12AMP_5 + DAC12ENC;	//Setup DAC12
+   \   00001C   B240A201C001 MOV.W   #0x1a2, &0x1c0
+     34          	CCTL0 = CCIE;	// CapCom interrupt enabled
+   \   000022   B24010006201 MOV.W   #0x10, &0x162
+     35          	CCR0 = 273;		// Setup CCR0 delay [(1/15)/256*1048576]
+   \   000028   B24011017201 MOV.W   #0x111, &0x172
+     36          	TACTL = TASSEL_2 + MC_1;	// TimerA clock set to smclk, up mode
+   \   00002E   B24010026001 MOV.W   #0x210, &0x160
+     37          	
+     38          	// Setup P1 input interrupt
+     39          	P1IE |= 0x0003;		// P1.0 interrupt enabled
+   \   000034   F2D003002500 BIS.B   #0x3, &0x25
+     40          	P1IES |= 0x0003;	// P1.0 hi -> low edge
+   \   00003A   F2D003002400 BIS.B   #0x3, &0x24
+     41          	P1IFG &= ~0x0003;	// Clear P1.0 IFG
+   \   000040   F2F0FC002300 AND.B   #0xfc, &0x23
+     42          	
+     43          	//_EINT();	// Enable interrupts
+     44          	
+     45          	//IE1 |= WDTIE;                     // Enable WDT interrupt
+     46          	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
+     47          
+     48          	while (1)
+     49          	{
+     50          		__bis_SR_register(LPM0_bits + GIE);		// Enter LPM0, interrupts enabled
+   \                     ??main_1:
+   \   000046   32D01800     BIS.W   #0x18, SR
+     51          		switch (array) {
+   \   00004A   1F42....     MOV.W   &array, R15
+   \   00004E   0F83         SUB.W   #0x0, R15
+   \   000050   0524         JEQ     ??main_3
+   \   000052   1F83         SUB.W   #0x1, R15
+   \   000054   1624         JEQ     ??main_4
+   \   000056   1F83         SUB.W   #0x1, R15
+   \   000058   2724         JEQ     ??main_5
+   \   00005A   383C         JMP     ??main_6
+     52          			case 0:
+     53          				DAC12_0DAT = (sine[index]/div);		// Load next 1/256th chunk of the waveform
+   \                     ??main_3:
+   \   00005C   1F42....     MOV.W   &index, R15
+   \   000060   0F5F         RLA.W   R15
+   \   000062   1C4F....     MOV.W   sine(R15), R12
+   \   000066   0D43         MOV.W   #0x0, R13
+   \   000068   ........     CALLA   #_Cast32uto32f
+   \   00006C   1E42....     MOV.W   &div, R14
+   \   000070   1F42....     MOV.W   &div + 2, R15
+   \   000074   ........     CALLA   #_Div32f
+   \   000078   ........     CALLA   #_Cast32fto32u
+   \   00007C   824CC801     MOV.W   R12, &0x1c8
+     54          			break;
+   \   000080   253C         JMP     ??main_6
+     55          			case 1:
+     56          				DAC12_0DAT = (triangle[index]/div);		// Load next 1/256th chunk of the waveform
+   \                     ??main_4:
+   \   000082   1F42....     MOV.W   &index, R15
+   \   000086   0F5F         RLA.W   R15
+   \   000088   1C4F....     MOV.W   triangle(R15), R12
+   \   00008C   0D43         MOV.W   #0x0, R13
+   \   00008E   ........     CALLA   #_Cast32uto32f
+   \   000092   1E42....     MOV.W   &div, R14
+   \   000096   1F42....     MOV.W   &div + 2, R15
+   \   00009A   ........     CALLA   #_Div32f
+   \   00009E   ........     CALLA   #_Cast32fto32u
+   \   0000A2   824CC801     MOV.W   R12, &0x1c8
+     57          			break;
+   \   0000A6   123C         JMP     ??main_6
+     58          			case 2:
+     59          				DAC12_0DAT = (saw[index]/div);		// Load next 1/256th chunk of the waveform
+   \                     ??main_5:
+   \   0000A8   1F42....     MOV.W   &index, R15
+   \   0000AC   0F5F         RLA.W   R15
+   \   0000AE   1C4F....     MOV.W   saw(R15), R12
+   \   0000B2   0D43         MOV.W   #0x0, R13
+   \   0000B4   ........     CALLA   #_Cast32uto32f
+   \   0000B8   1E42....     MOV.W   &div, R14
+   \   0000BC   1F42....     MOV.W   &div + 2, R15
+   \   0000C0   ........     CALLA   #_Div32f
+   \   0000C4   ........     CALLA   #_Cast32fto32u
+   \   0000C8   824CC801     MOV.W   R12, &0x1c8
+     60          			break;
+     61          		}
+     62          		
+     63          		DAC12_0DAT &= 0xFFF;			// Masking bits
+   \                     ??main_6:
+   \   0000CC   B2F0FF0FC801 AND.W   #0xfff, &0x1c8
+     64          		index=(index+1)%256;			// queue up next index
+   \   0000D2   1C42....     MOV.W   &index, R12
+   \   0000D6   1C53         ADD.W   #0x1, R12
+   \   0000D8   3E400001     MOV.W   #0x100, R14
+   \   0000DC   ........     CALLA   #?DivMod16u
+   \   0000E0   824E....     MOV.W   R14, &index
+   \   0000E4   B03F         JMP     ??main_1
+   \   0000E6                REQUIRE WDTCTL
+   \   0000E6                REQUIRE ADC12CTL0
+   \   0000E6                REQUIRE DAC12_0CTL
+   \   0000E6                REQUIRE TACCTL0
+   \   0000E6                REQUIRE TACCR0
+   \   0000E6                REQUIRE TACTL
+   \   0000E6                REQUIRE P1IE
+   \   0000E6                REQUIRE P1IES
+   \   0000E6                REQUIRE P1IFG
+   \   0000E6                REQUIRE DAC12_0DAT
+     65          	}
+     66          }
+     67          
+     68          /*
+     69           * TimerA interrupt service routine
+     70           */
+     71          #pragma vector = TIMERA0_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+     72          __interrupt void TA0_ISR(void)
+   \                     TA0_ISR:
+     73          {
+     74            __bic_SR_register_on_exit(LPM0_bits);     // Exit LPMx, interrupts unchanged
+   \   000000   B1C010000000 BIC.W   #0x10, 0(SP)
+     75          }
+   \   000006   0013         RETI
+     76          
+     77          /*
+     78           * Port 1 interrupt service routine
+     79           */
+     80          #pragma vector = PORT1_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+     81          __interrupt void Port1_ISR (void)
+   \                     Port1_ISR:
+     82          {
+   \   000000   3F15         PUSHM.W #0x4, R15
+     83          	// Constant delay debounce
+     84          	int factor = (SCFQCTL / 30);
+   \   000002   5C425200     MOV.B   &0x52, R12
+   \   000006   7E401E00     MOV.B   #0x1e, R14
+   \   00000A   ........     CALLA   #?DivMod8u
+   \   00000E   4C4C         MOV.B   R12, R12
+     85          	int looper = (20 * factor);
+   \   000010   0F4C         MOV.W   R12, R15
+   \   000012   5F06         RLAM.W  #0x2, R15
+   \   000014   0E4F         MOV.W   R15, R14
+   \   000016   5F06         RLAM.W  #0x2, R15
+   \   000018   0F5E         ADD.W   R14, R15
+     86          	//for (int c = 0; c < looper; c++)
+     87          	//{ asm("NOP"); }
+     88          
+     89          	if (((SW1) == 0) && ((SW2) != 0)) // SW1 is pressed
+   \   00001A   D2B32000     BIT.B   #0x1, &0x20
+   \   00001E   0E2C         JC      ??Port1_ISR_0
+   \   000020   E2B32000     BIT.B   #0x2, &0x20
+   \   000024   0B28         JNC     ??Port1_ISR_0
+     90          	{
+     91          		array++;
+   \   000026   9253....     ADD.W   #0x1, &array
+     92          		if (array > 2) {
+   \   00002A   B2900300.... CMP.W   #0x3, &array
+   \   000030   0228         JNC     ??Port1_ISR_1
+     93          			array = 0;
+   \   000032   8243....     MOV.W   #0x0, &array
+     94          		}
+     95          		index = 0;
+   \                     ??Port1_ISR_1:
+   \   000036   8243....     MOV.W   #0x0, &index
+   \   00003A   2A3C         JMP     ??Port1_ISR_2
+     96          	} else if (((SW2) == 0) && ((SW1) != 0)) // SW2 is pressed
+   \                     ??Port1_ISR_0:
+   \   00003C   E2B32000     BIT.B   #0x2, &0x20
+   \   000040   272C         JC      ??Port1_ISR_2
+   \   000042   D2B32000     BIT.B   #0x1, &0x20
+   \   000046   2428         JNC     ??Port1_ISR_2
+     97          	{
+     98          		switch (amp) {
+   \   000048   1E42....     MOV.W   &amp, R14
+   \   00004C   1E83         SUB.W   #0x1, R14
+   \   00004E   0524         JEQ     ??Port1_ISR_3
+   \   000050   1E83         SUB.W   #0x1, R14
+   \   000052   0B24         JEQ     ??Port1_ISR_4
+   \   000054   1E83         SUB.W   #0x1, R14
+   \   000056   1224         JEQ     ??Port1_ISR_5
+   \   000058   193C         JMP     ??Port1_ISR_6
+     99          			case 1:
+    100          				amp = 2;
+   \                     ??Port1_ISR_3:
+   \   00005A   A243....     MOV.W   #0x2, &amp
+    101                                          div = 1.0;
+   \   00005E   8243....     MOV.W   #0x0, &div
+   \   000062   B240803F.... MOV.W   #0x3f80, &div + 2
+    102          			break;
+   \   000068   133C         JMP     ??Port1_ISR_2
+    103          			case 2:
+    104          				amp = 3;
+   \                     ??Port1_ISR_4:
+   \   00006A   B2400300.... MOV.W   #0x3, &amp
+    105                                          div = 2.0;
+   \   000070   8243....     MOV.W   #0x0, &div
+   \   000074   B2400040.... MOV.W   #0x4000, &div + 2
+    106          			break;
+   \   00007A   0A3C         JMP     ??Port1_ISR_2
+    107          			case 3:
+    108          				amp = 1;
+   \                     ??Port1_ISR_5:
+   \   00007C   9243....     MOV.W   #0x1, &amp
+    109                                          div = 4.0;
+   \   000080   8243....     MOV.W   #0x0, &div
+   \   000084   B2408040.... MOV.W   #0x4080, &div + 2
+    110          			break;
+   \   00008A   023C         JMP     ??Port1_ISR_2
+    111          			default:
+    112          				amp = 1;
+   \                     ??Port1_ISR_6:
+   \   00008C   9243....     MOV.W   #0x1, &amp
+    113          			break;
+    114                          }
+    115          	}
+    116          
+    117          	P1IFG &= ~BIT1;		// Clear P1.1 IFG
+   \                     ??Port1_ISR_2:
+   \   000090   E2C32300     BIC.B   #0x2, &0x23
+    118          	P1IFG &= ~BIT0;		// Clear P1.0 IFG
+   \   000094   D2C32300     BIC.B   #0x1, &0x23
+    119          }
+   \   000098   3C17         POPM.W  #0x4, R15
+   \   00009A   0013         RETI
+   \   00009C                REQUIRE SCFQCTL
+   \   00009C                REQUIRE P1IN
+   \   00009C                REQUIRE P1IFG
+
+   \                                 In  segment INTVEC, offset 0x28, root
+   \                     `??Port1_ISR??INTVEC 40`:
+   \   000028   ....         DC16    Port1_ISR
+
+   \                                 In  segment INTVEC, offset 0x2c, root
+   \                     `??TA0_ISR??INTVEC 44`:
+   \   00002C   ....         DC16    TA0_ISR
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for amp>`:
+   \   000000   0100         DC16 1
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for div>`:
+   \   000000   0000803F     DC32 3F800000H
+    120          
+    121          
+    122          
+    123          
+    124          
+    125          
+    126          
+    127          
+    128          
+    129          
+    130          
+    131          
+    132          
+    133          
+    134          
+    135          
+    136          
+    137          
+    138          
+    139          
+    140          
+    141          
+    142          
+    143          
+    144          
+    145          
+    146          
+    147          
+    148          
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+     12   Port1_ISR
+      4   TA0_ISR
+      4   main
+        4   -> _Cast32fto32u
+        4   -> _Cast32uto32f
+        4   -> _Div32f
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ?<Initializer for amp>
+       4  ?<Initializer for div>
+       2  ??Port1_ISR??INTVEC 40
+       2  ??TA0_ISR??INTVEC 44
+       2  ADC12CTL0
+       2  DAC12_0CTL
+       2  DAC12_0DAT
+       1  P1IE
+       1  P1IES
+       1  P1IFG
+       1  P1IN
+     156  Port1_ISR
+       1  SCFQCTL
+       8  TA0_ISR
+       2  TACCR0
+       2  TACCTL0
+       2  TACTL
+       2  WDTCTL
+       2  amp
+       2  array
+       4  div
+       2  index
+     230  main
+     514  saw
+     512  sine
+     516  triangle
+
+ 
+   230 bytes in segment CODE
+    19 bytes in segment DATA16_AN
+ 1 542 bytes in segment DATA16_C
+     6 bytes in segment DATA16_I
+     6 bytes in segment DATA16_ID
+     4 bytes in segment DATA16_Z
+     4 bytes in segment INTVEC
+   164 bytes in segment ISR_CODE
+ 
+   394 bytes of CODE  memory
+ 1 548 bytes of CONST memory (+  4 bytes shared)
+    10 bytes of DATA  memory (+ 19 bytes shared)
+
+Errors: none
+Warnings: 4
