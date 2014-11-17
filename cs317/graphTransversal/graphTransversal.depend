@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1415608346 source:/home/berocs/Documents/uah/cs317/graphTransversal/main.cpp
+	<iostream>
+	<stdio.h>
+	<stack>
+	<queue>
+
