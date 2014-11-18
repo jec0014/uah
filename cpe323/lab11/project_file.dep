@@ -6,18 +6,17 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\lab11.c</file>
       <file>$PROJ_DIR$\Debug\Obj\lab11.pbi</file>
+      <file>$PROJ_DIR$\lab11.c</file>
       <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
       <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
-      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\waveform.h</file>
       <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
-      <file>$PROJ_DIR$\..\test_generic_c\main_code.c</file>
       <file>$PROJ_DIR$\Debug\Obj\lab11.r43</file>
+      <file>$PROJ_DIR$\waveform.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
       <file>$PROJ_DIR$\Debug\List\project_file.map</file>
       <file>$TOOLKIT_DIR$\config\linker\multiplier.xcl</file>
       <file>$TOOLKIT_DIR$\config\linker\lnk430fg4618.xcl</file>
@@ -29,7 +28,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 9 12</file>
+          <file> 4 11</file>
         </tool>
         <tool>
           <name>ULP430</name>
@@ -42,21 +41,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1</file>
+          <file> 0</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 16 11</file>
+          <file> 15 5</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 4 6 7 8</file>
+          <file> 9 10 8 7 6</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 5 4 6 7 8</file>
+          <file> 9 10 8 7 6</file>
         </tool>
       </inputs>
     </file>
@@ -65,13 +64,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 12</file>
+          <file> 11</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 14 13 11 15</file>
+          <file> 13 12 5 14</file>
         </tool>
       </inputs>
     </file>
