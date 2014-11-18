@@ -1,0 +1,394 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V6.10.2.50871/W32 for MSP430         18/Nov/2014  13:01:48
+# Copyright 1996-2014 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for Texas Instruments MSP430, 8K KickStart Edition 6.10
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  D:\uah\cpe323\lab12\Lab12_D2.c
+#    Command line  =  
+#        D:\uah\cpe323\lab12\Lab12_D2.c -lCN D:\uah\cpe323\lab12\Debug\List\ -o
+#        D:\uah\cpe323\lab12\Debug\Obj\ --no_cse --no_unroll --no_inline
+#        --no_code_motion --no_tbaa --debug -D__MSP430FG4618__ -e --double=32
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.0\430\lib\dlib\dl430xlsfn.h" --core=430X --data_model=small -On
+#        --multiplier=16 --segment __data16=DATA16 --segment __data20=DATA20
+#        --code_model=large
+#    List file     =  D:\uah\cpe323\lab12\Debug\List\Lab12_D2.lst
+#    Object file   =  D:\uah\cpe323\lab12\Debug\Obj\Lab12_D2.r43
+#
+###############################################################################
+
+D:\uah\cpe323\lab12\Lab12_D2.c
+      1          /* *********************************************************************************
+      2          // Description: This client program interfaces with another msp430 acting as a server.
+      3                          When SW2 is pressed on the client board, LED2 will toggle on the
+      4                          server board. When SW2 is pressed on the server board, LED2 will
+      5                          will toggle on the client board.
+      6          // Platform:    TI Experimenter's board with MSP430FG4618/F2013 with CC1101
+      7          //
+      8          // Files:       Lab12_D2.c
+      9          //              Gateway.c  - CC1101 hardware abstraction layer
+     10          //              Gateway.h  - CC1101 header file
+     11          //             
+     12          // Setup:       2 TI Experimenter boards (server and client nodes).
+     13          //              This program runs on the client node.
+     14          //
+     15          // Authors:     CC1101 hardware abstraction layer provided by TI;
+     16          //              Prepared by: Sunny Patel, Sjohn Chambers & Pam Mazurkivich
+     17          //              Edited and verifed by: Aleksandar Milenkovic
+     18          // Contact:     milenkovic@computer.org
+     19          // Date:        March 2013
+     20          // Notes:       Notes:
+     21          //              1.  Not configured for LOW POWER, 
+     22          //                  remove BATT jumper to conserve power when not in use.
+     23          //              2.  If the TI MSP430 devices are placed too close, 
+     24          //                  interference may cause data loss.  
+     25          //                  Move the devices further apart and restart the boards
+     26          //                  if necessary.
+     27          //              3.  Data packet loss is not handled in this program.
+     28          ************************************************************************************/
+     29          #include <string.h>
+     30          
+     31          #include "Gateway.h"	// Header File
+
+   \                                 In  segment DATA16_AN, at 0x20
+   \   unsigned char const volatile P1IN
+   \                     P1IN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x23
+   \   unsigned char volatile P1IFG
+   \                     P1IFG:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x24
+   \   unsigned char volatile P1IES
+   \                     P1IES:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x25
+   \   unsigned char volatile P1IE
+   \                     P1IE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x29
+   \   unsigned char volatile P2OUT
+   \                     P2OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2a
+   \   unsigned char volatile P2DIR
+   \                     P2DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+     32          
+     33          #define SW1 (BIT0&P1IN)
+     34          #define SW2 (BIT1&P1IN)
+     35          
+     36          #define SERVER_ADDRESS 0x1
+     37          #define CLIENT_ADDRESS 0x2
+     38          
+     39          #define LED2_TOGGLE_COMMAND 0x02
+     40          
+     41          // Variable Declarations
+     42          extern char paTable[];
+     43          extern char paTableLen;
+     44          
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     45          char led2TogglePacket[3];
+   \                     led2TogglePacket:
+   \   000000                DS8 3
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     46          char rxBuffer[256];
+   \                     rxBuffer:
+   \   000000                DS8 256
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     47          char len;
+   \                     len:
+   \   000000                DS8 1
+     48          
+     49          // Function Definitions
+     50          
+
+   \                                 In  segment CODE, align 2
+     51          void Software_Delay(void)
+   \                     Software_Delay:
+     52          // Software delay to allow for proper operation of receiver on start up and 
+     53          // after POR.
+     54          {
+     55          		for(int i=0;i<2500;i++)         // POR software delay
+   \   000000   0F43         MOV.W   #0x0, R15
+   \                     ??Software_Delay_0:
+   \   000002   3F90C409     CMP.W   #0x9c4, R15
+   \   000006   0234         JGE     ??Software_Delay_1
+   \   000008   1F53         ADD.W   #0x1, R15
+   \   00000A   FB3F         JMP     ??Software_Delay_0
+     56                            ;
+     57          }
+   \                     ??Software_Delay_1:
+   \   00000C   1001         RETA
+     58          
+     59          // Toggle the LED while actual transmission is happening
+
+   \                                 In  segment CODE, align 2
+     60          void  TI_CC_Initialize()
+   \                     TI_CC_Initialize:
+     61          // Function to initialize ports for interfacing TI CC1100 (TI_CC) 
+     62          {
+     63          	TI_CC_LED_PxDIR |= TI_CC_LED1;           // Port 1 LED set to Outputs
+   \   000000   E2D32A00     BIS.B   #0x2, &0x2a
+     64          	TI_CC_LED_PxOUT |= TI_CC_LED1;           // Initialize, turn on LED1
+   \   000004   E2D32900     BIS.B   #0x2, &0x29
+     65                  TI_CC_GDO0_PxIES |= TI_CC_GDO0_PIN;
+   \   000008   E2D22400     BIS.B   #0x4, &0x24
+     66          	TI_CC_GDO0_PxIFG &= ~TI_CC_GDO0_PIN;    // Initialize, clear 
+   \   00000C   E2C22300     BIC.B   #0x4, &0x23
+     67                                                      // TI_CC_GDO0_PIN bit which is
+     68                                                      //set after data packet transfer          
+     69          	TI_CC_GDO0_PxIE |= TI_CC_GDO0_PIN;      // Enable interrupt to occur at
+   \   000010   E2D22500     BIS.B   #0x4, &0x25
+     70                                                      // the end of a data packet
+     71          }	// end TI_CC_Initialize (Transmitter version)
+   \   000014   1001         RETA
+   \   000016                REQUIRE P2DIR
+   \   000016                REQUIRE P2OUT
+   \   000016                REQUIRE P1IES
+   \   000016                REQUIRE P1IFG
+   \   000016                REQUIRE P1IE
+     72          
+
+   \                                 In  segment CODE, align 2
+     73          void Transmitter_Initialization()
+   \                     Transmitter_Initialization:
+     74          // Function to support MSP430 transmitter initialization to support wireless 
+     75          // communication  via SPI provided by the TI CC1100 chip which attaches
+     76          // to the transmitting TI MSP430 experimenter board.
+     77          {  
+     78                  Software_Delay();
+   \   000000   ........     CALLA   #Software_Delay
+     79          	TI_CC_SPISetup();                       // Initialize SPI port
+   \   000004   ........     CALLA   #TI_CC_SPISetup
+     80          	TI_CC_PowerupResetCCxxxx();             // Reset CCxxxx
+   \   000008   ........     CALLA   #TI_CC_PowerupResetCCxxxx
+     81          	writeRFSettings();                      // Write RF settings to config reg
+   \   00000C   ........     CALLA   #writeRFSettings
+     82          	TI_CC_SPIWriteBurstReg(TI_CCxxx0_PATABLE, paTable, paTableLen); 
+   \   000010   5E42....     MOV.B   &paTableLen, R14
+   \   000014   3D40....     MOV.W   #paTable, R13
+   \   000018   7C403E00     MOV.B   #0x3e, R12
+   \   00001C   ........     CALLA   #TI_CC_SPIWriteBurstReg
+     83                                                      // Write PATABLE
+     84          	TI_CC_Initialize();                     // Initialize CCxxx on port 1.
+   \   000020   ........     CALLA   #TI_CC_Initialize
+     85          	TI_CC_SPIStrobe(TI_CCxxx0_SRX);         // Initialize CCxxxx in RX mode.
+   \   000024   7C403400     MOV.B   #0x34, R12
+   \   000028   ........     BRA     #TI_CC_SPIStrobe
+     86          }	// end Transmitter_Initialization
+     87          
+     88          
+
+   \                                 In  segment CODE, align 2
+     89          void main (void)
+   \                     main:
+     90          {
+     91          	WDTCTL = WDTPW + WDTHOLD;               // Stop WDT
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+     92              // Initialization of the transmitting MSP430 experimenter board
+     93                    _EINT();                      // Enable interrupts
+   \   000006   32D2         EINT
+     94                  P1IE |= 0x03;                 // Enable P1 interrupt for bit 0 and 1
+   \   000008   F2D003002500 BIS.B   #0x3, &0x25
+     95                  P1IES |= 0x03;                // Set interrupt call to falling edge
+   \   00000E   F2D003002400 BIS.B   #0x3, &0x24
+     96                  P1IFG &= ~(0x03);             // Clear interrupt flags
+   \   000014   F2F0FC002300 AND.B   #0xfc, &0x23
+     97                    P2DIR |= 0x06; 		// Set P2.1 and P2.2 to output (0000_0110) 
+   \   00001A   F2D006002A00 BIS.B   #0x6, &0x2a
+     98                   P2OUT = 0x06;			// Set P2OUT to 0000_0010b
+   \   000020   F24006002900 MOV.B   #0x6, &0x29
+     99          	Transmitter_Initialization();      
+   \   000026   ........     CALLA   #Transmitter_Initialization
+    100                  
+    101                  //Go ahead and set up the packet for toggleing LED2 on the server board
+    102                  //as it will not change.
+    103                  led2TogglePacket[PLENGTHINDEX] = PSIZE - 1;  
+   \   00002A   E243....     MOV.B   #0x2, &led2TogglePacket
+    104                  led2TogglePacket[PADDRINDEX] = SERVER_ADDRESS;
+   \   00002E   D243....     MOV.B   #0x1, &led2TogglePacket + 1
+    105                  led2TogglePacket[PDATAINDEX] = LED2_TOGGLE_COMMAND;
+   \   000032   E243....     MOV.B   #0x2, &led2TogglePacket + 2
+    106                  
+    107          	while(1)
+    108          	{  
+    109          		_BIS_SR(LPM3_bits + GIE);       // Enter LPM0, enable interrupts        
+   \                     ??main_0:
+   \   000036   32D0D800     BIS.W   #0xd8, SR
+   \   00003A   FD3F         JMP     ??main_0
+   \   00003C                REQUIRE WDTCTL
+   \   00003C                REQUIRE P1IE
+   \   00003C                REQUIRE P1IES
+   \   00003C                REQUIRE P1IFG
+   \   00003C                REQUIRE P2DIR
+   \   00003C                REQUIRE P2OUT
+    110                                                         
+    111          	}  // end while 
+    112          }   // end main 
+    113          
+    114          #pragma vector = PORT1_VECTOR
+
+   \                                 In  segment ISR_CODE, align 2
+    115          __interrupt void switch_ISR (void)
+   \                     switch_ISR:
+    116          {
+   \   000000   5F15         PUSHM.W #0x6, R15
+    117            P1IFG &= ~(0x02);            // clear SW2 IFG
+   \   000002   E2C32300     BIC.B   #0x2, &0x23
+    118            if (SW2 == 0)                 // if SW2 is pressed
+   \   000006   E2B32000     BIT.B   #0x2, &0x20
+   \   00000A   102C         JC      ??switch_ISR_1
+    119            {
+    120              int i;
+    121              for(i = 0; i < 0x2000; i++) //debounce delay
+   \   00000C   0A43         MOV.W   #0x0, R10
+   \                     ??switch_ISR_0:
+   \   00000E   3A900020     CMP.W   #0x2000, R10
+   \   000012   0334         JGE     ??switch_ISR_2
+    122              {
+    123                asm("nop");
+   \   000014   0343         nop
+    124              }
+   \   000016   1A53         ADD.W   #0x1, R10
+   \   000018   FA3F         JMP     ??switch_ISR_0
+    125              if (SW2 == 0) //When SW2 is pressed, send command to toggle server LED2
+   \                     ??switch_ISR_2:
+   \   00001A   E2B32000     BIT.B   #0x2, &0x20
+   \   00001E   062C         JC      ??switch_ISR_1
+    126              {
+    127                RFSendPacket(led2TogglePacket, PSIZE);
+   \   000020   7D400300     MOV.B   #0x3, R13
+   \   000024   3C40....     MOV.W   #led2TogglePacket, R12
+   \   000028   ........     CALLA   #RFSendPacket
+    128              }
+    129                         
+    130            }
+    131               if(P1IFG & TI_CC_GDO0_PIN)              // Command received from RF RX active
+   \                     ??switch_ISR_1:
+   \   00002C   E2B22300     BIT.B   #0x4, &0x23
+   \   000030   1528         JNC     ??switch_ISR_3
+    132               {   
+    133                  if( RFReceivePacket(rxBuffer,&len))   // check if packet is received       
+   \   000032   3D40....     MOV.W   #len, R13
+   \   000036   3C40....     MOV.W   #rxBuffer, R12
+   \   00003A   ........     CALLA   #RFReceivePacket
+   \   00003E   4C93         CMP.B   #0x0, R12
+   \   000040   0B24         JEQ     ??switch_ISR_4
+    134          	{
+    135                      
+    136                      if(rxBuffer[0] == CLIENT_ADDRESS) //Make sure this message is intended for the client
+   \   000042   E293....     CMP.B   #0x2, &rxBuffer
+   \   000046   0820         JNE     ??switch_ISR_4
+    137                      {
+    138                    
+    139                        //if server sends LED2 toggle command, toggle LED2
+    140                        if(rxBuffer[1] == LED2_TOGGLE_COMMAND && len==2) //Messages longer than length 2 should be treated differently
+   \   000048   E293....     CMP.B   #0x2, &rxBuffer + 1
+   \   00004C   0520         JNE     ??switch_ISR_4
+   \   00004E   E293....     CMP.B   #0x2, &len
+   \   000052   0220         JNE     ??switch_ISR_4
+    141                        {
+    142                            P2OUT ^= 0x02;
+   \   000054   E2E32900     XOR.B   #0x2, &0x29
+    143                        }
+    144                        
+    145                      }
+    146                  }
+    147          	P1IFG &= ~(TI_CC_GDO0_PIN); // reset of TI_CC_GDO0_PIN bit which is set after data packet transfer  
+   \                     ??switch_ISR_4:
+   \   000058   E2C22300     BIC.B   #0x4, &0x23
+    148                       
+    149              }
+    150          }
+   \                     ??switch_ISR_3:
+   \   00005C   5A17         POPM.W  #0x6, R15
+   \   00005E   0013         RETI
+   \   000060                REQUIRE P1IFG
+   \   000060                REQUIRE P1IN
+   \   000060                REQUIRE P2OUT
+
+   \                                 In  segment INTVEC, offset 0x28, root
+   \                     `??switch_ISR??INTVEC 40`:
+   \   000028   ....         DC16    switch_ISR
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      4   Software_Delay
+      4   TI_CC_Initialize
+      4   Transmitter_Initialization
+        4   -> Software_Delay
+        4   -> TI_CC_Initialize
+        4   -> TI_CC_PowerupResetCCxxxx
+        4   -> TI_CC_SPISetup
+        4   -> TI_CC_SPIStrobe
+        4   -> TI_CC_SPIWriteBurstReg
+        4   -> writeRFSettings
+      4   main
+        4   -> Transmitter_Initialization
+     16   switch_ISR
+       16   -> RFReceivePacket
+       16   -> RFSendPacket
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ??switch_ISR??INTVEC 40
+       1  P1IE
+       1  P1IES
+       1  P1IFG
+       1  P1IN
+       1  P2DIR
+       1  P2OUT
+      14  Software_Delay
+      22  TI_CC_Initialize
+      44  Transmitter_Initialization
+       2  WDTCTL
+       3  led2TogglePacket
+       1  len
+      60  main
+     256  rxBuffer
+      96  switch_ISR
+
+ 
+ 140 bytes in segment CODE
+   8 bytes in segment DATA16_AN
+ 260 bytes in segment DATA16_Z
+   2 bytes in segment INTVEC
+  96 bytes in segment ISR_CODE
+ 
+ 236 bytes of CODE  memory
+   0 bytes of CONST memory (+ 2 bytes shared)
+ 260 bytes of DATA  memory (+ 8 bytes shared)
+
+Errors: none
+Warnings: none
