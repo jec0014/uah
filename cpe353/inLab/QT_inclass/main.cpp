@@ -11,13 +11,13 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
-
-
-    db.setHostName("pavelow");
+    /*
+    db.setHostName("pavelow.ece.uah.edu");
     db.setPort(3300);
     db.setDatabaseName("cpe353");
     db.setUserName("cpe353student");
     db.setPassword("123qwerty456");
+    */
 
     bool connected = db.open();
 
