@@ -8,36 +8,41 @@
     <outputs>
       <file>$PROJ_DIR$\gateway.h</file>
       <file>$PROJ_DIR$\gateway.c</file>
+      <file>$PROJ_DIR$\lab12.c</file>
       <file>$PROJ_DIR$\Debug\Obj\gateway.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\gateway.pbi</file>
       <file>$PROJ_DIR$\Debug\Exe\project_file.d43</file>
-      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$TOOLKIT_DIR$\inc\msp430xg46x.h</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430xg46x.h</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\project_file.pbd</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
       <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsfn.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
-      <file>$PROJ_DIR$\lab12.c</file>
       <file>$PROJ_DIR$\Debug\Obj\lab12.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\lab12.pbi</file>
       <file>$TOOLKIT_DIR$\inc\msp430fg4618.h</file>
       <file>$TOOLKIT_DIR$\inc\msp430.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\project_file.ulp</file>
     </outputs>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 4</file>
+          <file> 5</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 25</file>
         </tool>
       </outputs>
     </file>
@@ -46,17 +51,17 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 3</file>
+          <file> 4</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 2</file>
+          <file> 3</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 0 7 6 8</file>
+          <file> 0 11 12 10</file>
         </tool>
       </inputs>
     </file>
@@ -75,7 +80,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 22 21 6 8 9 10 11 12 14 16 13 15 17 23 24 0 7</file>
+          <file> 22 21 12 10 9 6 8 7 15 17 14 16 18 23 24 0 11</file>
         </tool>
       </inputs>
     </file>
