@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QtSql>
+#include <QString>
+#include <QTableView>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -15,14 +18,21 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    static QSqlDatabase db;
-    static QSqlQuery sqlQuery;
+    QSqlDatabase db;
+    QSqlQuery sqlQuery;
+    QSqlQueryModel qmodel;
+    QSqlTableModel * tmodel;
+    QTableView tview;
 
-private slots:
+public slots:
     void execQuery();
+
+signals:
+    // Nothing, right now
 
 private:
     Ui::MainWindow *ui;
+
 };
 
 #endif // MAINWINDOW_H

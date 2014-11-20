@@ -1,16 +1,13 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include <QtSql>
-#include <QString>
-#include <QTableView>
 
 // Connect to MYSQL
 //QSqlDatabase db = QSqlDatabase::addDatabase( "QMYSQL" );
 
 // Connect to SQLite
-QSqlDatabase db = QSqlDatabase::addDatabase( "QSQLITE" );
+//QSqlDatabase db = QSqlDatabase::addDatabase( "QSQLITE" );
 
-QSqlQuery sqlQuery;
+//QSqlQuery sqlQuery;
 
 int main(int argc, char *argv[])
 {
@@ -27,11 +24,8 @@ int main(int argc, char *argv[])
     */
 
     // Connect to SQLite
+    /*
     db.setDatabaseName( "practice.db" );
-
-    bool connected = db.open();
-
-    qDebug() << "Connected to db: " << connected;
 
     if (!db.open())
     {
@@ -50,15 +44,17 @@ int main(int argc, char *argv[])
 
     QSqlQueryModel model;
     model.setQuery("SELECT * FROM vehicles");
+    */
 
-    QTableView * view = new QTableView;
-    view->setModel(&model);
-    view->show();
+    //QTableView * view = new QTableView;
+    //view->setModel(&model);
+    //view->show();
 
+    /*
     QSqlTableModel* tmodel = new QSqlTableModel;
-    tmodel->setTable("vehicles");
-    tmodel->select();
-    tmodel->setEditStrategy(QSqlTableModel::OnRowChange);
+    */
+
+
 
     //view->setModel(tmodel);
     //view->show();
