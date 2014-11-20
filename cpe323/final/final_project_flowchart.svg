@@ -1,77 +1,438 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created by diasvg.py -->
-<svg width="38.310cm" height="18.739cm" viewBox="4.500 7.872 42.810 26.612"
- xmlns="http://www.w3.org/2000/svg"
- xmlns:xlink="http://www.w3.org/1999/xlink">
-<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="11.547,13.150 15.131,13.150 14.403,15.150 10.819,15.150 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="11.547,13.150 15.131,13.150 14.403,15.150 10.819,15.150 "/>
-<text x="12.975" y="14.345"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-ADC12</text>
-<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="18.228,12.800 25.741,12.800 24.758,15.500 17.246,15.500 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="18.228,12.800 25.741,12.800 24.758,15.500 17.246,15.500 "/>
-<text x="21.493" y="13.945"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Display character </text>
-<text x="21.493" y="14.745"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-on LCD</text>
-<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="28.838,12.800 35.979,12.800 34.997,15.500 27.855,15.500 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="28.838,12.800 35.979,12.800 34.997,15.500 27.855,15.500 "/>
-<text x="31.917" y="13.945"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Write character</text>
-<text x="31.917" y="14.745"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-to UART</text>
-<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="38.822,13.150 42.760,13.150 42.032,15.150 38.094,15.150 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="38.822,13.150 42.760,13.150 42.032,15.150 38.094,15.150 "/>
-<text x="40.427" y="14.345"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Sleep</text>
-<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="5.348,18.821 10.639,18.821 9.911,20.821 4.620,20.821 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="5.348,18.821 10.639,18.821 9.911,20.821 4.620,20.821 "/>
-<text x="7.630" y="20.016"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Enable WDT</text>
-<rect x="4.550" y="10.975" width="4.155" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
-<rect x="4.550" y="10.975" width="4.155" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
-<text x="6.627" y="12.120"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Joystick 1</text>
-<rect x="4.550" y="15.425" width="4.155" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
-<rect x="4.550" y="15.425" width="4.155" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
-<text x="6.627" y="16.570"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Joystick 2</text>
-<line x1="8.705" y1="12.875" x2="10.750" y2="13.927" stroke="#000000" stroke-width="0.100" />
-<polygon fill="#000000" stroke="none" stroke-width="0.100" points="11.084,14.099 10.525,14.092 10.750,13.927 10.754,13.648 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="11.084,14.099 10.525,14.092 10.750,13.927 10.754,13.648 "/>
-<line x1="8.705" y1="15.425" x2="10.750" y2="14.373" stroke="#000000" stroke-width="0.100" />
-<polygon fill="#000000" stroke="none" stroke-width="0.100" points="11.084,14.201 10.754,14.652 10.750,14.373 10.525,14.207 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="11.084,14.201 10.754,14.652 10.750,14.373 10.525,14.207 "/>
-<line x1="14.777" y1="14.375" x2="17.252" y2="14.187" stroke="#000000" stroke-width="0.100" />
-<polygon fill="#000000" stroke="none" stroke-width="0.100" points="17.625,14.158 17.146,14.445 17.252,14.187 17.108,13.947 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="17.625,14.158 17.146,14.445 17.252,14.187 17.108,13.947 "/>
-<line x1="25.249" y1="14.150" x2="27.860" y2="14.150" stroke="#000000" stroke-width="0.100" />
-<polygon fill="#000000" stroke="none" stroke-width="0.100" points="28.235,14.150 27.735,14.400 27.860,14.150 27.735,13.900 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="28.235,14.150 27.735,14.400 27.860,14.150 27.735,13.900 "/>
-<line x1="35.488" y1="14.150" x2="37.941" y2="14.150" stroke="#000000" stroke-width="0.100" />
-<polygon fill="#000000" stroke="none" stroke-width="0.100" points="38.316,14.150 37.816,14.400 37.941,14.150 37.816,13.900 "/>
-<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="38.316,14.150 37.816,14.400 37.941,14.150 37.816,13.900 "/>
-<text x="5.127" y="8.467"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Christopher Bero</text>
-<text x="5.127" y="9.267"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-CPE 325</text>
-<text x="5.127" y="10.067"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Final Project</text>
-<text x="5.088" y="22.424"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-Peripherals:</text>
-<text x="5.088" y="23.224"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- Watchdog</text>
-<text x="5.088" y="24.024"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- Port I/O</text>
-<text x="5.088" y="24.824"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- Clock Config (LPMx)</text>
-<text x="5.088" y="25.624"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- UART (RS-232)</text>
-<text x="5.088" y="26.424"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- ACD12</text>
-<text x="13.532" y="22.424"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-External Components:</text>
-<text x="13.532" y="23.224"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- (2x) Joysticks</text>
-<text x="13.532" y="24.024"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
-- LCD</text>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1155.8502"
+   height="906.2522"
+   viewBox="4.5 7.872 36.452374 36.322134"
+   id="svg3093"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="final_project_flowchart.svg">
+  <metadata
+     id="metadata3199">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3197" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="988"
+     id="namedview3195"
+     showgrid="false"
+     inkscape:zoom="0.80741298"
+     inkscape:cx="866.63088"
+     inkscape:cy="500.32557"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3093"
+     fit-margin-left="100"
+     fit-margin-top="100"
+     fit-margin-right="100"
+     fit-margin-bottom="100" />
+  <polygon
+     points="15.131,13.15 14.403,15.15 10.819,15.15 11.547,13.15 "
+     id="polygon3095"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#ffffff;stroke:none" />
+  <polygon
+     points="15.131,13.15 14.403,15.15 10.819,15.15 11.547,13.15 "
+     id="polygon3097"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="12.046187"
+     y="28.097418"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3099"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">ADC12</text>
+  <polygon
+     points="25.741,12.8 24.758,15.5 17.246,15.5 18.228,12.8 "
+     id="polygon3101"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#ffffff;stroke:none" />
+  <polygon
+     points="25.741,12.8 24.758,15.5 17.246,15.5 18.228,12.8 "
+     id="polygon3103"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="20.564186"
+     y="27.697416"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3105"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">Display character</text>
+  <text
+     x="20.564186"
+     y="28.497417"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3107"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">on LCD</text>
+  <polygon
+     points="35.979,12.8 34.997,15.5 27.855,15.5 28.838,12.8 "
+     id="polygon3109"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#ffffff;stroke:none" />
+  <polygon
+     points="35.979,12.8 34.997,15.5 27.855,15.5 28.838,12.8 "
+     id="polygon3111"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="30.988188"
+     y="27.697416"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3113"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">Write character</text>
+  <text
+     x="30.988188"
+     y="28.497417"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3115"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">to UART</text>
+  <polygon
+     points="42.76,13.15 42.032,15.15 38.094,15.15 38.822,13.15 "
+     id="polygon3117"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#ffffff;stroke:none" />
+  <polygon
+     points="42.76,13.15 42.032,15.15 38.094,15.15 38.822,13.15 "
+     id="polygon3119"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="39.498184"
+     y="28.097418"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3121"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">Sleep</text>
+  <polygon
+     points="10.639,18.821 9.911,20.821 4.62,20.821 5.348,18.821 "
+     id="polygon3123"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#ffffff;stroke:none" />
+  <polygon
+     points="10.639,18.821 9.911,20.821 4.62,20.821 5.348,18.821 "
+     id="polygon3125"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="6.7011886"
+     y="33.768417"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3127"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">Enable WDT</text>
+  <rect
+     x="3.6211879"
+     y="24.727417"
+     width="4.1550002"
+     height="1.9"
+     id="rect3129"
+     style="fill:#ffffff;stroke:none" />
+  <rect
+     x="3.6211879"
+     y="24.727417"
+     width="4.1550002"
+     height="1.9"
+     id="rect3131"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="5.6981878"
+     y="25.872417"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3133"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">Joystick 1</text>
+  <rect
+     x="3.6211879"
+     y="29.177418"
+     width="4.1550002"
+     height="1.9"
+     id="rect3135"
+     style="fill:#ffffff;stroke:none" />
+  <rect
+     x="3.6211879"
+     y="29.177418"
+     width="4.1550002"
+     height="1.9"
+     id="rect3137"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="5.6981878"
+     y="30.322416"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3139"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:middle;fill:#000000;font-family:sans">Joystick 2</text>
+  <line
+     x1="7.7761874"
+     y1="26.627417"
+     x2="9.821187"
+     y2="27.679417"
+     id="line3141"
+     style="stroke:#000000;stroke-width:0.1" />
+  <polygon
+     points="10.525,14.092 10.75,13.927 10.754,13.648 11.084,14.099 "
+     id="polygon3143"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#000000;stroke:none" />
+  <polygon
+     points="10.525,14.092 10.75,13.927 10.754,13.648 11.084,14.099 "
+     id="polygon3145"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <line
+     x1="7.7761874"
+     y1="29.177418"
+     x2="9.821187"
+     y2="28.125418"
+     id="line3147"
+     style="stroke:#000000;stroke-width:0.1" />
+  <polygon
+     points="10.754,14.652 10.75,14.373 10.525,14.207 11.084,14.201 "
+     id="polygon3149"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#000000;stroke:none" />
+  <polygon
+     points="10.754,14.652 10.75,14.373 10.525,14.207 11.084,14.201 "
+     id="polygon3151"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <line
+     x1="13.848187"
+     y1="28.127417"
+     x2="16.323187"
+     y2="27.939417"
+     id="line3153"
+     style="stroke:#000000;stroke-width:0.1" />
+  <polygon
+     points="17.146,14.445 17.252,14.187 17.108,13.947 17.625,14.158 "
+     id="polygon3155"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#000000;stroke:none" />
+  <polygon
+     points="17.146,14.445 17.252,14.187 17.108,13.947 17.625,14.158 "
+     id="polygon3157"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <line
+     x1="24.320187"
+     y1="27.902416"
+     x2="26.931187"
+     y2="27.902416"
+     id="line3159"
+     style="stroke:#000000;stroke-width:0.1" />
+  <polygon
+     points="27.735,14.4 27.86,14.15 27.735,13.9 28.235,14.15 "
+     id="polygon3161"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#000000;stroke:none" />
+  <polygon
+     points="27.735,14.4 27.86,14.15 27.735,13.9 28.235,14.15 "
+     id="polygon3163"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <line
+     x1="34.559185"
+     y1="27.902416"
+     x2="37.012188"
+     y2="27.902416"
+     id="line3165"
+     style="stroke:#000000;stroke-width:0.1" />
+  <polygon
+     points="37.816,14.4 37.941,14.15 37.816,13.9 38.316,14.15 "
+     id="polygon3167"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:#000000;stroke:none" />
+  <polygon
+     points="37.816,14.4 37.941,14.15 37.816,13.9 38.316,14.15 "
+     id="polygon3169"
+     transform="translate(-0.92881245,13.752415)"
+     style="fill:none;stroke:#000000;stroke-width:0.1" />
+  <text
+     x="3.7273438"
+     y="12.462372"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3171"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">Christopher Bero</text>
+  <text
+     x="3.7273438"
+     y="13.262372"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3173"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">CPE 325</text>
+  <text
+     x="3.7273438"
+     y="14.062372"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3175"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">Final Project</text>
+  <text
+     x="4.1591873"
+     y="36.176414"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3177"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">Peripherals:</text>
+  <text
+     x="4.1591873"
+     y="36.976418"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3179"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- Watchdog</text>
+  <text
+     x="4.1591873"
+     y="37.776417"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3181"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- Port I/O</text>
+  <text
+     x="4.1591873"
+     y="38.576416"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3183"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- Clock Config (LPMx)</text>
+  <text
+     x="4.1591873"
+     y="39.376419"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3185"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- UART (RS-232)</text>
+  <text
+     x="4.1591873"
+     y="40.176418"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3187"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- ACD12</text>
+  <text
+     x="12.603187"
+     y="36.176414"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3189"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">External Components:</text>
+  <text
+     x="12.603187"
+     y="36.976418"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3191"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- (2x) Joysticks</text>
+  <text
+     x="12.603187"
+     y="37.776417"
+     font-size="0.80"
+     font-style="normal"
+     font-weight="400"
+     id="text3193"
+     style="font-size:0.80000001px;font-style:normal;font-weight:400;text-anchor:start;fill:#000000;font-family:sans">- LCD</text>
+  <text
+     xml:space="preserve"
+     style="font-size:0.64127201px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="3.6702693"
+     y="15.286123"
+     id="text3201"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan3203"
+       x="3.6702693"
+       y="15.286123">Project: </tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="16.087713"
+       id="tspan3207">    Create an AT keyboard.</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="16.889303"
+       id="tspan3223" /><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="17.690893"
+       id="tspan3205">Design:</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="18.492483"
+       id="tspan3209">    I plan to create an Assitive Technology keyboard, which will help those with motor control and coordination</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="19.294073"
+       id="tspan3221">problems type faster and with greater ease. The keyboard will consit of two orbs which can be manipulated</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="20.095663"
+       id="tspan3211">into configurations to write characters. Each orb will recognize 6 positions, which are generated by pushing</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="20.897253"
+       id="tspan3213">the orb out towards a bounding rim (similar to a joystick, sans rotation). This will allow the keyboard to</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="21.698843"
+       id="tspan3215">write the alphabet and a selection of punctuation and special characters. Existing keyboards of this design</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="22.500433"
+       id="tspan3217">cost ~$400, I believe this one will cost significantly less to further produce with a 3D printed housing and then</tspan><tspan
+       sodipodi:role="line"
+       x="3.6702693"
+       y="23.302023"
+       id="tspan3219">distribute. </tspan></text>
 </svg>
