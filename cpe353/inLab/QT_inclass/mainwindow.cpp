@@ -31,6 +31,11 @@ void MainWindow::execQuery()
 
     qDebug() << newQ.exec(temp);
 
+    if (!newQ.isActive()) {
+        qDebug() << newQ.lastError();
+        return;
+    }
+
     while (newQ.next())
     {
         qDebug() << newQ.value(0).toString();
