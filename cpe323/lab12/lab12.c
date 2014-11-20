@@ -39,7 +39,7 @@ char timePacket[9];
 char rxBuffer[256];
 char len;
 
-unsigned long int millisec = 0;
+volatile float millisec = 0;
 
 /*
  * Function Definitions
@@ -143,8 +143,8 @@ void main(void)
 	P1IE |= 0x03;		// Enable P1 interrupt for bit 0 and 1
 	P1IES |= 0x03;		// Set interrupt call to falling edge
 	P1IFG &= ~(0x03);	// Clear interrupt flags
-	P2DIR |= 0x06;		// Set P2.1 and P2.2 to output (0000_0110) 
-	P2OUT = 0x06;		// Set P2OUT to 0000_0010b
+	P2DIR |= 0x02;		// Set P2.1 and P2.2 to output (0000_0110) 
+	P2OUT = 0x02;		// Set P2OUT to 0000_0010b
 	Transmitter_Initialize();      
 
 	// Go ahead and set up the packet for toggleing LED2 on the server board
@@ -159,7 +159,7 @@ void main(void)
 	
 	while (1)
 	{
-		//_BIS_SR(LPM3_bits + GIE);		// Enter LPM0, enable interrupts
+		//_BIS_SR(LPM3_bits + GIE);	// Enter LPM0, enable interrupts
 		
 	}
 }
@@ -171,6 +171,8 @@ void main(void)
 __interrupt void TIMERA_ISA(void)
 {
 	millisec++;
+	UART_Toggle_SW2();
+	P2OUT ^= 0x02;
 	//_BIC_SR_IRQ(LPM0_bits); // Clear LPM0 bits from 0(SR)
 }
 
@@ -180,6 +182,7 @@ __interrupt void TIMERA_ISA(void)
 #pragma vector = PORT1_VECTOR
 __interrupt void Port1_ISR (void)
 {
+  Delay_Debounce();
 
 	if (((SW1) == 0) && ((SW2) != 0)) // SW1 is pressed
 	{
@@ -196,8 +199,9 @@ __interrupt void Port1_ISR (void)
 		char * timePointer = (char *)&millisec;
 		
 		int i = 0;
-		while (timePointer[i] != '\0') {
+		while (i < 9) {
 			UART_Write(timePointer[i]);
+			UART_Write('_');
 			i++;
 		}
 		
@@ -217,25 +221,25 @@ __interrupt void Port1_ISR (void)
         if( RFReceivePacket(rxBuffer,&len))   // check if packet is received       
 	{
 			
-            if(rxBuffer[0] == CLIENT_ADDRESS) //Make sure this message is intended for the client
+            if(rxBuffer[0] == CLIENT_ADDRESS) // Make sure this message is intended for the client
             {
           
               //if server sends LED2 toggle command, toggle LED2
               if(rxBuffer[1] == LED2_TOGGLE_COMMAND && len==2) //Messages longer than length 2 should be treated differently
               {
                   P2OUT ^= 0x02;
-                  UART_Toggle_SW2();
+                  //UART_Toggle_SW2();
               } 
               else { // Send to UART
 			  int i = 1;
-				while (rxBuffer[i] != '\0')
-				{
-					UART_Write(rxBuffer[i]);
-					i++;
-					if (i > len) {
-						break;
-					}
-				}
+			  while (rxBuffer[i] != '\0')
+			  {
+				  UART_Write(rxBuffer[i]);
+				  i++;
+				  if (i > len) {
+					  break;
+				  }
+			  }
             }
               
             }
@@ -247,6 +251,18 @@ __interrupt void Port1_ISR (void)
 	P1IFG &= ~BIT1;		// Clear P1.1 IFG
 	P1IFG &= ~BIT0;		// Clear P1.0 IFG
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
