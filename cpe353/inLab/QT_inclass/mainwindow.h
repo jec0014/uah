@@ -6,6 +6,8 @@
 #include <QString>
 #include <QTableView>
 #include <QDebug>
+#include <QMenuBar>
+#include <QMenu>
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +25,7 @@ public:
     QSqlQueryModel qmodel;
     QSqlTableModel * tmodel;
     QTableView tview;
+    QMenu * mainMenu;
 
 public slots:
     void execQuery();
@@ -32,6 +35,9 @@ signals:
 
 private:
     Ui::MainWindow *ui;
+    void CreateMenu();
+    void CreateActions();
+    QAction *insultAction;
 
 };
 

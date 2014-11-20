@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView->setModel(&qmodel);
     ui->tableView->show();
 
+    //ui->tableWidget->setModel(&qmodel);
+    //ui->tableWidget->show();
+
     /*tmodel.setTable("vehicles");
     tmodel.select();
     tmodel.setEditStrategy(QSqlTableModel::OnRowChange);
@@ -24,7 +27,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( ui->clearButton, SIGNAL(clicked()), ui->queryEdit, SLOT(clear()) );
     connect( ui->sendButton, SIGNAL(clicked()), this, SLOT(execQuery()) );
-
+    
+    CreateActions();
+    CreateMenu();
+    
     //ui->tableView->setModel(&tmodel);
 
 }
@@ -57,4 +63,18 @@ void MainWindow::execQuery()
         qDebug() << newQ.value(0).toString();
     }
 
+}
+
+void MainWindow::CreateMenu() {
+    //mainMenu = QMenuMicrosoft::menuBar()->addMenu(rt("&etc"));
+    
+    mainMenu = menuBar()->addMenu(tr("&etc"));
+    mainMenu->addAction(insultAction);
+    mainMenu->addSeparator();
+}
+
+void MainWindow::CreateActions() {
+    insultAction = new QAction(tr("this?"), this);
+    insultAction->setStatusTip("No.");
+    //connect()
 }
