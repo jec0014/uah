@@ -12,11 +12,17 @@
  * consult the LICENSE file for more information.
  **********************************************************************/
 
+/*
+ * Include statements
+ */
 #include <msp430.h> // The *correct* include statement
-#include <string.h>
-#include <stdio.h>
-#include "gateway.h"
+#include <string.h> // For manipulating char[]?, doesn't seem to work with mspgcc :-/
+#include <stdio.h>	// For printf functions
+#include "gateway.h" // For wireless functions
 
+/*
+ * Global variables
+ */
 #define SW1 (0x01&P1IN)	// B1 - P1.0 switch SW1 
 #define SW2 (0x02&P1IN)	// B2 - P1.1 switch SW2
 
@@ -25,27 +31,35 @@
 
 #define LED2_TOGGLE_COMMAND 0x02
 
-// Variable Declarations
 extern char paTable[];
 extern char paTableLen;
 
 char led2TogglePacket[3];
-char timePacket[6];
+char timePacket[9];
 char rxBuffer[256];
 char len;
 
-// Function Definitions
+unsigned long int millisec = 0;
 
-void Software_Delay(void)
-// Software delay to allow for proper operation of receiver on start up and 
-// after POR.
+/*
+ * Function Definitions
+ */
+
+void Delay_Debounce(void)
 {
-		for(int i=0;i<2500;i++);         // POR software delay
+	//for(int i=0;i<2500;i++);         // POR software delay
+	
+	// Constant delay debounce
+    int factor = (SCFQCTL / 30);
+	int looper = (20 * factor);
+	for (int c = 0; c < looper; c++)
+	{ asm("NOP"); }
 }
 
-// Toggle the LED while actual transmission is happening
+/*
+ * Function to initialize ports for interfacing TI CC1100 (TI_CC) 
+ */
 void  TI_CC_Initialize()
-// Function to initialize ports for interfacing TI CC1100 (TI_CC) 
 {
 	TI_CC_LED_PxDIR |= TI_CC_LED1;           // Port 1 LED set to Outputs
 	TI_CC_LED_PxOUT |= TI_CC_LED1;           // Initialize, turn on LED1
@@ -57,12 +71,14 @@ void  TI_CC_Initialize()
                                             // the end of a data packet
 }	// end TI_CC_Initialize (Transmitter version)
 
-void Transmitter_Initialization()
-// Function to support MSP430 transmitter initialization to support wireless 
-// communication  via SPI provided by the TI CC1100 chip which attaches
-// to the transmitting TI MSP430 experimenter board.
+/*
+ * Function to support MSP430 transmitter initialization to support wireless 
+ * communication  via SPI provided by the TI CC1100 chip which attaches
+ * to the transmitting TI MSP430 experimenter board.
+ */
+void Transmitter_Initialize()
 {  
-        Software_Delay();
+        Delay_Debounce();
 	TI_CC_SPISetup();                       // Initialize SPI port
 	TI_CC_PowerupResetCCxxxx();             // Reset CCxxxx
 	writeRFSettings();                      // Write RF settings to config reg
@@ -70,9 +86,12 @@ void Transmitter_Initialization()
                                             // Write PATABLE
 	TI_CC_Initialize();                     // Initialize CCxxx on port 1.
 	TI_CC_SPIStrobe(TI_CCxxx0_SRX);         // Initialize CCxxxx in RX mode.
-}	// end Transmitter_Initialization
+}	// end Transmitter_Initialize
 
-void UART_Initialize(void) // USART in UART Mode 
+/*
+ * USART in UART Mode 
+ */
+void UART_Initialize(void) 
 {   
 	P2SEL |= BIT4+BIT5; // Set UC0TXD and UC0RXD to transmit and receive data   
 	UCA0CTL1 |= BIT0; // Software reset   
@@ -84,11 +103,17 @@ void UART_Initialize(void) // USART in UART Mode
 	UCA0CTL1 &= ~BIT0; // Undo software reset 
 }  
 
+/*
+ * Write a char to the serial buffer
+ */
 void UART_Write(char c) {
 	while (!(IFG2 & UCA0TXIFG));
 	UCA0TXBUF = c;
 } 
 
+/*
+ * Write a static debugging message to serial buffer
+ */
 void UART_Toggle_SW2 (void) {
 	char message[8];
 	sprintf(message, "Toggling"); // prints string to char
@@ -103,54 +128,50 @@ void UART_Toggle_SW2 (void) {
 
 void main(void)
 {
-	//WDTCTL = WDT_ADLY_250;	// 1 s interval timer
-	WDTCTL = (WDTPW|WDTHOLD);
-
-	//_EINT();	// Enable interrupts
-
-	//IE1 |= WDTIE;                     // Enable WDT interrupt
-	//_BIS_SR(LPM0_bits + GIE);         // Enter LPM0 w/ interrupt
+	WDTCTL = (WDTPW|WDTHOLD); // halt watchdog
 	
-	UART_Initialize();
+	// Setup Timer_A, leave halted
+	TACTL = TASSEL_2 + ID_3; // Select smclk/8 and up mode
+	// To start: TACTL |= MC_1;
+	TACCR0 = 131; // 1ms interval   
+	TACCTL0 = CCIE; // Capture/compare interrupt enable 
 	
-	// Initialization of the transmitting MSP430 experimenter board
-	_EINT();                      // Enable interrupts
-	P1IE |= 0x03;                 // Enable P1 interrupt for bit 0 and 1
-	P1IES |= 0x03;                // Set interrupt call to falling edge
-	P1IFG &= ~(0x03);             // Clear interrupt flags
-	P2DIR |= 0x06; 		// Set P2.1 and P2.2 to output (0000_0110) 
-	P2OUT = 0x06;			// Set P2OUT to 0000_0010b
-	Transmitter_Initialization();      
+	_EINT();	// Enable interrupts
 
-	//Go ahead and set up the packet for toggleing LED2 on the server board
-	//as it will not change.
+	UART_Initialize(); // Configure serial UART registers
+	
+	P1IE |= 0x03;		// Enable P1 interrupt for bit 0 and 1
+	P1IES |= 0x03;		// Set interrupt call to falling edge
+	P1IFG &= ~(0x03);	// Clear interrupt flags
+	P2DIR |= 0x06;		// Set P2.1 and P2.2 to output (0000_0110) 
+	P2OUT = 0x06;		// Set P2OUT to 0000_0010b
+	Transmitter_Initialize();      
+
+	// Go ahead and set up the packet for toggleing LED2 on the server board
+	// as it will not change.
 	led2TogglePacket[PLENGTHINDEX] = PSIZE - 1;  
 	led2TogglePacket[PADDRINDEX] = SERVER_ADDRESS;
 	led2TogglePacket[PDATAINDEX] = LED2_TOGGLE_COMMAND;
 	
-        
-        // Check UAH serial app lab
+	// Setup timePacket
 	timePacket[0] = 5;
 	timePacket[1] = 0x1;
-	timePacket[2] = 1;
-	timePacket[3] = 0;
-	timePacket[4] = 0;
-	timePacket[5] = 1;
 	
 	while (1)
 	{
-		//_BIS_SR(LPM3_bits + GIE);       // Enter LPM0, enable interrupts
+		//_BIS_SR(LPM3_bits + GIE);		// Enter LPM0, enable interrupts
 		
 	}
 }
 
 /*
- * Watchdog Timer interrupt service routine
+ * Timer_A interrupt service routine
  */
-#pragma vector = WDT_VECTOR
-__interrupt void watchdog_timer(void)
+#pragma vector=TIMERA0_VECTOR
+__interrupt void TIMERA_ISA(void)
 {
-
+	millisec++;
+	//_BIC_SR_IRQ(LPM0_bits); // Clear LPM0 bits from 0(SR)
 }
 
 /*
@@ -159,15 +180,33 @@ __interrupt void watchdog_timer(void)
 #pragma vector = PORT1_VECTOR
 __interrupt void Port1_ISR (void)
 {
-	// Constant delay debounce
-    int factor = (SCFQCTL / 30);
-	int looper = (20 * factor);
-	for (int c = 0; c < looper; c++)
-	{ asm("NOP"); }
 
 	if (((SW1) == 0) && ((SW2) != 0)) // SW1 is pressed
 	{
-		RFSendPacket(timePacket, 6);
+		millisec = 0;
+		
+		TACTL |= MC_1;
+		
+		while (SW1 == 0) {
+			
+		}
+		
+		TACTL &= ~MC_1;
+		
+		char * timePointer = (char *)&millisec;
+		
+		int i = 0;
+		while (timePointer[i] != '\0') {
+			UART_Write(timePointer[i]);
+			i++;
+		}
+		
+		for (int c = 0; c < 7; c++) {
+			timePacket[c+2] = timePointer[c];
+		}
+		
+		RFSendPacket(timePacket, 9);
+		
 	} else if (((SW2) == 0) && ((SW1) != 0)) // SW2 is pressed
 	{
 		RFSendPacket(led2TogglePacket, PSIZE);

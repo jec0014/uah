@@ -123,7 +123,6 @@ TACCRx, Capture/Compare Register x
 	- Compare mode: TACCRx holds the data for the comparison to the timer value in the Timer_A register, TAR
 	- Capture mode: The Timer_A register, TAR, is copied into the TACCRx register when a capture is performed.
 
-	
 ##### TACCTLx, Capture/Compare Control Register x
 
 	[15]	[14]	[13]		[12]		[11]	[10]	[9]			[8]

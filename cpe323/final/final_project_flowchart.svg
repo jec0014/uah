@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="38.310cm" height="18.739cm" viewBox="4.500 7.872 42.810 26.612"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="11.547,13.150 15.131,13.150 14.403,15.150 10.819,15.150 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="11.547,13.150 15.131,13.150 14.403,15.150 10.819,15.150 "/>
+<text x="12.975" y="14.345"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+ADC12</text>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="18.228,12.800 25.741,12.800 24.758,15.500 17.246,15.500 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="18.228,12.800 25.741,12.800 24.758,15.500 17.246,15.500 "/>
+<text x="21.493" y="13.945"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Display character </text>
+<text x="21.493" y="14.745"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+on LCD</text>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="28.838,12.800 35.979,12.800 34.997,15.500 27.855,15.500 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="28.838,12.800 35.979,12.800 34.997,15.500 27.855,15.500 "/>
+<text x="31.917" y="13.945"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Write character</text>
+<text x="31.917" y="14.745"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+to UART</text>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="38.822,13.150 42.760,13.150 42.032,15.150 38.094,15.150 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="38.822,13.150 42.760,13.150 42.032,15.150 38.094,15.150 "/>
+<text x="40.427" y="14.345"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Sleep</text>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="5.348,18.821 10.639,18.821 9.911,20.821 4.620,20.821 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="5.348,18.821 10.639,18.821 9.911,20.821 4.620,20.821 "/>
+<text x="7.630" y="20.016"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Enable WDT</text>
+<rect x="4.550" y="10.975" width="4.155" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="4.550" y="10.975" width="4.155" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="6.627" y="12.120"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Joystick 1</text>
+<rect x="4.550" y="15.425" width="4.155" height="1.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="4.550" y="15.425" width="4.155" height="1.900" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="6.627" y="16.570"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Joystick 2</text>
+<line x1="8.705" y1="12.875" x2="10.750" y2="13.927" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="11.084,14.099 10.525,14.092 10.750,13.927 10.754,13.648 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="11.084,14.099 10.525,14.092 10.750,13.927 10.754,13.648 "/>
+<line x1="8.705" y1="15.425" x2="10.750" y2="14.373" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="11.084,14.201 10.754,14.652 10.750,14.373 10.525,14.207 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="11.084,14.201 10.754,14.652 10.750,14.373 10.525,14.207 "/>
+<line x1="14.777" y1="14.375" x2="17.252" y2="14.187" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="17.625,14.158 17.146,14.445 17.252,14.187 17.108,13.947 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="17.625,14.158 17.146,14.445 17.252,14.187 17.108,13.947 "/>
+<line x1="25.249" y1="14.150" x2="27.860" y2="14.150" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="28.235,14.150 27.735,14.400 27.860,14.150 27.735,13.900 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="28.235,14.150 27.735,14.400 27.860,14.150 27.735,13.900 "/>
+<line x1="35.488" y1="14.150" x2="37.941" y2="14.150" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="38.316,14.150 37.816,14.400 37.941,14.150 37.816,13.900 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="38.316,14.150 37.816,14.400 37.941,14.150 37.816,13.900 "/>
+<text x="5.127" y="8.467"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Christopher Bero</text>
+<text x="5.127" y="9.267"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+CPE 325</text>
+<text x="5.127" y="10.067"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Final Project</text>
+<text x="5.088" y="22.424"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+Peripherals:</text>
+<text x="5.088" y="23.224"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- Watchdog</text>
+<text x="5.088" y="24.024"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- Port I/O</text>
+<text x="5.088" y="24.824"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- Clock Config (LPMx)</text>
+<text x="5.088" y="25.624"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- UART (RS-232)</text>
+<text x="5.088" y="26.424"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- ACD12</text>
+<text x="13.532" y="22.424"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+External Components:</text>
+<text x="13.532" y="23.224"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- (2x) Joysticks</text>
+<text x="13.532" y="24.024"  fill="#000000" text-anchor="start" font-size="0.80" font-family="sans" font-style="normal" font-weight="400">
+- LCD</text>
+</svg>

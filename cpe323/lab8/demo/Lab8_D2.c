@@ -77,7 +77,7 @@ void main(void)
 	TACTL = TASSEL_2 + MC_1+ ID_3; // Select smclk/8 and up mode   
 	TACCR0 = 13107; // 100ms interval   
 	TACCTL0 = CCIE; // Capture/compare interrupt enable 
-	P5DIR |=0x02;   
+	P5DIR |= 0x02;   
 	while(1) // Infinite loop   
 	{     
 		_BIS_SR(LPM0_bits + GIE); // Enter LPM0 w/ interrupts     
@@ -87,8 +87,8 @@ void main(void)
 
 // Interrupt for the timer 
 #pragma vector=TIMERA0_VECTOR
-__interrupt void TIMERA_ISA(void) 
-{   
-	SetTime(); // Set Clock   
-	_BIC_SR_IRQ(LPM0_bits); // Clear LPM0 bits from 0(SR) 
+__interrupt void TIMERA_ISA(void)
+{
+	SetTime(); // Set Clock
+	_BIC_SR_IRQ(LPM0_bits); // Clear LPM0 bits from 0(SR)
 }
