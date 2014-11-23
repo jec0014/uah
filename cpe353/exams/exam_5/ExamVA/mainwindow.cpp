@@ -1,8 +1,3 @@
-/*
- * No time to debug, or even test for that matter.
- * It's a good thing this place isn't affecting my professional future.
- */
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+<project>
+    <path>$WS_DIR$\CHM2_tasks/IAR/CHM2_tasks.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\CHM3_SWIs/IAR/CHM3_SWIs.ewp</path>
+  </project>
+  
+  <batchBuild/>
+</workspace>
+
+

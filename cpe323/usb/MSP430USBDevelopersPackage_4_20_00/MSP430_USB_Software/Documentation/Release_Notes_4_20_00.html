@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html template="true"><head><title>MSP430 USB Developers&nbsp; Package 3.0.0.0 Release Notes</title><!-- For now, we use the doxygen style sheet -->
+
+
+<link href="" rel="stylesheet" type="text/css">
+<style type="text/css">
+</style>
+<style type="text/css">
+</style></head>
+<body>
+<table width="100%">
+</table>
+<table width="100%">
+<tbody>
+<tr>
+<td bgcolor="black" width="1"><a href="http://www.ti.com"><img src="./API_Function_Reference/Files/tilogo.gif" alt="Texas Instruments" border="0"></a></td>
+<td bgcolor="red"><img src="./API_Function_Reference/Files/titagline.gif"></td>
+</tr>
+</tbody>
+</table>
+<br>
+<h1><a class="mozTocH1" name="mozTocId69074"></a><a name="MSP430_USB_Developers_Package_4.20.00.00"></a>MSP430
+USB Developers&nbsp; Package&nbsp;4_20_00 Release Notes</h1>
+This release note is divided into the following sections:<br>
+<ul>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Package_Contents">Package Contents</a></li>
+<li><a href="#Documentation">Documentation</a></li>
+<li><a href="#Whats_new">What's New</a></li><li><span style="text-decoration: underline;"><a href="#Versions_of_dependent_packages">Versions of Dependent Packages</a></span></li>
+<li><a href="#Known_Issues">Known Issues</a></li>
+<li><a href="#Benchmarks">Benchmarks</a></li><li><a href="#Upgrading_from_41002">Upgrading from MSP430 USB Developers Package 4.00, 4.10, 4.10.02</a></li>
+<li><a href="#Versioning">Versioning</a></li><li><a href="#Command_Line_GCC_and_Makefile">Command Line GCC and Makefile</a></li>
+<li><a href="#Technical_Support_and_Product_Updates">Technical Support
+and Product Updates</a></li>
+</ul>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Introduction"></a>Introduction</h2>
+MSP430 USB Developers Package Version 4_20_00&nbsp; is a full
+release with
+support for CDC, HID, MSC, PHDC and composite devices.<br>
+<br>
+MSP430 USB Developers Package provides APIs that make it easy to
+implement a simple USB data connection between an MSP430 and a USB
+host. It includes support for these common USB device classes:<br>
+<br>
+&#8226; Communications Device Class (CDC)<br>
+&#8226; Human Interface Device class (HID)<br>
+&#8226; Mass Storage Class (MSC)<br>
+&#8226; Personal Healthcare Device Class (PHDC)<br>
+<br>
+Users must read the &#8220;Updating
+and Compatibility Information&#8221; below, and follow the instructions to
+port their application to this new release.&nbsp;<br>
+<br>
+<a style="text-decoration: underline; color: rgb(102, 51, 255);" href="#MSP430_USB_Developers_Package_3.0.0.0">back to
+top</a><br>
+<hr style="width: 100%; height: 2px;"><br>
+<h2><a name="Package_Contents"></a>PackageContents</h2>
+<ul>
+<li>MSP430_USB_API. (The MSP430 USB API and Application
+Examples):&nbsp;</li>
+<ul>
+<li>Contains the MSP430 USB CDC/HID/MSC API.&nbsp; You
+can use this as the&nbsp; foundation of your MSP430 USB
+development. <br>
+</li>
+</ul>
+<ul>
+<li>Contains a version of driverlib that was used&nbsp;
+for development and testing</li>
+<li>Contains examples for the various interfaces incuding an
+emptyExampleProject which can be used to start a
+new&nbsp;application.</li>
+</ul>
+<li>Documentation</li>
+<ul>
+<li>Programmers_Guide_MSP430_USB_API.&nbsp;
+(The MSP430 USB API Programmer's Guide). The complete reference for
+developing USB applications on MSP430, using&nbsp; the API stacks
+and Descriptor Tool.&nbsp;See it for information about:</li>
+</ul>
+<ul>
+<ul>
+<li>Practical guidance on writing USB applications</li>
+<li>How to use the Descriptor Tool</li>
+<li>Links to other MSP430 USB information</li>
+</ul>
+<li>Examples_Guide_MSP430_USB</li>
+<ul>
+<li>Detailed information on how to run the examples</li>
+<li>Implementation details for the examples</li>
+</ul>
+<li>Release Notes. Contains information on new features, bugs
+fixed, compatibility,&nbsp;benchmarks and installation instrcutions.</li>
+</ul>
+<li>MSP430 USB DescriptorTool</li>
+<ul>
+<li>Java based tool which can be used to easily generate USB
+descriptors specific to an application.</li>
+</ul>
+<li>Java based HID Demo
+application&nbsp;&nbsp;&nbsp;</li>
+<ul>
+<li>The
+demo app ("HID Demo App") is similar to a terminal&nbsp;application
+(i.e., Hyperterminal), except it uses HID instead of
+CDC.&nbsp;Designed
+to interact with an MSP430 application&nbsp;implementing a
+HID-Datapipe interface.</li>
+<li>&nbsp;Release Notes for the HID demo application</li>
+</ul>
+<li>Python Firmware Upgrader</li>
+<ul>
+<li>Firmware upgrader application in the form of a python GUI</li>
+<li>Release Notes for the firmware upgrader.</li>
+</ul>
+</ul>
+<a style="color: rgb(102, 51, 255); text-decoration: underline;" href="#MSP430_USB_Developers_Package_3.0.0.0">back to top</a><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Documentation"></a>Documentation</h2>
+Here are links to various documentation<br>
+<br>
+<a style="text-decoration: underline; color: rgb(102, 51, 255);" href="./Programmers_Guide_MSP430_USB_API.pdf" target="_blank">Programmers_Guide_MSP430_USB_API</a><br>
+<a href="./Examples_Guide_MSP430_USB.pdf" target="_blank">Examples_Guide_MSP430_USB</a><br>
+<a target="_blank" href="./API_Function_Reference/API_Function_Reference.html">API_Function_Reference</a><br style="text-decoration: underline; color: rgb(102, 51, 255);">
+<br style="text-decoration: underline; color: rgb(102, 51, 255);">
+<a style="text-decoration: underline; color: rgb(102, 51, 255);" href="#MSP430_USB_Developers_Package_3.0.0.0">back to
+top</a><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Whats_new"></a>What's
+New</h2>
+MSP430 USB Developers Package 4_20_00 Release<br>
+<ul><li>USB Stack Code and&nbsp; Examples:&nbsp;</li>
+<ul>
+<li>Updated to include various bug fixes. &nbsp;&nbsp;&nbsp;</li><li>Remote Wakeup example included</li><li>MSP430FG6626 support included</li></ul><li>Java HIDDemo tool&nbsp;&nbsp;&nbsp;</li><ul><li>Supports 32 bit and 64 bit Linux&nbsp;</li><li>See the Host_USB_Sofware folder for details.</li></ul><li>TI signed INF Files for CDC interfaces&nbsp;</li>
+<ul>
+<li>Each CDC example contains a TI signed INF file along with a catalog file</li>
+<li>INF file and catalog files are imported into CCS and IAR&nbsp;</li><li>Installation of the INF file can be done with the right-click method.&nbsp;</li>
+</ul><li>Minor updates to&nbsp;Descriptor Tool.</li><li>USB_API changes</li><ul><li>Support for placing XT2 in bypass mode included</li><li>USB_determineFreq() updated to include more accurate determination of frequency&nbsp;</li><li>Support for MSP430FG6626 included.</li></ul>
+</ul>
+<ul>
+</ul>
+<h3>Defects Fixed in 4_20_00:</h3><br><table style="text-align: left; width: 753px; height: 555px;" border="1" cellpadding="2" cellspacing="2"><tbody><tr><td style="width: 77px; font-weight: bold;" align="left" valign="middle">Bug ID</td><td style="width: 656px;" align="left" valign="middle"><span style="font-weight: bold;">Summary</span></td></tr><tr><td style="width: 77px;" align="left" valign="middle">4927</td><td style="width: 656px;" align="left" valign="middle">Java HIID Demo tool does not work with Linux</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6028</td><td style="width: 656px;" align="left" valign="middle">Need to support XT2 bypass mode</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6076</td><td style="width: 656px;" align="left" valign="middle">USB_determineFreq() inaccuracy</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6109</td><td style="width: 656px;" align="left" valign="middle">Generated inf file should support right click install method</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6112</td><td style="width: 656px;" align="left" valign="middle">create an example that shows remote wakeup capability</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6151</td><td style="width: 656px;" align="left" valign="middle">Change Driverver in generated inf file</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6157</td><td style="width: 656px;" align="left" valign="middle">SYSBIOS examples have warnings when built in IAR</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6166</td><td style="width: 656px;" align="left" valign="middle">INF file is missing when examples are imported into CCS</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6773</td><td style="width: 656px;" align="left" valign="middle">CHM1 example - When SD care is removed, the wrong LUN is closed out</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6879</td><td style="width: 656px;" align="left" valign="middle">HidDemo assumes first entry in interface list is interface '0'</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6890</td><td style="width: 656px;" align="left" valign="middle">Media Removal/Insertion issues</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8188</td><td style="width: 656px;" align="left" valign="middle">THe MSC example builds fail in IAR version 6.10</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8220</td><td style="width: 656px;" align="left" valign="middle">WHQL inf files hould be part of the USB developers package</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8308</td><td style="width: 656px;" align="left" valign="middle">Source code refers to removed example C7</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8326</td><td style="width: 656px;" align="left" valign="middle">Add USB Bandgap and VBUS valid check in UsbIsr.c</td></tr><tr><td style="width: 77px;" align="left" valign="middle">6754</td><td style="width: 656px;" align="left" valign="middle">'Format disk drive' message for MSC examples</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8846</td><td style="width: 656px;" align="left" valign="middle">Update DMA channel definition in USB stack</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8309</td><td style="width: 656px;" align="left" valign="middle">Cosmetic change: red bar in Help menu far too wide in Descriptor tool</td></tr><tr><td style="width: 77px;" align="left" valign="middle">8894</td><td style="width: 656px;" align="left" valign="middle">Calculated Custom Report descriptor size is wrong</td></tr></tbody></table><br><br>
+<a style="text-decoration: underline; color: rgb(102, 51, 255);" href="#MSP430_USB_Developers_Package_3.0.0.0">back to
+top</a><span style="text-decoration: underline; color: rgb(102, 51, 255);"></span>
+<hr style="width: 100%; height: 2px;"><span style="text-decoration: underline; color: rgb(102, 51, 255);"></span>
+<h2><a name="Versions_of_dependent_packages"></a>Versions of dependent package and IDEs</h2>
+<ul>
+<li><a href="http://focus.ti.com/docs/toolsw/folders/print/ccstudio.html">Code
+Composer Studio</a> Version: 6.0.190 &nbsp;with MSP430
+C/C++ Compiler v4.3.1 and MSP430 GCC Compiler Tools 4.9.1</li>
+<li><a href="http://focus.ti.com/docs/toolsw/folders/print/iar-kickstart.html">IAR
+Embedded Workbench for
+MSP430 6.10</a>&nbsp;</li>
+<li><a href="http://www.ti.com/tool/sysbios">SYSBIOS</a> v6_37_01_24 and <a href="http://www.ti.com/tool/sysbios">XDCTOOLS</a> v3_25_05_94.&nbsp;</li><li><a href="http://www.ti.com/tool/msp430ware">Driverlib</a> part of <a href="http://www.ti.com/tool/msp430ware">MSP430Ware</a> version 1_95_00_49</li><li>MSP430_USB_DescriptorTool requires the user to have installed the Java Runtime Environment.</li>
+</ul>
+<span style="text-decoration: underline; color: rgb(102, 51, 255);">
+<a href="#MSP430_USB_Developers_Package_3.0.0.0">back to
+top</a></span><br>
+<br>
+<span style="text-decoration: underline; color: rgb(102, 51, 255);"></span>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Known_Issues"></a>Known Issues</h2>
+There are some known issues with importing and building USB examples with older/newer versions of CCS and IAR.<br><br><span style="font-weight: bold; text-decoration: underline;">CCS</span><br>1. &nbsp;<span style="font-weight: bold;">Build Errors</span><br><ul><li>Upon importing an example, lnk_msp430f5529.cmd file is missing from the project.</li><li>Browse to &lt;CCS_INSTALL_DIR&gt;\ccsv5\ccs_base\msp430\include. Add lnk_msp430f5529.cmd file to your project.</li><li>Some
+USB examples also include an application specific header file. In such
+cases add lnk_msp430f5529.cmd as well as msp430usb.cmd from
+&lt;USB_DEVELOPERS_PACKAGE_INSTALL_DIR&gt;\MSP430_SW_Development\MSP430_USB_API\USB_API.</li><li>Currently SYSBIOS does not support MSP430FG6626 devices so a build error of &nbsp;'target not supported' &nbsp;will be seen.</li><li>Upon
+importing earlier versions of GCC examples, into newer versions of CCS
+6.0/CCS 6.1, CCS might throw an error of not being able to find the
+main function. &nbsp;To fix this issue de-select the compiler option
+'-ffunction-sections' from Properties-&gt;Build-&gt;GNU
+Compiler-&gt;Optimization &nbsp;configuration section of CCS</li></ul>2. <span style="font-weight: bold;">Build Warnings</span><br><ul><li>The following warning will appear on older versions of CCS. This has been fixed in CCS5.5<br>#303-D
+typedef name has already been declared (with same
+type)&nbsp;&nbsp;&nbsp; gpio.c&nbsp;&nbsp;&nbsp;
+/C0_SimpleSend/driverlib/MSP430F5xx_6xx&nbsp;&nbsp;&nbsp; line 70,
+external location:
+C:\ti\CCS5_3_0_00090\ccsv5\ccs_base\msp430\include\msp430f5529.h&nbsp;&nbsp;&nbsp;
+C/C++ Problem</li></ul>
+3. <span style="font-weight: bold;">MSP430 GCC</span><ul><li>Only available in CCS 6.0 and greater.</li><li>SYSBIOS does not support GCC</li><li>MSP430 GCC&nbsp;does not support&nbsp;Large Memory Model.</li></ul><span style="font-weight: bold;"></span><span style="font-weight: bold; text-decoration: underline;">IAR</span><br><ul><li>Older versions of IAR cannot import the USB examples. You will have to re-create the IAR projects manually</li></ul>
+<span style="text-decoration: underline; color: rgb(102, 51, 255);"><a href="#MSP430_USB_Developers_Package_3.0.0.0">back to top</a></span><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Benchmarks"></a>Benchmarks</h2>
+<h3><u>Memory Usage</u></h3>
+<h4><u>Code Composer Studio</u></h4>
+<br>
+<table border="1" cellpadding="3">
+<tbody>
+<tr>
+<td align="middle"><b>Test Name</b></td>
+<td align="middle"><b>RAM (B)</b> </td>
+<td align="middle"><b>FLASH (B)</b></td>
+</tr>
+<tr>
+<td>CCS\C1_bench</td>
+<td align="middle">364</td>
+<td align="middle">7,240</td>
+</tr>
+<tr>
+<td>CCS\CC1_bench</td>
+<td align="middle">398</td>
+<td align="middle">7,516</td>
+</tr>
+<tr>
+<td>CCS\CDC_Benchmark</td>
+<td align="middle">4,482</td>
+<td align="middle">9,654</td>
+</tr>
+<tr>
+<td>CCS\CH1_bench</td>
+<td align="middle">389</td>
+<td align="middle">9,540</td>
+</tr>
+<tr>
+<td>CCS\CHM1_bench</td>
+<td align="middle">1,001</td>
+<td align="middle">15,950</td>
+</tr>
+<tr>
+<td>CCS\H1_bench</td>
+<td align="middle">355</td>
+<td align="middle">7,177</td>
+</tr>
+<tr>
+<td>CCS\HH1_bench</td>
+<td align="middle">380</td>
+<td align="middle">7,414</td>
+</tr>
+<tr>
+<td>CCS\M1_bench</td>
+<td align="middle">822</td>
+<td align="middle">11,040</td>
+</tr>
+</tbody>
+</table>
+<h4><u>IAR Workbench</u></h4>
+<br>
+<table border="1" cellpadding="3">
+<tbody>
+<tr>
+<td align="middle"><b>Test Name</b></td>
+<td align="middle"><b>RAM (B)</b> </td>
+<td align="middle"><b>FLASH (B)</b></td>
+</tr>
+<tr>
+<td>IAR\C1_bench</td>
+<td align="middle">271</td>
+<td align="middle">6,665</td>
+</tr>
+<tr>
+<td>IAR\CC1_bench</td>
+<td align="middle">305</td>
+<td align="middle">6,919</td>
+</tr>
+<tr>
+<td>IAR\CH1_bench</td>
+<td align="middle">296</td>
+<td align="middle">8,617</td>
+</tr>
+<tr>
+<td>IAR\CHM1_bench</td>
+<td align="middle">908</td>
+<td align="middle">14,294</td>
+</tr>
+<tr>
+<td>IAR\H1_bench</td>
+<td align="middle">262</td>
+<td align="middle">6,714</td>
+</tr>
+<tr>
+<td>IAR\HH1_bench</td>
+<td align="middle">287</td>
+<td align="middle">6,945</td>
+</tr>
+<tr>
+<td>IAR\M1_bench</td>
+<td align="middle">728</td>
+<td align="middle">10,041</td>
+</tr>
+</tbody>
+</table><br><br><br><span style="text-decoration: underline;"><span style="font-weight: bold;">CCS_GCC Workbench</span></span><br><br><br><table border="1" cellpadding="3">
+<tbody>
+<tr>
+<td align="middle"><b>Test Name</b></td>
+<td align="middle"><b>RAM (B)</b> </td>
+<td align="middle"><b>FLASH (B)</b></td>
+</tr>
+<tr>
+<td>CCS_GCC\C1_bench</td>
+<td align="middle">259</td>
+<td align="middle">24280</td>
+</tr>
+<tr>
+<td>CCS_GCC\CC1_bench</td>
+<td align="middle">293</td>
+<td align="middle">24528</td>
+</tr>
+<tr>
+<td>CCS_GCC\CDC_Benchmark</td>
+<td align="middle">4,256</td>
+<td align="middle">26002</td>
+</tr>
+<tr>
+<td>CCS_GCC\CH1_bench</td>
+<td align="middle">287</td>
+<td align="middle">28126</td>
+</tr>
+<tr>
+<td>CCS_GCC\CHM1_bench</td>
+<td align="middle">728</td>
+<td align="middle">35002</td>
+</tr>
+<tr>
+<td>CCS_GCC\H1_bench</td>
+<td align="middle">253</td>
+<td align="middle">24704</td>
+</tr>
+<tr>
+<td>CCS_GCC\HH1_bench</td>
+<td align="middle">281</td>
+<td align="middle">24942</td>
+</tr>
+<tr>
+<td>CCS_GCC\M1_bench</td>
+<td align="middle">268</td>
+<td align="middle">27736</td>
+</tr>
+</tbody>
+</table><br><span style="font-weight: bold;">
+</span>For the size benchmarks a special benchmark
+application was used.&nbsp;<span style="font-size: 11pt;">The
+estimates shown&nbsp;assumes a &#8220;minimal&#8221; application &#8211; one that only consists of
+calling
+every USB function, with no actual application functionality.&nbsp;
+No RAM user
+buffers are allocated.&nbsp; Although not practical, this is a
+baseline
+benchmark that can be cleanly applied to any application, with the
+numbers
+reflecting only the API itself.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IAR compiler
+optimization option used is high and balanced<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;CCS compiler optimization option used is --opt_level = 4.<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;CCS_GCC compiler optimization option used is --opt_level = 3.<br><br><span style="font-weight: bold;"><span style="text-decoration: underline;">USB Developers Package Code Metrics<br><br></span></span><p>The
+USB stack code metrics were performed with the CCS 4.3.1 compiler, IAR
+6.10 compiler and MSPGCC 4.9.1 compiler with different optimization
+settings. Users may see different code sizes depending on their project
+settings so it is best to perform the benchmarks within the project
+itself. &nbsp;Code metrics for the USB stack code can be viewed here:</p><p><a href="./metrics/metrics.html">Metrics.html</a> </p><br><br><br><span style="text-decoration: underline; color: rgb(102, 51, 255);">
+</span>
+<h3><span style="text-decoration: underline;">Performance</span><br>
+</h3>
+<h4>MSC
+Performance (Single Buffering)</h4>
+<table style="width: 417px; height: 176px; text-align: left;" border="1" cellpadding="3" cellspacing="2">
+<tbody>
+<tr>
+<td align="undefined" valign="undefined">File Size</td>
+<td align="undefined" valign="undefined">Read
+(MB/sec)</td>
+<td align="undefined" valign="undefined">Write
+(MB/sec)</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">4096</td>
+<td align="undefined" valign="undefined">0.20</td>
+<td align="undefined" valign="undefined">0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">8192</td>
+<td align="undefined" valign="undefined">0.22</td>
+<td align="undefined" valign="undefined">0.13</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">16284</td>
+<td align="undefined" valign="undefined">0.21</td>
+<td align="undefined" valign="undefined">0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">32768</td>
+<td align="undefined" valign="undefined">0.22</td>
+<td align="undefined" valign="undefined">0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">65536</td>
+<td align="undefined" valign="undefined">0.22</td>
+<td>0.15</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">131072</td>
+<td align="undefined" valign="undefined">0.22</td>
+<td align="undefined" valign="undefined">0.13</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">262144</td>
+<td align="undefined" valign="undefined">0.21</td>
+<td align="undefined" valign="undefined">0.15</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">524288</td>
+<td align="undefined" valign="undefined">0.20</td>
+<td align="undefined" valign="undefined">0.15</td>
+</tr>
+</tbody>
+</table>
+<h4>MSC
+Performance&nbsp;(Double Buffering)</h4>
+<table style="text-align: left; width: 417px; height: 176px;" border="1" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td align="undefined" valign="undefined">File Size</td>
+<td align="undefined" valign="undefined">Read
+(MB/sec)</td>
+<td align="undefined" valign="undefined">Write
+(MB/sec)</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">4096</td>
+<td align="undefined" valign="undefined">0.23</td>
+<td align="undefined" valign="undefined">0.11</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">8192</td>
+<td align="undefined" valign="undefined">0.25</td>
+<td align="undefined" valign="undefined">0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">16284</td>
+<td align="undefined" valign="undefined">0.27</td>
+<td align="undefined" valign="undefined">0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">32768</td>
+<td align="undefined" valign="undefined">0.27</td>
+<td align="undefined" valign="undefined">0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">65536</td>
+<td align="undefined" valign="undefined">0.27</td>
+<td>0.12</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">131072</td>
+<td align="undefined" valign="undefined">0.26</td>
+<td>0.14</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">262144</td>
+<td align="undefined" valign="undefined">0.27</td>
+<td align="undefined" valign="undefined">0.16</td>
+</tr>
+<tr>
+<td align="undefined" valign="undefined">524288</td>
+<td align="undefined" valign="undefined">0.28</td>
+<td align="undefined" valign="undefined">0.15</td>
+</tr>
+</tbody>
+</table>
+<span style="font-weight: bold;"><br></span><span style="font-weight: bold;"><br>
+</span>
+VDBENCH application
+used for MSC benchmarking. No validation of transfer done. &nbsp;Measured in Mega Bytes/sec.<br><h4>CDC Performance</h4>
+<table style="text-align: left; width: 402px; height: 479px;" border="1" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td style="width: 100px;">Direction</td>
+<td style="width: 100px;">Speed (Kbps)</td>
+<td style="width: 100px;">CPU frequency (MHz)</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>69.421</td>
+<td>1</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>140.660</td>
+<td>2</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>274.005</td>
+<td>4</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>475.060</td>
+<td>8</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>598.844</td>
+<td>12</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>677.156</td>
+<td>16</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>675.738</td>
+<td>20</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>674.130</td>
+<td>25</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>67.005</td>
+<td>1</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>136.044</td>
+<td>2</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>271.304</td>
+<td>4</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>530.643</td>
+<td>8</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>704.830</td>
+<td>12</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>803.014</td>
+<td>16</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>800.531</td>
+<td>20</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>797.851</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<span style="color: rgb(102, 51, 255);"><br>
+</span><span style="color: black;">Tranfer size for
+CDC benchmarks
+is 2048 arrays with 1024bytes/array.<br>
+</span>The MSP430 application used calls <span class="FunctionCallsChar"><i>USBCDC_rejectData()</i></span>
+for any data it
+receives.&nbsp; The is to nearly eliminate the device
+application from being a factor.&nbsp; If the application rejects
+the data, it
+doesn&#8217;t use any time to move the data.&nbsp; In contrast, any real
+application
+must handle the data, and thus will get considerably less,
+probably closer to the 200-500KB/sec range.&nbsp;<span style="text-decoration: underline; color: rgb(102, 51, 255);"></span><span style="text-decoration: underline; color: rgb(102, 51, 255);"><br>
+<br></span><h3><span style="text-decoration: underline;">Interrupt Latency</span></h3><span style="font-weight: bold;"><br></span><table style="text-align: left; width: 411px; height: 343px;" border="1" cellpadding="2" cellspacing="2"><tbody><tr><td>Interrupt Source</td><td>#Cycles</td></tr><tr><td>ENDPOINT0 Receive Data</td><td>224</td></tr><tr><td>ENDPOINT0 Transmit  Data</td><td>415</td></tr><tr><td>USB_RESET</td><td>455</td></tr><tr><td>USB SUSPEND</td><td>121</td></tr><tr><td>USB RESUME</td><td>504</td></tr><tr><td>CDC Receive  Data</td><td>1601</td></tr><tr><td>CDC Transmit  Data</td><td>246</td></tr><tr><td>HID Receive  Data</td><td>1566</td></tr><tr><td>HID Transmit  Data</td><td>106</td></tr><tr><td>MSC Receive  Data</td><td>647</td></tr><tr><td>MSC Transmit  Data</td><td>1758</td></tr></tbody></table><br>Special benchmark applications were used with code inserted to measure latency &nbsp;using a timer.<br>Applications made use new USE_TIMER_FOR_RESUME to reduce interrupt latency for resume interrupt.<br>Without the use of &nbsp;USE_TIMER_FOR_RESUME resume interrupt can take arounbd 13000 cycles.<br><br><span style="font-weight: bold;"></span><span style="font-weight: bold;"></span><span style="text-decoration: underline; color: rgb(102, 51, 255);"></span><span style="text-decoration: underline; color: rgb(102, 51, 255);"><a href="#MSP430_USB_Developers_Package_3.0.0.0">back to top</a><br>
+</span><hr style="width: 100%; height: 2px;"><span style="text-decoration: underline; color: rgb(102, 51, 255);"></span><h2><a name="Upgrading_from_41002"></a>Upgrading from USB Developers Package v4.10.02</h2><span style="font-weight: bold;"></span>1. Copy/Replace&nbsp;stack files<ul><li>Browse to MSP430USBDevelopersPackage_4_20_00\MSP430_SW_Development\MSP430_USB_API&nbsp;</li><li>Copy over the driverlib folder (see MSP430Ware release notes for upgrade information)&nbsp;</li><li>Completely replace the USB_API folder.&nbsp;(delete old folder).</li></ul>3. Re-generate Descriptor Tool Output<ul><li>Launch Descriptor Tool from MSP430USBDevelopersPackage_4_20_00\MSP430_SW_Development\MSP430_USB_DescriptorTool.</li><li>In the Descriptor Tool , Open the saved DAT file from old project. See #---- if you don't have a DAT file.</li><li>If
+you don't have a saved DAT file, follow the instructions in the
+programmers guide to create your USB device again. This should be
+pretty straightforward if you have used the Descriptor Tool release in
+v4.10.02.</li><li>If you have a MSC interface in your application re-visit the MSC Interface to add Logical Unit Configuration.</li><li>Click the "Gear" button or the "Generate Output" button and save all files into the USB_config folder of your old project.</li><li>Also save the DAT file by clicking File-&gt;Save As in the&nbsp;Descriptor Tool</li><li>You can now close the Descriptor Tool.</li></ul><h2><a name="Upgrading_from_410"></a>Upgrading from USB Developers Package v4.10</h2><span style="font-weight: bold;"></span>1. Copy/Replace&nbsp;stack files<ul><li>Browse to MSP430USBDevelopersPackage_4_10_02\MSP430_SW_Development\MSP430_USB_API&nbsp;</li><li>Copy over the driverlib folder (see MSP430Ware release notes for upgrade information)</li><li>Completely replace the USB_API folder.&nbsp;(delete old folder).</li></ul>3. Re-generate Descriptor Tool Output<ul><li>Launch Descriptor Tool from MSP430USBDevelopersPackage_4_10_02\MSP430_SW_Development\MSP430_USB_DescriptorTool.</li><li>In the Descriptor Tool , Open saved DAT file from old project. See #---- if you don't have a DAT file.</li><li>If
+you don't have a saved DAT file, follow the instructions in the
+programmers guide to create your USB device again. This should be
+pretty straightforward if you have used the Descriptor Tool release in
+v4.00.</li><li>If you have a MSC interface in your application re-visit the MSC Interface to add Logical Unit Configuration.</li><li>Click the "Gear" button or the "Generate Output" button and save all files into the USB_config folder of your old project.</li><li>Also save the DAT file by clicking File-&gt;Save As in the&nbsp;Descriptor Tool</li><li>You can now close the Descriptor Tool.</li></ul><span style="font-weight: bold;"></span><span style="font-weight: bold;"><br></span><h2><a name="Upgrading_from_400"></a>Upgrading from USB Developers Package v4.00</h2>1. Copy/Replace&nbsp;stack files<ul><li>Browse to MSP430USBDevelopersPackage_4_10_00\MSP430_SW_Development\MSP430_USB_API&nbsp;</li><li>Copy over the driverlib folder (see MSP430Ware release notes for upgrade information)</li><li>Completely replace the USB_API folder.&nbsp;(delete old folder).</li></ul>2. Define <b><span style="font-size: 10pt; font-family: &quot;Arial&quot;,&quot;sans-serif&quot;;">DRIVERLIB_LEGACY_MODE </span></b>compiler option at the project level.&nbsp;(see driverlib release_notes.html file for upgrade information).<br><span style="font-size: 10pt; font-family: &quot;Arial&quot;,&quot;sans-serif&quot;;"></span><br>3. Re-generate Descriptor Tool Output<ul><li>Launch Descriptor Tool from MSP430USBDevelopersPackage_4_10_00\MSP430_SW_Development\MSP430_USB_DescriptorTool.</li><li>In the Descriptor Tool , Open saved DAT file from old project. See #---- is you don't have a DAT file.</li><li>If
+you don't have a saved DAT file, follow the instructions in the
+programmers guide to create your USB device again. This should be
+pretty straightforward if you have used the Descriptor Tool release in
+v4.00.</li><li>If you have a MSC interface in your application re-visit the MSC Interface to add Logical Unit Configuration.</li><li>Click the "Gear" button or the "Generate Output" button and save all files into the USB_config folder of your old project.</li><li>Also save the DAT fle by clicking File-&gt;Save As in the&nbsp;Descriptor Tool</li><li>You can now close the Descriptor Tool.</li></ul>4. &nbsp;If compile error #832 in CCS appears, replace type VOID in the erroring function with 'void'<br><span style="text-decoration: underline; color: rgb(102, 51, 255);"></span><a href="Release_Notes.html#MSP430_USB_Developers_Package_3.0.0.0">back to top</a><br><hr style="width: 100%; height: 2px;"><br><h2><a name="Updating_Driverlib"></a>Updating driverlib to a new version.</h2>Simply replace the entire driverlib folder with the new version.<br><br><a href="Release_Notes.html#MSP430_USB_Developers_Package_3.0.0.0">back to top</a><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Versioning"></a>Versioning</h2>
+All releases have 4 digits (M.mm.pp.bb). This includes GA and
+pre-releases (engineering, alpha/EA, beta, etc.). Pre-releases are
+denoted with a suffix (e.g. 6.30.00.00-eng or 6.30.00.10-beta).<br>
+<br>
+This product's version follows a version format, M.mm.pp.bb, where M is
+a single digit Major number, mm is 2 digit minor number, pp is a 2
+digit patch number, and b is an unrestricted set of digits used as an
+incrementing build counter.<br>
+<br>
+To support multiple side-by-side installations of the product, the
+product version is encoded in the top level directory (e.g.
+MSP430_USB_Developers_Package_3_0_0_0).<br>
+<br>
+Subsequent releases of patch upgrades will be identified by the patch
+number, ex.&nbsp; 3.0.1.05 with directory
+MSP430_USB_Developers_Package_3_0_1_05. Typically, these patches only
+include critical bug fixes. <br>
+<br>
+<span style="text-decoration: underline; color: rgb(102, 51, 255);"><a href="#MSP430_USB_Developers_Package_3.0.0.0">back to top</a><br></span><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Command_Line_GCC_and_Makefile"></a>Command Line GCC and Makefile</h2>
+To run the GCC examples from the command line, two variables in the
+each example makefile has to be updated. &nbsp;See the Examples Guide
+for
+more details<br><span style="text-decoration: underline; color: rgb(102, 51, 255);"><span style="text-decoration: underline;"></span></span><br><span style="text-decoration: underline; color: rgb(102, 51, 255);"><br></span><a href="#MSP430_USB_Developers_Package_3.0.0.0">back to top</a><br>
+<hr style="width: 100%; height: 2px;">
+<h2><a name="Technical_Support_and_Product_Updates"></a>Technical
+Support and Product Updates</h2>
+<ul>
+<li>Please contact
+<a href="mailto:softwaresupport@ti.com">softwaresupport@ti.com</a>
+for technical support.</li>
+<li style="color: rgb(102, 51, 255);"><a href="http://e2e.ti.com/">TI E2E Community</a></li>
+</ul>
+<span style="text-decoration: underline; color: rgb(102, 51, 255);">
+<a href="#MSP430_USB_Developers_Package_3.0.0.0">back to
+top</a><br>
+<br>
+</span>
+<hr style="width: 100%; height: 2px;">Last updated:
+110714.1400<br>
+<hr size="1"><small>
+Copyright 2013, Texas Instruments Incorporated</small>
+</body></html>

@@ -1,0 +1,72 @@
+[OPTIONS]
+Compiled file=NO
+Compatibility=1.1
+Full-text search=Yes
+Contents file=index.hhc
+Default Window=main
+Default topic=index.html
+Index file=index.hhk
+Language=0x409 English (United States)
+Title=MSP430 USB Developers Package API
+
+[WINDOWS]
+main="MSP430 USB Developers Package API","index.hhc","index.hhk","index.html","index.html",,,,,0x23520,,0x10387e,,,,,,,,0
+
+[FILES]
+mainpage_8h_source.html
+disclaimer_8dox.html
+mainpage_8h.html
+usb_8c.html
+_usb_cdc_8c.html
+usb_constructs_8c.html
+usb_event_handling_8c.html
+_usb_hid_8c.html
+_usb_msc_scsi_8c.html
+_usb_msc_state_machine_8c.html
+dir_7a9e18c03596d8465cf006c2a17f1e00.html
+dir_e1cf65e5caa5b20be391e0669541b825.html
+dir_ab1865c8bd10de1321662934de1ee156.html
+dir_fc2b5814152f82a35813c7f42060d19d.html
+dir_5996229df1dbd3c1871e6371f1f064dc.html
+dir_b57a7ebdf0ca7ecc7cbf13fce7d4a366.html
+dir_45b0c17c9572670665aa8c24a4ca18db.html
+dir_7d71b24f6aabb2417b7c46bcfcef9024.html
+dir_6eb121bce9ab1384dfd5e0590eaefa29.html
+dir_7e7359b0f980d240769626f71fe8a277.html
+dir_e49fdf13122b61e9efbfe21efd203e75.html
+dir_37e0c76d1fda5c86c420acb47c8f0e09.html
+dir_be933d0d051a57ab6bda9a92bd16cfd5.html
+dir_607add82071bf34c4fea47b4a209691f.html
+index.html
+files.html
+globals.html
+globals_func.html
+tab_a.png
+tab_b.png
+tab_h.png
+tab_s.png
+nav_h.png
+nav_f.png
+bc_s.png
+doxygen.png
+closed.png
+open.png
+bdwn.png
+sync_on.png
+sync_off.png
+ftv2blank.png
+ftv2doc.png
+ftv2folderclosed.png
+ftv2folderopen.png
+ftv2ns.png
+ftv2mo.png
+ftv2cl.png
+ftv2lastnode.png
+ftv2link.png
+ftv2mlastnode.png
+ftv2mnode.png
+ftv2node.png
+ftv2plastnode.png
+ftv2pnode.png
+ftv2vertline.png
+ftv2splitbar.png

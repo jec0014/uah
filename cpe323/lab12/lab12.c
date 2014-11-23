@@ -23,7 +23,7 @@
 /*
  * Global variables
  */
-#define SW1 (0x01&P1IN)	// B1 - P1.0 switch SW1 
+#define SW1 (0x01&P1IN)	// B1 - P1.0 switch SW1
 #define SW2 (0x02&P1IN)	// B2 - P1.1 switch SW2
 
 #define SERVER_ADDRESS 0x1

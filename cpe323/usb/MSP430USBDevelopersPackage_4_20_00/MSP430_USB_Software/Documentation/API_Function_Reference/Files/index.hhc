@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="MSP430 USB Developers Package API Documentation"><param name="Local" value="index.html"><param name="ImageNumber" value="11"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Introduction"><param name="Local" value="index.html#intro"><param name="ImageNumber" value="1"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Files"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="File List"><param name="Local" value="files.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="mainpage.h"><param name="Local" value="mainpage_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="usb.c"><param name="Local" value="usb_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_init"><param name="Local" value="usb_8c.html#a3cffb725fc7ab389006f59edabf1271c"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_setup"><param name="Local" value="usb_8c.html#a033508453c85c43e7bfca01d358b8396"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_enable"><param name="Local" value="usb_8c.html#a0ffd9c3457c34629eab6a735e735f956"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_disable"><param name="Local" value="usb_8c.html#a680e03643ad44bd7b34cecef16edbb8f"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_setEnabledEvents"><param name="Local" value="usb_8c.html#aa4a5b2a9dfa5fd1f2220cd44d6377590"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_getEnabledEvents"><param name="Local" value="usb_8c.html#a4594efa7c0946ea7e7c456b75a3e030b"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_reset"><param name="Local" value="usb_8c.html#a3dbd15fd1ebc2151234bc547e077c328"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_connect"><param name="Local" value="usb_8c.html#a7e696d6c7aebf67e80d516bb15540758"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_disconnect"><param name="Local" value="usb_8c.html#a8022c23568072f4740108c20b544b3e1"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_forceRemoteWakeup"><param name="Local" value="usb_8c.html#a1567f66939d7545ad93363b4328396cb"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_connectionInfo"><param name="Local" value="usb_8c.html#ad581239f4817cd6f352dd53ec7a96117"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_connectionState"><param name="Local" value="usb_8c.html#a3ddae98147291177cd85337b0af9f889"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="UsbCdc.c"><param name="Local" value="_usb_cdc_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_sendData"><param name="Local" value="_usb_cdc_8c.html#a7b3317970ba0da6ccd25e0401bb86ee9"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_abortSend"><param name="Local" value="_usb_cdc_8c.html#a282e1d7d68121ccb806b0dc018b591b9"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_receiveData"><param name="Local" value="_usb_cdc_8c.html#ae78b64cb8f5f82e53842c8c7c54ee584"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_abortReceive"><param name="Local" value="_usb_cdc_8c.html#a425d83ffe994354029becefafe65cedc"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_rejectData"><param name="Local" value="_usb_cdc_8c.html#a12304f59bbf3cadccc36f4e72c6461ed"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_intfStatus"><param name="Local" value="_usb_cdc_8c.html#a5577645be0a2d5237dce9136b8d3bfbf"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBCDC_bytesInUSBBuffer"><param name="Local" value="_usb_cdc_8c.html#a3bc9a6f8e4c538f98fd0a6165b786e4d"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="usbConstructs.c"><param name="Local" value="usb_constructs_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="hidSendDataWaitTilDone"><param name="Local" value="usb_constructs_8c.html#afb396873bbd9cdd6ccec0fa3b070db21"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="hidSendDataInBackground"><param name="Local" value="usb_constructs_8c.html#af8f8b810e4cf044f7e5a5ddfd55728f1"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="hidReceiveDataInBuffer"><param name="Local" value="usb_constructs_8c.html#a658cb90fd19c43cdb6547550f5b2ea82"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="cdcSendDataWaitTilDone"><param name="Local" value="usb_constructs_8c.html#af84084cac75e962e00e30fff8b135f65"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="cdcSendDataInBackground"><param name="Local" value="usb_constructs_8c.html#a9fe5096d2e5c353c8ba626c354105dae"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="cdcReceiveDataInBuffer"><param name="Local" value="usb_constructs_8c.html#af3720c5bcc2871f2119c1ee5790ed3e4"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="usbEventHandling.c"><param name="Local" value="usb_event_handling_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleClockEvent"><param name="Local" value="usb_event_handling_8c.html#a3d0fce0e9ea9a847344171c599592188"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleVbusOnEvent"><param name="Local" value="usb_event_handling_8c.html#a46c3307c5396fa42b784408035ac5bce"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleVbusOffEvent"><param name="Local" value="usb_event_handling_8c.html#a580415450cd23137ccd79fdc23134f30"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleResetEvent"><param name="Local" value="usb_event_handling_8c.html#a9097dd43c3a9d1013fdeee6c41293be6"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleSuspendEvent"><param name="Local" value="usb_event_handling_8c.html#a00c3fb7cfbe3744bbe13398faacc76a2"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleResumeEvent"><param name="Local" value="usb_event_handling_8c.html#a1b1ade08ec5ddb3458c3409be9e065aa"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USB_handleEnumCompleteEvent"><param name="Local" value="usb_event_handling_8c.html#a1b347d3d65c0494c21555a0c7b5d216c"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="UsbHid.c"><param name="Local" value="_usb_hid_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_sendReport"><param name="Local" value="_usb_hid_8c.html#a9cc2c41b540742f234fda7e0c0222338"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_receiveReport"><param name="Local" value="_usb_hid_8c.html#af99a590629e9a709f00fe45fe0e30fbd"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_sendData"><param name="Local" value="_usb_hid_8c.html#a29c76a39be6d8342ae1bb02cee2426b8"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_abortSend"><param name="Local" value="_usb_hid_8c.html#ab23bdaafdf6740482f49b9e963f3c697"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_receiveData"><param name="Local" value="_usb_hid_8c.html#a166f73b0ee5fe2df050cf3e5cc90aa97"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_abortReceive"><param name="Local" value="_usb_hid_8c.html#accf4c9e765e46400fa94437ed9f468a7"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_rejectData"><param name="Local" value="_usb_hid_8c.html#a945c254ac08e14ba28a649a36657dc00"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_intfStatus"><param name="Local" value="_usb_hid_8c.html#a53bb140c005f920de543574bc8346a0d"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBHID_bytesInUSBBuffer"><param name="Local" value="_usb_hid_8c.html#ae631061b27e663c9f80fd8bb858ff699"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="UsbMscScsi.c"><param name="Local" value="_usb_msc_scsi_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBMSC_bufferProcessed"><param name="Local" value="_usb_msc_scsi_8c.html#abc9a9acf4d7a7b21f2493f502928d4da"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBMSC_updateMediaInfo"><param name="Local" value="_usb_msc_scsi_8c.html#aafcaff8746f38bba3121d387edf32e53"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBMSC_registerBufInfo"><param name="Local" value="_usb_msc_scsi_8c.html#af16af49e1ee860c0018e452feea67373"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBMSC_fetchInfoStruct"><param name="Local" value="_usb_msc_scsi_8c.html#a11b86b08d445d7d2ab4ffe9c98fed019"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="UsbMscStateMachine.c"><param name="Local" value="_usb_msc_state_machine_8c.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="USBMSC_poll"><param name="Local" value="_usb_msc_state_machine_8c.html#a8824c03bd07af8b78d34eb9079596301"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Globals"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Functions"><param name="Local" value="globals_func.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  </UL>
+</UL>
+</BODY>
+</HTML>
