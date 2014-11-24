@@ -1,0 +1,294 @@
+<!DOCTYPE html content="text/html; charset=utf-8">
+<META charset="UTF-8">
+
+<HTML>
+<HEAD>
+	<TITLE>LCS v0.2.4</TITLE>
+	
+	<!-- This should be the only CSS module, keep in-line style defenitions to a minimum -->
+	<LINK href="main.css" rel="stylesheet" type="text/css" media="all">
+	
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	
+	<!-- External Javascript files -->
+	<SCRIPT src="scripts/jquery-2.1.1.js"></SCRIPT><!-- JQuery must be added before any other scripts -->
+	<!--<SCRIPT src="../scripts/jquery-1.11.1.min.js"></SCRIPT><!-- JQuery must be added before any other scripts -->
+	<SCRIPT src="scripts/jquery.hotkeys.js"></SCRIPT>
+	<SCRIPT src="scripts/jquery.panzoom.min.js"></SCRIPT>
+	<SCRIPT src="scripts/jquery.mousewheel.js"></SCRIPT>
+	<SCRIPT src="scripts/papaparse.min.js"></SCRIPT>
+	<SCRIPT src="images/db_img.js"></SCRIPT>
+	
+	<!-- Below scripts are included for Raphael Sketchpad to work -->
+	<SCRIPT src="scripts/jquery.browser.min.js"></SCRIPT>
+	<SCRIPT src="scripts/raphael.min.js"></SCRIPT>
+	<SCRIPT src="scripts/raphael.sketchpad.js"></SCRIPT>
+	<SCRIPT src="scripts/json2.js"></SCRIPT>
+	
+	<SCRIPT src="scripts/jquery-ui/jquery-ui.min.js"></SCRIPT>
+	<link href="scripts/jquery-ui/themes/html-vmr/jquery-ui.css" type="text/css" rel="stylesheet" />
+	<SCRIPT src="scripts/jquery.ui-contextmenu.min.js"></SCRIPT>
+</HEAD>
+<BODY>
+
+<div id="topBar">
+	<div id="enter_button" class="button">Enter</div>
+	<div id="prev_button" class="button"> < </div>
+	<div id="finish_button" class="button"> V </div>
+	<div id="next_button" class="button"> > </div>
+</div><!-- topBar -->
+
+<div id="setup">
+
+<div class="substring_area">
+<textarea id="left_string"></textarea>
+<br>
+<div id="rand_left_button" class="button">Generate</div> 
+<input id="rand_left_input" style="" type="number" value="10"> random characters.
+<br>
+<div id="clear_left_button" class="button">Clear</div>
+</div>
+
+<div class="substring_area">
+<textarea id="right_string"></textarea>
+<br>
+<div id="rand_right_button" class="button">Generate</div> 
+<input id="rand_right_input" style="" type="number" value="10"> random characters.
+<br>
+<div id="clear_right_button" class="button">Clear</div>
+</div>
+
+</div><!-- setup -->
+
+<div id="table_area">
+</div>
+
+<script>
+	
+	var lcs = new Object();
+	lcs.index1 = 0;
+	lcs.index2 = 0;
+	lcs.arr1 = [];
+	lcs.arr2 = [];
+	lcs.len1 = -1;
+	lcs.len2 = -1;
+	lcs.done = false;
+	lcs.runCounter = 0;
+	
+	function genRand (len)
+	{
+		var subs = "";
+		var range = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		for( var c = 0; c < len; c++ )
+		{
+			subs = subs + range.charAt(Math.floor(Math.random() * range.length));
+		}
+		return subs;
+	}
+	
+	function computePrev () {
+		if (lcs.index1 === 0 && lcs.index2 === 0)
+		{
+			return;
+		}
+		$('#lcs_table').find('td').removeClass('active');
+		lcs.index2--;
+		if (lcs.index2 < 0) {
+			lcs.index2 = (lcs.len2-1);
+			lcs.index1--;
+			if (lcs.index1 < 0) {
+				lcs.index1 = 0;
+			}
+		}
+		lcs.done = false;
+		//console.log("indeces: ", lcs.index1, ',', lcs.index2);
+		var currentElem = $('#r' + (lcs.index1+1) + 'c' + (lcs.index2+1));
+		currentElem.empty();
+		currentElem.append("...");
+		if (lcs.index1 === 0 && lcs.index2 === 0)
+		{
+			return;
+		}
+		if (lcs.index2 === 0) {
+			var leftElem = $('#r' + (lcs.index1) + 'c' + (lcs.len2));
+		} else {
+			var leftElem = $('#r' + (lcs.index1+1) + 'c' + (lcs.index2));
+		}
+		leftElem.addClass('active');
+	}
+	
+	function computeNext () {
+		if (lcs.done === true) {
+			console.log("computeNext: already done!");
+			return;
+		}
+		
+		$('#lcs_table').find('td').removeClass('active');
+		
+		//console.log("indeces: ", lcs.index1, ',', lcs.index2);
+		//console.log("values: ", lcs.arr1[lcs.index1], ',', lcs.arr2[lcs.index2]);
+		
+		var prevElem = $('#r' + lcs.index1 + 'c' + lcs.index2);
+		
+		var leftElem = $('#r' + (lcs.index1+1) + 'c' + (lcs.index2));
+		var leftVal = leftElem.html();
+		leftVal.replace(' ', '');
+		leftVal.replace('-', '');
+		leftVal.replace('\\', '');
+		leftVal.replace('|', '');
+		leftVal = parseInt(leftVal, 10);
+		
+		var topElem = $('#r' + (lcs.index1) + 'c' + (lcs.index2+1));
+		var topVal = topElem.html();
+		topVal.replace(' ', '');
+		topVal.replace('-', '');
+		topVal.replace('\\', '');
+		topVal.replace('|', '');
+		topVal = parseInt(topVal, 10);
+		
+		var currentElem = $('#r' + (lcs.index1+1) + 'c' + (lcs.index2+1));
+		currentElem.addClass('active');
+		
+		if (lcs.arr1[lcs.index1] === lcs.arr2[lcs.index2]) {
+			var val = prevElem.html();
+			val.replace(' ', '');
+			val.replace('-', '');
+			val.replace('\\', '');
+			val.replace('|', '');
+			val = parseInt(val, 10);
+			console.log("val: ", val, "", (val + 1));
+			currentElem.empty();
+			currentElem.append(val + 1);
+			currentElem.append(' \\');
+		} else if (topVal >= leftVal) {
+			currentElem.empty();
+			currentElem.append(topVal);
+			currentElem.append(' |');
+		} else {
+			currentElem.empty();
+			currentElem.append(leftVal);
+			currentElem.append(' -');
+		}
+		
+		lcs.index2++;
+		if (lcs.index2 === lcs.len2) {
+			lcs.index2 = 0;
+			lcs.index1++;
+			if (lcs.index1 === lcs.len1) {
+				lcs.index1--;
+				lcs.index2 = lcs.len2;
+				lcs.done = true;
+				return;
+			}
+		}
+		
+	}
+	
+	function computeAll () {
+		setTimeout(function () {
+			computeNext();
+			lcs.runCounter++;
+			if (lcs.done === false) {
+				computeAll();
+			}
+		}, 50);
+	}
+	
+	$('#rand_left_button').click(function(e) {
+		var len = $('#rand_left_input').val();
+		var randString = genRand(len);
+		console.log("Rand: ", len, ", ", randString);
+		$('#left_string').append(randString);
+	});
+	
+	$('#clear_left_button').click(function(e) {
+		$('#left_string').empty();
+	});
+	
+	$('#rand_right_button').click(function(e) {
+		var len = $('#rand_right_input').val();
+		var randString = genRand(len);
+		console.log("Rand: ", len, ", ", randString);
+		$('#right_string').append(randString);
+	});
+	
+	$('#clear_right_button').click(function(e) {
+		$('#right_string').empty();
+	});
+	
+	$('#enter_button').click(function(e) {
+		$(this).css('display', 'none');
+		$('#setup').css('display', 'none');
+		
+		$('#table_area').show();
+		$('#prev_button').css('display', 'inline-block');
+		$('#finish_button').css('display', 'inline-block');
+		$('#next_button').css('display', 'inline-block');
+		
+		var str1 = $('#left_string').val();
+		var str2 = $('#right_string').val();
+		
+		lcs.arr1 = str1.split('');
+		lcs.arr2 = str2.split('');
+		
+		lcs.len1 = lcs.arr1.length;
+		lcs.len2 = lcs.arr2.length;
+		
+		console.log("Strings: ", str1, ", ", str2);
+		console.log("Arrays: ", lcs.arr1, ", ", lcs.arr2);
+		
+		$('#table_area').append('<table id="lcs_table" style=""></table>');
+		var table = $('#lcs_table');
+		
+		table.append('<tr id="title_2"></tr>');
+		var id_title_2 = $('#title_2');
+		id_title_2.append('<td>___</td>');
+		id_title_2.append('<td>0__</td>');
+		for (var t = 0; t < lcs.len2; t++)
+		{
+			id_title_2.append('<td>' + lcs.arr2[t] + '</td>');
+		}
+		
+		table.append('<tr id="r0"><td>0</td></tr>');
+		var rowZero = $('#r0');
+		for (var t = 0; t < (lcs.len2+1); t++)
+		{
+			rowZero.append('<td id="r0c' + t + '">0</td>');
+		}
+		
+		for (var r = 0; r < lcs.len1; r++)
+		{
+			var id_row = 'r' + (r+1);
+			table.append('<tr id="' + id_row + '"></tr>');
+			var tableRow = $('#' + id_row);
+			tableRow.append('<td>' + lcs.arr1[r] + '</td>');
+			tableRow.append('<td id="' + id_row + 'c0">0</td>');
+			for (var c = 0; c < lcs.len2; c++)
+			{
+				var id_col = id_row + 'c' + (c+1);
+				tableRow.append('<td id="' + id_col + '"> ... </td>');
+			} // c
+		} // r
+		
+	});
+	
+	$('#next_button').click(function(e) {
+		//console.log("next button clicked");
+		computeNext();
+	});
+	
+	$('#prev_button').click(function(e) {
+		//console.log("prev button clicked");
+		computePrev();
+	});
+	
+	$('#finish_button').click(function(e) {
+		//console.log("finish button clicked");
+		lcs.runCounter = 0;
+		computeAll();
+	});
+	
+</script>
+
+</BODY>
+</HTML>
