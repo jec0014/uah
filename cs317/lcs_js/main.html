@@ -34,8 +34,12 @@
 <div id="topBar">
 	<div id="enter_button" class="button">Enter</div>
 	<div id="prev_button" class="button"> < </div>
-	<div id="finish_button" class="button"> V </div>
 	<div id="next_button" class="button"> > </div>
+	<div id="finish_button" class="button"> II </div>
+	<div id="end_button" class="button"> V </div>
+	<div id="reset_button" class="button"> Reset </div>
+	<div id="highlight_button" class="button"> Highlight </div>
+	
 </div><!-- topBar -->
 
 <div id="setup">
@@ -75,8 +79,23 @@
 	lcs.done = false;
 	lcs.runCounter = 0;
 	
-	function genRand (len)
-	{
+	function reset () {
+		for (var r = 0; r < lcs.len1; r++)
+		{
+			for (var c = 0; c < lcs.len2; c++)
+			{
+				var elem = $('#r' + (r+1) + 'c' + (c+1));
+				elem.removeClass('active');
+				elem.empty();
+				elem.append("...");
+				lcs.index1 = 0;
+				lcs.index2 = 0;
+				lcs.done = false;
+			} // c
+		} // r
+	}
+	
+	function genRand (len) {
 		var subs = "";
 		var range = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		for( var c = 0; c < len; c++ )
@@ -184,14 +203,88 @@
 		
 	}
 	
-	function computeAll () {
+	function computeAllDelay () {
 		setTimeout(function () {
 			computeNext();
 			lcs.runCounter++;
 			if (lcs.done === false) {
-				computeAll();
+				computeAllDelay();
 			}
 		}, 50);
+	}
+	
+	function computeAll () {
+		while (lcs.done === false) {
+			computeNext();
+		}
+	}
+	
+	function highlight () {
+		if (lcs.done === false) {
+			return;
+		}
+		var _index1 = lcs.len1;
+		var _index2 = lcs.len2;
+		
+		/*
+		var prevElem = $('#r' + _index1 + 'c' + _index2);
+		var prevVal = prevElem.html();
+		prevVal.replace(' ', '');
+		prevVal.replace('-', '');
+		prevVal.replace('\\', '');
+		prevVal.replace('|', '');
+		prevVal = parseInt(prevVal, 10);
+		
+		var leftElem = $('#r' + (_index1+1) + 'c' + (_index2));
+		var leftVal = leftElem.html();
+		leftVal.replace(' ', '');
+		leftVal.replace('-', '');
+		leftVal.replace('\\', '');
+		leftVal.replace('|', '');
+		leftVal = parseInt(leftVal, 10);
+		
+		var topElem = $('#r' + (_index1) + 'c' + (_index2+1));
+		var topVal = topElem.html();
+		topVal.replace(' ', '');
+		topVal.replace('-', '');
+		topVal.replace('\\', '');
+		topVal.replace('|', '');
+		topVal = parseInt(topVal, 10);
+		*/
+		
+		while (_index2 > 0 && _index1 > 0) {
+		
+		var currentElem = $('#r' + (_index1) + 'c' + (_index2));
+		var currentVal = currentElem.html();
+		var horizontal = true;
+		var vertical = true;
+		var diagonal = true;
+		if (currentVal.indexOf('-') === (-1)) {
+			horizontal = false;
+		} if (currentVal.indexOf('\\') === (-1)) {
+			diagonal = false;
+		} if (currentVal.indexOf('|') === (-1)) {
+			vertical = false;
+		}
+		/*
+		currentVal.replace(' ', '');
+		currentVal.replace('-', '');
+		currentVal.replace('\\', '');
+		currentVal.replace('|', '');
+		currentVal = parseInt(currentVal, 10);
+		*/
+		
+		currentElem.addClass('active');
+		
+		if (horizontal) {
+			_index2--;
+		} else if (vertical) {
+			_index1--;
+		} else {
+			_index2--;
+			_index1--;
+		}
+		} // while
 	}
 	
 	$('#rand_left_button').click(function(e) {
@@ -223,10 +316,16 @@
 		$('#table_area').show();
 		$('#prev_button').css('display', 'inline-block');
 		$('#finish_button').css('display', 'inline-block');
+		$('#end_button').css('display', 'inline-block');
 		$('#next_button').css('display', 'inline-block');
+		$('#reset_button').css('display', 'inline-block');
+		$('#highlight_button').css('display', 'inline-block');
 		
 		var str1 = $('#left_string').val();
 		var str2 = $('#right_string').val();
+		
+		str1 = str1.toUpperCase();
+		str2 = str2.toUpperCase();
 		
 		lcs.arr1 = str1.split('');
 		lcs.arr2 = str2.split('');
@@ -285,7 +384,21 @@
 	$('#finish_button').click(function(e) {
 		//console.log("finish button clicked");
 		lcs.runCounter = 0;
+		computeAllDelay();
+	});
+	
+	$('#end_button').click(function(e) {
+		//console.log("end button clicked");
 		computeAll();
+	});
+	
+	$('#reset_button').click(function(e) {
+		//console.log("end button clicked");
+		reset();
+	});
+	
+	$('#highlight_button').click(function(e) {
+		highlight();
 	});
 	
 </script>
