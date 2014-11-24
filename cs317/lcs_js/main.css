@@ -88,6 +88,10 @@ table, th, td {
 	font-size: 14px;
 }
 
+table {
+	table-layout: fixed;
+}
+
 #lcs_table {
 	border-collapse: collapse;
 }

@@ -169,21 +169,24 @@
 		currentElem.addClass('active');
 		
 		if (lcs.arr1[lcs.index1] === lcs.arr2[lcs.index2]) {
+			console.log("Values matched: (" + lcs.index1 + ') ' + lcs.arr1[lcs.index1] + 
+				", (" + lcs.index2 + ') ' + lcs.arr2[lcs.index2]);
 			var val = prevElem.html();
 			val.replace(' ', '');
 			val.replace('-', '');
 			val.replace('\\', '');
 			val.replace('|', '');
 			val = parseInt(val, 10);
-			console.log("val: ", val, "", (val + 1));
 			currentElem.empty();
 			currentElem.append(val + 1);
 			currentElem.append(' \\');
 		} else if (topVal >= leftVal) {
+			console.log(topVal + ' >= ' + leftVal + ". Continuing substring from element above.");
 			currentElem.empty();
 			currentElem.append(topVal);
 			currentElem.append(' |');
 		} else {
+			console.log("Continuing substring from element to the left");
 			currentElem.empty();
 			currentElem.append(leftVal);
 			currentElem.append(' -');
